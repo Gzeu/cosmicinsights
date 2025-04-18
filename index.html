@@ -1,19 +1,1216 @@
-<!doctype html>
-<html>
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<title>My static Space</title>
-		<link rel="stylesheet" href="style.css" />
-	</head>
-	<body>
-		<div class="card">
-			<h1>Welcome to your static Space!</h1>
-			<p>You can modify this app directly by editing <i>index.html</i> in the Files and versions tab.</p>
-			<p>
-				Also don't forget to check the
-				<a href="https://huggingface.co/docs/hub/spaces" target="_blank">Spaces documentation</a>.
-			</p>
-		</div>
-	</body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosmic Insights - Astrology, Numerology, Tarot & Dream Interpretation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cosmic: {
+                            100: '#f0f4ff',
+                            200: '#d9e0ff',
+                            300: '#a5b4fc',
+                            400: '#818cf8',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            800: '#3730a3',
+                            900: '#1e1b4b',
+                        },
+                        mystic: {
+                            100: '#f5f3ff',
+                            200: '#ede9fe',
+                            300: '#ddd6fe',
+                            400: '#c4b5fd',
+                            500: '#a78bfa',
+                            600: '#8b5cf6',
+                            700: '#7c3aed',
+                            800: '#6d28d9',
+                            900: '#5b21b6',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        mono: ['Space Mono', 'monospace'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 8s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+        
+        body {
+            background-color: #0f172a;
+            color: #e2e8f0;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .hero-bg {
+            background: radial-gradient(circle at 10% 20%, rgba(71, 85, 182, 0.3) 0%, rgba(15, 23, 42, 1) 50%),
+                        radial-gradient(circle at 90% 30%, rgba(124, 58, 237, 0.3) 0%, rgba(15, 23, 42, 1) 50%);
+        }
+        
+        .card-glow {
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .card-glow:hover {
+            box-shadow: 0 0 25px rgba(139, 92, 246, 0.5);
+            transform: translateY(-5px);
+        }
+        
+        .tarot-card {
+            perspective: 1000px;
+            transform-style: preserve-3d;
+            transition: transform 0.8s;
+        }
+        
+        .tarot-card:hover {
+            transform: rotateY(180deg);
+        }
+        
+        .tarot-card-front, .tarot-card-back {
+            backface-visibility: hidden;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .tarot-card-back {
+            transform: rotateY(180deg);
+        }
+        
+        .loading-dots::after {
+            content: '.';
+            animation: dots 1.5s steps(5, end) infinite;
+        }
+        
+        @keyframes dots {
+            0%, 20% { content: '.'; }
+            40% { content: '..'; }
+            60% { content: '...'; }
+            80%, 100% { content: ''; }
+        }
+        
+        .constellation {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(1px 1px at 10px 20px, white, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 40px 70px, white, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 80px 40px, white, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 120px 80px, white, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 160px 30px, white, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 200px 60px, white, rgba(0,0,0,0));
+            background-repeat: repeat;
+            opacity: 0.3;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Constellation Background -->
+    <div class="constellation fixed inset-0 pointer-events-none"></div>
+    
+    <!-- Navigation -->
+    <nav class="bg-mystic-900 bg-opacity-80 backdrop-blur-md fixed w-full z-50 border-b border-mystic-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <span class="text-2xl font-serif font-bold text-mystic-400">
+                            <i class="fas fa-moon mr-2"></i>Cosmic Insights
+                        </span>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#home" class="text-mystic-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
+                        <a href="#astrology" class="text-mystic-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Astrology</a>
+                        <a href="#numerology" class="text-mystic-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Numerology</a>
+                        <a href="#tarot" class="text-mystic-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Tarot</a>
+                        <a href="#dreams" class="text-mystic-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Dreams</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-mystic-300 hover:text-white focus:outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-mystic-900 bg-opacity-95">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="text-mystic-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Home</a>
+                <a href="#astrology" class="text-mystic-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Astrology</a>
+                <a href="#numerology" class="text-mystic-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Numerology</a>
+                <a href="#tarot" class="text-mystic-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Tarot</a>
+                <a href="#dreams" class="text-mystic-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Dreams</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-bg pt-32 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-6xl font-serif font-bold text-white mb-6">
+                    Unlock Your <span class="text-mystic-400">Cosmic Potential</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-mystic-200 max-w-3xl mx-auto mb-10">
+                    Discover profound insights through astrology, numerology, tarot, and dream interpretation with our AI-powered guidance.
+                </p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="#astrology" class="bg-mystic-600 hover:bg-mystic-700 text-white font-medium py-3 px-6 rounded-lg transition-all transform hover:scale-105">
+                        Explore Now <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                    <a href="#services" class="border border-mystic-600 text-mystic-300 hover:text-white hover:border-white font-medium py-3 px-6 rounded-lg transition-all">
+                        Learn More
+                    </a>
+                </div>
+            </div>
+            
+            <div class="mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-mystic-900 bg-opacity-50 rounded-xl p-6 card-glow">
+                    <div class="text-mystic-400 text-3xl mb-4">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3 class="text-xl font-serif font-semibold text-white mb-2">Astrology</h3>
+                    <p class="text-mystic-200">Personalized birth chart readings and planetary transit analysis.</p>
+                </div>
+                <div class="bg-mystic-900 bg-opacity-50 rounded-xl p-6 card-glow">
+                    <div class="text-mystic-400 text-3xl mb-4">
+                        <i class="fas fa-hashtag"></i>
+                    </div>
+                    <h3 class="text-xl font-serif font-semibold text-white mb-2">Numerology</h3>
+                    <p class="text-mystic-200">Discover your life path number and its profound significance.</p>
+                </div>
+                <div class="bg-mystic-900 bg-opacity-50 rounded-xl p-6 card-glow">
+                    <div class="text-mystic-400 text-3xl mb-4">
+                        <i class="fas fa-cards"></i>
+                    </div>
+                    <h3 class="text-xl font-serif font-semibold text-white mb-2">Tarot</h3>
+                    <p class="text-mystic-200">AI-powered tarot readings for guidance and self-reflection.</p>
+                </div>
+                <div class="bg-mystic-900 bg-opacity-50 rounded-xl p-6 card-glow">
+                    <div class="text-mystic-400 text-3xl mb-4">
+                        <i class="fas fa-cloud-moon"></i>
+                    </div>
+                    <h3 class="text-xl font-serif font-semibold text-white mb-2">Dreams</h3>
+                    <p class="text-mystic-200">Interpret the hidden messages in your dreams and subconscious.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden z-0">
+            <div class="absolute top-1/4 left-1/4 w-32 h-32 rounded-full bg-mystic-600 opacity-20 filter blur-3xl animate-pulse-slow"></div>
+            <div class="absolute top-1/3 right-1/4 w-40 h-40 rounded-full bg-cosmic-600 opacity-20 filter blur-3xl animate-pulse-slow animation-delay-2000"></div>
+            <div class="absolute bottom-1/4 left-1/2 w-28 h-28 rounded-full bg-purple-600 opacity-20 filter blur-3xl animate-pulse-slow animation-delay-3000"></div>
+        </div>
+    </section>
+
+    <!-- Astrology Section -->
+    <section id="astrology" class="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-mystic-900 to-mystic-950">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-white mb-4">
+                    <i class="fas fa-star mr-2 text-mystic-400"></i> Astrology Readings
+                </h2>
+                <p class="text-mystic-300 max-w-2xl mx-auto">
+                    Uncover the secrets of your birth chart and how the celestial bodies influence your life path.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+                <div class="relative">
+                    <div class="bg-mystic-800 bg-opacity-50 rounded-2xl p-8 card-glow">
+                        <h3 class="text-2xl font-serif font-semibold text-white mb-6">Get Your Birth Chart Analysis</h3>
+                        
+                        <form id="astrology-form" class="space-y-4">
+                            <div>
+                                <label for="birth-date" class="block text-mystic-200 mb-2">Birth Date</label>
+                                <input type="date" id="birth-date" class="w-full bg-mystic-900 border border-mystic-700 text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-mystic-500">
+                            </div>
+                            
+                            <div>
+                                <label for="birth-time" class="block text-mystic-200 mb-2">Birth Time (optional)</label>
+                                <input type="time" id="birth-time" class="w-full bg-mystic-900 border border-mystic-700 text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-mystic-500">
+                            </div>
+                            
+                            <div>
+                                <label for="birth-place" class="block text-mystic-200 mb-2">Birth Place</label>
+                                <input type="text" id="birth-place" placeholder="City, Country" class="w-full bg-mystic-900 border border-mystic-700 text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-mystic-500">
+                            </div>
+                            
+                            <div>
+                                <label for="astrology-question" class="block text-mystic-200 mb-2">Specific Question (optional)</label>
+                                <textarea id="astrology-question" rows="3" placeholder="What would you like to know about your chart?" class="w-full bg-mystic-900 border border-mystic-700 text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-mystic-500"></textarea>
+                            </div>
+                            
+                            <button type="submit" class="w-full bg-mystic-600 hover:bg-mystic-700 text-white font-medium py-3 px-6 rounded-lg transition-all flex items-center justify-center">
+                                <span id="astrology-submit-text">Generate Reading</span>
+                                <span id="astrology-loading" class="hidden ml-2">
+                                    <i class="fas fa-spinner fa-spin"></i>
+                                </span>
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-mystic-800 rounded-full opacity-20 filter blur-3xl -z-10"></div>
+                </div>
+                
+                <div>
+                    <div class="bg-mystic-900 bg-opacity-50 rounded-2xl p-8 h-full card-glow">
+                        <h3 class="text-2xl font-serif font-semibold text-white mb-6">Your Astrology Reading</h3>
+                        
+                        <div id="astrology-result" class="prose prose-invert max-w-none">
+                            <div class="text-center py-10 text-mystic-300">
+                                <i class="fas fa-stars text-4xl mb-4 text-mystic-500"></i>
+                                <p>Enter your birth details to receive a personalized astrology reading.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-mystic-900 bg-opacity-50 rounded-xl p-6 card-glow">
+                    <div class="text-mystic-400 text-2xl mb-4">
+                        <i class="fas fa-sun"></i>
+                    </div>
+                    <h3 class="text-xl font-serif font-semibold text-white mb-2">Sun Sign Analysis</h3>
+                    <p class="text-mystic-200">Understand your core personality and life purpose through your Sun sign.</p>
+                </div>
+                <div class="bg-mystic-900 bg-opacity-50 rounded-xl p-6 card-glow">
+                    <div class="text-mystic-400 text-2xl mb-4">
+                        <i class="fas fa-moon"></i>
+                    </div>
+                    <h3 class="text-xl font-serif font-semibold text-white mb-2">Moon Sign Insights</h3>
+                    <p class="text-mystic-200">Discover your emotional nature and subconscious patterns.</p>
+                </div>
+                <div class="bg-mystic-900 bg-opacity-50 rounded-xl p-6 card-glow">
+                    <div class="text-mystic-400 text-2xl mb-4">
+                        <i class="fas fa-arrow-up"></i>
+                    </div>
+                    <h3 class="text-xl font-serif font-semibold text-white mb-2">Ascendant/Rising Sign</h3>
+                    <p class="text-mystic-200">Learn how you present yourself to the world and first impressions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Numerology Section -->
+    <section id="numerology" class="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-mystic-950 to-mystic-900">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-white mb-4">
+                    <i class="fas fa-hashtag mr-2 text-mystic-400"></i> Numerology Insights
+                </h2>
+                <p class="text-mystic-300 max-w-2xl mx-auto">
+                    Numbers hold powerful vibrations that can reveal your life path, destiny, and personal year cycles.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+                <div>
+                    <div class="bg-mystic-800 bg-opacity-50 rounded-2xl p-8 card-glow">
+                        <h3 class="text-2xl font-serif font-semibold text-white mb-6">Calculate Your Numbers</h3>
+                        
+                        <form id="numerology-form" class="space-y-4">
+                            <div>
+                                <label for="full-name" class="block text-mystic-200 mb-2">Full Name (at birth)</label>
+                                <input type="text" id="full-name" placeholder="Enter your full birth name" class="w-full bg-mystic-900 border border-mystic-700 text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-mystic-500">
+                            </div>
+                            
+                            <div>
+                                <label for="numerology-birth-date" class="block text-mystic-200 mb-2">Birth Date</label>
+                                <input type="date" id="numerology-birth-date" class="w-full bg-mystic-900 border border-mystic-700 text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-mystic-500">
+                            </div>
+                            
+                            <div>
+                                <label for="numerology-question" class="block text-mystic-200 mb-2">Specific Focus (optional)</label>
+                                <select id="numerology-question" class="w-full bg-mystic-900 border border-mystic-700 text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-mystic-500">
+                                    <option value="">General Life Path Reading</option>
+                                    <option value="destiny">Destiny Number</option>
+                                    <option value="soul">Soul Urge Number</option>
+                                    <option value="personality">Personality Number</option>
+                                    <option value="current">Current Personal Year</option>
+                                </select>
+                            </div>
+                            
+                            <button type="submit" class="w-full bg-mystic-600 hover:bg-mystic-700 text-white font-medium py-3 px-6 rounded-lg transition-all flex items-center justify-center">
+                                <span id="numerology-submit-text">Calculate Numbers</span>
+                                <span id="numerology-loading" class="hidden ml-2">
+                                    <i class="fas fa-spinner fa-spin"></i>
+                                </span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="bg-mystic-900 bg-opacity-50 rounded-2xl p-8 h-full card-glow">
+                        <h3 class="text-2xl font-serif font-semibold text-white mb-6">Your Numerology Report</h3>
+                        
+                        <div id="numerology-result" class="prose prose-invert max-w-none">
+                            <div class="text-center py-10 text-mystic-300">
+                                <i class="fas fa-calculator text-4xl mb-4 text-mystic-500"></i>
+                                <p>Enter your name and birth date to discover your numerology profile.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-16">
+                <h3 class="text-2xl font-serif font-semibold text-white mb-6 text-center">Key Numerology Numbers</h3>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="bg-mystic-900 bg-opacity-70 rounded-xl p-4 text-center card-glow">
+                        <div class="text-4xl font-bold text-mystic-400 mb-2">1</div>
+                        <div class="text-sm text-mystic-200">Leadership</div>
+                    </div>
+                    <div class="bg-mystic-900 bg-opacity-70 rounded-xl p-4 text-center card-glow">
+                        <div class="text-4xl font-bold text-mystic-400 mb-2">2</div>
+                        <div class="text-sm text-mystic-200">Cooperation</div>
+                    </div>
+                    <div class="bg-mystic-900 bg-opacity-70 rounded-xl p-4 text-center card-glow">
+                        <div class="text-4xl font-bold text-mystic-400 mb-2">3</div>
+                        <div class="text-sm text-mystic-200">Creativity</div>
+                    </div>
+                    <div class="bg-mystic-900 bg-opacity-70 rounded-xl p-4 text-center card-glow">
+                        <div class="text-4xl font-bold text-mystic-400 mb-2">4</div>
+                        <div class="text-sm text-mystic-200">Stability</div>
+                    </div>
+                    <div class="bg-mystic-900 bg-opacity-70 rounded-xl p-4 text-center card-glow">
+                        <div class="text-4xl font-bold text-mystic-400 mb-2">5</div>
+                        <div class="text-sm text-mystic-200">Freedom</div>
+                    </div>
+                    <div class="bg-mystic-900 bg-opacity-70 rounded-xl p-4 text-center card-glow">
+                        <div class="text-4xl font-bold text-mystic-400 mb-2">6</div>
+                        <div class="text-sm text-mystic-200">Nurturing</div>
+                    </div>
+                    <div class="bg-mystic-900 bg-opacity-70 rounded-xl p-4 text-center card-glow">
+                        <div class="text-4xl font-bold text-mystic-400 mb-2">7</div>
+                        <div class="text-sm text-mystic-200">Wisdom</div>
+                    </div>
+                    <div class="bg-mystic-900 bg-opacity-70 rounded-xl p-4 text-center card-glow">
+                        <div class="text-4xl font-bold text-mystic-400 mb-2">8</div>
+                        <div class="text-sm text-mystic-200">Abundance</div>
+                    </div>
+                    <div class="bg-mystic-900 bg-opacity-70 rounded-xl p-4 text-center card-glow">
+                        <div class="text-4xl font-bold text-mystic-400 mb-2">9</div>
+                        <div class="text-sm text-mystic-200">Humanitarianism</div>
+                    </div>
+                    <div class="bg-mystic-900 bg-opacity-70 rounded-xl p-4 text-center card-glow">
+                        <div class="text-4xl font-bold text-mystic-400 mb-2">11</div>
+                        <div class="text-sm text-mystic-200">Inspiration</div>
+                    </div>
+                    <div class="bg-mystic-900 bg-opacity-70 rounded-xl p-4 text-center card-glow">
+                        <div class="text-4xl font-bold text-mystic-400 mb-2">22</div>
+                        <div class="text-sm text-mystic-200">Master Builder</div>
+                    </div>
+                    <div class="bg-mystic-900 bg-opacity-70 rounded-xl p-4 text-center card-glow">
+                        <div class="text-4xl font-bold text-mystic-400 mb-2">33</div>
+                        <div class="text-sm text-mystic-200">Master Teacher</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tarot Section -->
+    <section id="tarot" class="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-mystic-900 to-mystic-950">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-white mb-4">
+                    <i class="fas fa-cards mr-2 text-mystic-400"></i> Tarot Guidance
+                </h2>
+                <p class="text-mystic-300 max-w-2xl mx-auto">
+                    Receive divine guidance through AI-powered tarot readings for any life situation.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+                <div>
+                    <div class="bg-mystic-800 bg-opacity-50 rounded-2xl p-8 card-glow">
+                        <h3 class="text-2xl font-serif font-semibold text-white mb-6">Select Your Reading</h3>
+                        
+                        <form id="tarot-form" class="space-y-6">
+                            <div>
+                                <label class="block text-mystic-200 mb-4">Reading Type</label>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <input type="radio" id="single-card" name="reading-type" value="single" class="hidden peer" checked>
+                                        <label for="single-card" class="block p-4 bg-mystic-900 border border-mystic-700 rounded-lg cursor-pointer peer-checked:border-mystic-500 peer-checked:ring-2 peer-checked:ring-mystic-500">
+                                            <div class="text-mystic-400 text-lg mb-1">
+                                                <i class="fas fa-card-club"></i>
+                                            </div>
+                                            <h4 class="font-medium text-white">Single Card</h4>
+                                            <p class="text-sm text-mystic-300">Quick daily guidance</p>
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="three-card" name="reading-type" value="three" class="hidden peer">
+                                        <label for="three-card" class="block p-4 bg-mystic-900 border border-mystic-700 rounded-lg cursor-pointer peer-checked:border-mystic-500 peer-checked:ring-2 peer-checked:ring-mystic-500">
+                                            <div class="text-mystic-400 text-lg mb-1">
+                                                <i class="fas fa-cards"></i>
+                                            </div>
+                                            <h4 class="font-medium text-white">Three Cards</h4>
+                                            <p class="text-sm text-mystic-300">Past, Present, Future</p>
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="celtic-cross" name="reading-type" value="celtic" class="hidden peer">
+                                        <label for="celtic-cross" class="block p-4 bg-mystic-900 border border-mystic-700 rounded-lg cursor-pointer peer-checked:border-mystic-500 peer-checked:ring-2 peer-checked:ring-mystic-500">
+                                            <div class="text-mystic-400 text-lg mb-1">
+                                                <i class="fas fa-cross"></i>
+                                            </div>
+                                            <h4 class="font-medium text-white">Celtic Cross</h4>
+                                            <p class="text-sm text-mystic-300">In-depth 10 card spread</p>
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="love" name="reading-type" value="love" class="hidden peer">
+                                        <label for="love" class="block p-4 bg-mystic-900 border border-mystic-700 rounded-lg cursor-pointer peer-checked:border-mystic-500 peer-checked:ring-2 peer-checked:ring-mystic-500">
+                                            <div class="text-mystic-400 text-lg mb-1">
+                                                <i class="fas fa-heart"></i>
+                                            </div>
+                                            <h4 class="font-medium text-white">Love Reading</h4>
+                                            <p class="text-sm text-mystic-300">Relationship insights</p>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label for="tarot-question" class="block text-mystic-200 mb-2">Your Question or Focus</label>
+                                <textarea id="tarot-question" rows="3" placeholder="What guidance do you seek today?" class="w-full bg-mystic-900 border border-mystic-700 text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-mystic-500"></textarea>
+                            </div>
+                            
+                            <button type="submit" class="w-full bg-mystic-600 hover:bg-mystic-700 text-white font-medium py-3 px-6 rounded-lg transition-all flex items-center justify-center">
+                                <span id="tarot-submit-text">Draw Cards</span>
+                                <span id="tarot-loading" class="hidden ml-2">
+                                    <i class="fas fa-spinner fa-spin"></i>
+                                </span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="bg-mystic-900 bg-opacity-50 rounded-2xl p-8 h-full card-glow">
+                        <h3 class="text-2xl font-serif font-semibold text-white mb-6">Your Tarot Reading</h3>
+                        
+                        <div id="tarot-result" class="prose prose-invert max-w-none">
+                            <div class="text-center py-10 text-mystic-300">
+                                <i class="fas fa-cards-blank text-4xl mb-4 text-mystic-500"></i>
+                                <p>Select a reading type and focus to receive your tarot guidance.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-16">
+                <h3 class="text-2xl font-serif font-semibold text-white mb-6 text-center">Tarot Card Meanings</h3>
+                
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                    <!-- Sample tarot cards - in a real app these would be generated dynamically -->
+                    <div class="tarot-card relative h-48 cursor-pointer">
+                        <div class="tarot-card-front bg-mystic-800 rounded-lg h-full flex flex-col items-center justify-center p-4 border-2 border-mystic-600">
+                            <div class="text-4xl mb-2">🃏</div>
+                            <div class="text-sm font-medium text-center">The Fool</div>
+                        </div>
+                        <div class="tarot-card-back bg-mystic-700 rounded-lg h-full flex items-center justify-center p-4 border-2 border-mystic-500">
+                            <div class="text-xs text-center">New beginnings, spontaneity, a leap of faith</div>
+                        </div>
+                    </div>
+                    
+                    <div class="tarot-card relative h-48 cursor-pointer">
+                        <div class="tarot-card-front bg-mystic-800 rounded-lg h-full flex flex-col items-center justify-center p-4 border-2 border-mystic-600">
+                            <div class="text-4xl mb-2">👁️</div>
+                            <div class="text-sm font-medium text-center">The Magician</div>
+                        </div>
+                        <div class="tarot-card-back bg-mystic-700 rounded-lg h-full flex items-center justify-center p-4 border-2 border-mystic-500">
+                            <div class="text-xs text-center">Manifestation, resourcefulness, power</div>
+                        </div>
+                    </div>
+                    
+                    <div class="tarot-card relative h-48 cursor-pointer">
+                        <div class="tarot-card-front bg-mystic-800 rounded-lg h-full flex flex-col items-center justify-center p-4 border-2 border-mystic-600">
+                            <div class="text-4xl mb-2">👑</div>
+                            <div class="text-sm font-medium text-center">The Empress</div>
+                        </div>
+                        <div class="tarot-card-back bg-mystic-700 rounded-lg h-full flex items-center justify-center p-4 border-2 border-mystic-500">
+                            <div class="text-xs text-center">Femininity, beauty, nature, abundance</div>
+                        </div>
+                    </div>
+                    
+                    <div class="tarot-card relative h-48 cursor-pointer">
+                        <div class="tarot-card-front bg-mystic-800 rounded-lg h-full flex flex-col items-center justify-center p-4 border-2 border-mystic-600">
+                            <div class="text-4xl mb-2">⚖️</div>
+                            <div class="text-sm font-medium text-center">Justice</div>
+                        </div>
+                        <div class="tarot-card-back bg-mystic-700 rounded-lg h-full flex items-center justify-center p-4 border-2 border-mystic-500">
+                            <div class="text-xs text-center">Fairness, truth, law, cause and effect</div>
+                        </div>
+                    </div>
+                    
+                    <div class="tarot-card relative h-48 cursor-pointer">
+                        <div class="tarot-card-front bg-mystic-800 rounded-lg h-full flex flex-col items-center justify-center p-4 border-2 border-mystic-600">
+                            <div class="text-4xl mb-2">🌙</div>
+                            <div class="text-sm font-medium text-center">The Moon</div>
+                        </div>
+                        <div class="tarot-card-back bg-mystic-700 rounded-lg h-full flex items-center justify-center p-4 border-2 border-mystic-500">
+                            <div class="text-xs text-center">Illusion, intuition, subconscious, anxiety</div>
+                        </div>
+                    </div>
+                    
+                    <div class="tarot-card relative h-48 cursor-pointer">
+                        <div class="tarot-card-front bg-mystic-800 rounded-lg h-full flex flex-col items-center justify-center p-4 border-2 border-mystic-600">
+                            <div class="text-4xl mb-2">☀️</div>
+                            <div class="text-sm font-medium text-center">The Sun</div>
+                        </div>
+                        <div class="tarot-card-back bg-mystic-700 rounded-lg h-full flex items-center justify-center p-4 border-2 border-mystic-500">
+                            <div class="text-xs text-center">Positivity, success, vitality, joy</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dream Interpretation Section -->
+    <section id="dreams" class="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-mystic-950 to-mystic-900">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-white mb-4">
+                    <i class="fas fa-cloud-moon mr-2 text-mystic-400"></i> Dream Interpretation
+                </h2>
+                <p class="text-mystic-300 max-w-2xl mx-auto">
+                    Unlock the hidden messages and symbolism in your dreams with our AI dream analyzer.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+                <div>
+                    <div class="bg-mystic-800 bg-opacity-50 rounded-2xl p-8 card-glow">
+                        <h3 class="text-2xl font-serif font-semibold text-white mb-6">Describe Your Dream</h3>
+                        
+                        <form id="dream-form" class="space-y-4">
+                            <div>
+                                <label for="dream-date" class="block text-mystic-200 mb-2">Dream Date (approximate)</label>
+                                <input type="date" id="dream-date" class="w-full bg-mystic-900 border border-mystic-700 text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-mystic-500">
+                            </div>
+                            
+                            <div>
+                                <label for="dream-theme" class="block text-mystic-200 mb-2">Dream Theme</label>
+                                <select id="dream-theme" class="w-full bg-mystic-900 border border-mystic-700 text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-mystic-500">
+                                    <option value="">Select a theme (optional)</option>
+                                    <option value="flying">Flying</option>
+                                    <option value="falling">Falling</option>
+                                    <option value="chase">Being Chased</option>
+                                    <option value="teeth">Losing Teeth</option>
+                                    <option value="water">Water</option>
+                                    <option value="death">Death</option>
+                                    <option value="naked">Being Naked</option>
+                                    <option value="test">Taking a Test</option>
+                                    <option value="house">House/Rooms</option>
+                                    <option value="vehicle">Vehicle</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label for="dream-description" class="block text-mystic-200 mb-2">Dream Description</label>
+                                <textarea id="dream-description" rows="6" placeholder="Describe your dream in as much detail as possible..." class="w-full bg-mystic-900 border border-mystic-700 text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-mystic-500"></textarea>
+                            </div>
+                            
+                            <div>
+                                <label for="dream-feeling" class="block text-mystic-200 mb-2">How did you feel in the dream?</label>
+                                <input type="text" id="dream-feeling" placeholder="Scared, happy, confused, etc." class="w-full bg-mystic-900 border border-mystic-700 text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-mystic-500">
+                            </div>
+                            
+                            <button type="submit" class="w-full bg-mystic-600 hover:bg-mystic-700 text-white font-medium py-3 px-6 rounded-lg transition-all flex items-center justify-center">
+                                <span id="dream-submit-text">Interpret Dream</span>
+                                <span id="dream-loading" class="hidden ml-2">
+                                    <i class="fas fa-spinner fa-spin"></i>
+                                </span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="bg-mystic-900 bg-opacity-50 rounded-2xl p-8 h-full card-glow">
+                        <h3 class="text-2xl font-serif font-semibold text-white mb-6">Your Dream Interpretation</h3>
+                        
+                        <div id="dream-result" class="prose prose-invert max-w-none">
+                            <div class="text-center py-10 text-mystic-300">
+                                <i class="fas fa-moon-stars text-4xl mb-4 text-mystic-500"></i>
+                                <p>Describe your dream to receive a detailed interpretation of its symbolism and meaning.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-16">
+                <h3 class="text-2xl font-serif font-semibold text-white mb-6 text-center">Common Dream Symbols</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-mystic-900 bg-opacity-50 rounded-xl p-6 card-glow">
+                        <div class="flex items-start">
+                            <div class="text-mystic-400 text-2xl mr-4">
+                                <i class="fas fa-feather"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-medium text-white mb-2">Flying</h4>
+                                <p class="text-mystic-200 text-sm">Often represents freedom, ambition, or a desire to escape from life's pressures.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-mystic-900 bg-opacity-50 rounded-xl p-6 card-glow">
+                        <div class="flex items-start">
+                            <div class="text-mystic-400 text-2xl mr-4">
+                                <i class="fas fa-running"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-medium text-white mb-2">Being Chased</h4>
+                                <p class="text-mystic-200 text-sm">Suggests you're avoiding an issue or fear in your waking life that needs attention.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-mystic-900 bg-opacity-50 rounded-xl p-6 card-glow">
+                        <div class="flex items-start">
+                            <div class="text-mystic-400 text-2xl mr-4">
+                                <i class="fas fa-tooth"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-medium text-white mb-2">Losing Teeth</h4>
+                                <p class="text-mystic-200 text-sm">May indicate anxiety about appearance, communication, or feelings of powerlessness.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-mystic-900 bg-opacity-50 rounded-xl p-6 card-glow">
+                        <div class="flex items-start">
+                            <div class="text-mystic-400 text-2xl mr-4">
+                                <i class="fas fa-home"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-medium text-white mb-2">Houses/Rooms</h4>
+                                <p class="text-mystic-200 text-sm">Different rooms often represent aspects of yourself or your life that need exploration.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-mystic-900 bg-opacity-50 rounded-xl p-6 card-glow">
+                        <div class="flex items-start">
+                            <div class="text-mystic-400 text-2xl mr-4">
+                                <i class="fas fa-water"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-medium text-white mb-2">Water</h4>
+                                <p class="text-mystic-200 text-sm">Represents emotions - calm water suggests peace while turbulent water indicates emotional turmoil.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-mystic-900 bg-opacity-50 rounded-xl p-6 card-glow">
+                        <div class="flex items-start">
+                            <div class="text-mystic-400 text-2xl mr-4">
+                                <i class="fas fa-car"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-medium text-white mb-2">Vehicles</h4>
+                                <p class="text-mystic-200 text-sm">Symbolize your life's direction - who's driving and the vehicle's condition offer clues.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-mystic-950">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-white mb-4">
+                    Cosmic Experiences
+                </h2>
+                <p class="text-mystic-300 max-w-2xl mx-auto">
+                    Hear what others have to say about their journey with Cosmic Insights.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-mystic-900 bg-opacity-50 rounded-xl p-8 card-glow">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-mystic-700 flex items-center justify-center text-xl">
+                            <i class="fas fa-user-astronaut text-mystic-300"></i>
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="font-medium text-white">Sarah K.</h4>
+                            <div class="flex text-yellow-400 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-mystic-200 italic">
+                        "The astrology reading was incredibly accurate and detailed. It helped me understand myself better and gave me clarity about my career path."
+                    </p>
+                </div>
+                
+                <div class="bg-mystic-900 bg-opacity-50 rounded-xl p-8 card-glow">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-mystic-700 flex items-center justify-center text-xl">
+                            <i class="fas fa-user-ninja text-mystic-300"></i>
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="font-medium text-white">Michael T.</h4>
+                            <div class="flex text-yellow-400 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-mystic-200 italic">
+                        "The numerology report was spot on! I was amazed at how my life path number perfectly described my personality and life challenges."
+                    </p>
+                </div>
+                
+                <div class="bg-mystic-900 bg-opacity-50 rounded-xl p-8 card-glow">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-mystic-700 flex items-center justify-center text-xl">
+                            <i class="fas fa-user-secret text-mystic-300"></i>
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="font-medium text-white">Jessica L.</h4>
+                            <div class="flex text-yellow-400 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-mystic-200 italic">
+                        "The dream interpretation helped me understand a recurring nightmare I've had since childhood. The insights were profound and healing."
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-mystic-900 to-mystic-800">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl md:text-4xl font-serif font-bold text-white mb-6">
+                Ready to Explore Your Cosmic Blueprint?
+            </h2>
+            <p class="text-xl text-mystic-200 mb-10">
+                Sign up for our newsletter to receive monthly insights, special offers, and exclusive content.
+            </p>
+            
+            <form class="max-w-md mx-auto">
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <input type="email" placeholder="Your email address" class="flex-grow bg-mystic-800 border border-mystic-700 text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-mystic-500">
+                    <button type="submit" class="bg-mystic-600 hover:bg-mystic-700 text-white font-medium py-3 px-6 rounded-lg transition-all">
+                        Subscribe <i class="fas fa-paper-plane ml-2"></i>
+                    </button>
+                </div>
+                <p class="text-xs text-mystic-400 mt-3">
+                    We respect your privacy. Unsubscribe at any time.
+                </p>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-mystic-950 py-12 px-4 sm:px-6 lg:px-8 border-t border-mystic-900">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-serif font-semibold text-white mb-4">Cosmic Insights</h3>
+                    <p class="text-mystic-300 text-sm">
+                        Exploring the mysteries of the universe to bring you clarity and guidance through astrology, numerology, tarot, and dream interpretation.
+                    </p>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-serif font-semibold text-white mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-mystic-300 hover:text-white text-sm transition-colors">Home</a></li>
+                        <li><a href="#astrology" class="text-mystic-300 hover:text-white text-sm transition-colors">Astrology</a></li>
+                        <li><a href="#numerology" class="text-mystic-300 hover:text-white text-sm transition-colors">Numerology</a></li>
+                        <li><a href="#tarot" class="text-mystic-300 hover:text-white text-sm transition-colors">Tarot</a></li>
+                        <li><a href="#dreams" class="text-mystic-300 hover:text-white text-sm transition-colors">Dreams</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-serif font-semibold text-white mb-4">Legal</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-mystic-300 hover:text-white text-sm transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="text-mystic-300 hover:text-white text-sm transition-colors">Terms of Service</a></li>
+                        <li><a href="#" class="text-mystic-300 hover:text-white text-sm transition-colors">Disclaimer</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-serif font-semibold text-white mb-4">Connect</h3>
+                    <div class="flex space-x-4 mb-4">
+                        <a href="#" class="text-mystic-300 hover:text-white text-xl transition-colors">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="#" class="text-mystic-300 hover:text-white text-xl transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-mystic-300 hover:text-white text-xl transition-colors">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-mystic-300 hover:text-white text-xl transition-colors">
+                            <i class="fab fa-pinterest"></i>
+                        </a>
+                    </div>
+                    <p class="text-mystic-300 text-sm">
+                        <i class="fas fa-envelope mr-2"></i> contact@cosmicinsights.com
+                    </p>
+                </div>
+            </div>
+            
+            <div class="mt-12 pt-8 border-t border-mystic-900 text-center">
+                <p class="text-mystic-400 text-sm">
+                    &copy; 2023 Cosmic Insights. All rights reserved. 
+                    <span class="block sm:inline">This website is for entertainment purposes only.</span>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 bg-mystic-700 hover:bg-mystic-600 text-white w-12 h-12 rounded-full flex items-center justify-center text-xl shadow-lg transition-all opacity-0 invisible">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+        
+        // Back to top button
+        const backToTopButton = document.getElementById('back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.remove('opacity-0', 'invisible');
+                backToTopButton.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopButton.classList.remove('opacity-100', 'visible');
+                backToTopButton.classList.add('opacity-0', 'invisible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Form submissions with simulated AI responses
+        const forms = {
+            astrology: document.getElementById('astrology-form'),
+            numerology: document.getElementById('numerology-form'),
+            tarot: document.getElementById('tarot-form'),
+            dream: document.getElementById('dream-form')
+        };
+        
+        const resultContainers = {
+            astrology: document.getElementById('astrology-result'),
+            numerology: document.getElementById('numerology-result'),
+            tarot: document.getElementById('tarot-result'),
+            dream: document.getElementById('dream-result')
+        };
+        
+        const loadingElements = {
+            astrology: document.getElementById('astrology-loading'),
+            numerology: document.getElementById('numerology-loading'),
+            tarot: document.getElementById('tarot-loading'),
+            dream: document.getElementById('dream-loading')
+        };
+        
+        const submitTexts = {
+            astrology: document.getElementById('astrology-submit-text'),
+            numerology: document.getElementById('numerology-submit-text'),
+            tarot: document.getElementById('tarot-submit-text'),
+            dream: document.getElementById('dream-submit-text')
+        };
+        
+        // Helper function to simulate AI response
+        const simulateAIResponse = async (type, data) => {
+            // In a real implementation, this would call the Groq API
+            // For this demo, we'll simulate a delay and return sample responses
+            
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            
+            const sampleResponses = {
+                astrology: `
+                    <div class="space-y-4">
+                        <h4 class="text-xl font-serif font-semibold text-white">Your Birth Chart Analysis</h4>
+                        <p>Based on your birth details, here's an overview of your astrological profile:</p>
+                        
+                        <div class="bg-mystic-800 rounded-lg p-4">
+                            <h5 class="font-medium text-mystic-300 mb-2">Sun Sign: <span class="text-white">${getRandomSign()}</span></h5>
+                            <p>Your Sun sign represents your core identity and life purpose. ${getRandomDescription()}</p>
+                        </div>
+                        
+                        <div class="bg-mystic-800 rounded-lg p-4">
+                            <h5 class="font-medium text-mystic-300 mb-2">Moon Sign: <span class="text-white">${getRandomSign()}</span></h5>
+                            <p>Your Moon sign reveals your emotional nature and subconscious patterns. ${getRandomDescription()}</p>
+                        </div>
+                        
+                        <div class="bg-mystic-800 rounded-lg p-4">
+                            <h5 class="font-medium text-mystic-300 mb-2">Ascendant (Rising): <span class="text-white">${getRandomSign()}</span></h5>
+                            <p>Your Ascendant shows how you present yourself to the world. ${getRandomDescription()}</p>
+                        </div>
+                        
+                        ${data.astrologyQuestion ? `
+                        <div class="bg-mystic-800 rounded-lg p-4">
+                            <h5 class="font-medium text-mystic-300 mb-2">Regarding your question:</h5>
+                            <p>"${data.astrologyQuestion}"</p>
+                            <p class="mt-2">${getRandomAnswer()}</p>
+                        </div>
+                        ` : ''}
+                    </div>
+                `,
+                numerology: `
+                    <div class="space-y-4">
+                        <h4 class="text-xl font-serif font-semibold text-white">Numerology Report</h4>
+                        <p>Based on your name and birth date, here are your key numerology numbers:</p>
+                        
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-mystic-800 rounded-lg p-4">
+                                <h5 class="font-medium text-mystic-300 mb-1">Life Path Number</h5>
+                                <div class="text-3xl font-bold text-mystic-400 mb-2">${getRandomNumber(1,9)}</div>
+                                <p class="text-sm">${getRandomNumerologyMeaning()}</p>
+                            </div>
+                            
+                            <div class="bg-mystic-800 rounded-lg p-4">
+                                <h5 class="font-medium text-mystic-300 mb-1">Destiny Number</h5>
+                                <div class="text-3xl font-bold text-mystic-400 mb-2">${getRandomNumber(1,9)}</div>
+                                <p class="text-sm">${getRandomNumerologyMeaning()}</p>
+                            </div>
+                            
+                            <div class="bg-mystic-800 rounded-lg p-4">
+                                <h5 class="font-medium text-mystic-300 mb-1">Soul Urge Number</h5>
+                                <div class="text-3xl font-bold text-mystic-400 mb-2">${getRandomNumber(1,9)}</div>
+                                <p class="text-sm">${getRandomNumerologyMeaning()}</p>
+                            </div>
+                            
+                            <div class="bg-mystic-800 rounded-lg p-4">
+                                <h5 class="font-medium text-mystic-300 mb-1">Personality Number</h5>
+                                <div class="text-3xl font-bold text-mystic-400 mb-2">${getRandomNumber(1,9)}</div>
+                                <p class="text-sm">${getRandomNumerologyMeaning()}</p>
+                            </div>
+                        </div>
+                        
+                        ${data.numerologyQuestion ? `
+                        <div class="bg-mystic-800 rounded-lg p-4">
+                            <h5 class="font-medium text-mystic-300 mb-2">Regarding your focus on ${data.numerologyQuestion}:</h5>
+                            <p>${getRandomNumerologyMeaning()}</p>
+                        </div>
+                        ` : ''}
+                    </div>
+                `,
+                tarot: `
+                    <div class="space-y-6">
+                        <h4 class="text-xl font-serif font-semibold text-white">Your ${data.readingType === 'single' ? 'Single Card' : data.readingType === 'three' ? 'Three Card' : data.readingType === 'celtic' ? 'Celtic Cross' : 'Love'} Reading</h4>
+                        
+                        ${data.tarotQuestion ? `
+                        <div class="bg-mystic-800 rounded-lg p-4">
+                            <h5 class="font-medium text-mystic-300 mb-2">Your Question:</h5>
+                            <p>"${data.tarotQuestion}"</p>
+                        </div>
+                        ` : ''}
+                        
+                        <div class="grid ${data.readingType === 'single' ? 'grid-cols-1' : data.readingType === 'three' ? 'grid-cols-3' : 'grid-cols-2'} gap-4">
+                            ${generateTarotCards(data.readingType)}
+                        </div>
+                        
+                        <div class="bg-mystic-800 rounded-lg p-4">
+                            <h5 class="font-medium text-mystic-300 mb-2">Overall Interpretation:</h5>
+                            <p>${getRandomAnswer()}</p>
+                        </div>
+                    </div>
+                `,
+                dream: `
+                    <div class="space-y-4">
+                        <h4 class="text-xl font-serif font-semibold text-white">Dream Interpretation</h4>
+                        
+                        <div class="bg-mystic-800 rounded-lg p-4">
+                            <h5 class="font-medium text-mystic-300 mb-2">Dream Description:</h5>
+                            <p>"${data.dreamDescription}"</p>
+                        </div>
+                        
+                        ${data.dreamTheme ? `
+                        <div class="bg-mystic-800 rounded-lg p-4">
+                            <h5 class="font-medium text-mystic-300 mb-2">Theme: ${data.dreamTheme}</h5>
+                            <p>${getDreamThemeMeaning(data.dreamTheme)}</p>
+                        </div>
+                        ` : ''}
+                        
+                        ${data.dreamFeeling ? `
+                        <div class="bg-mystic-800 rounded-lg p-4">
+                            <h5 class="font-medium text-mystic-300 mb-2">Emotions in Dream:</h5>
+                            <p>${getDreamFeelingMeaning(data.dreamFeeling)}</p>
+                        </div>
+                        ` : ''}
+                        
+                        <div class="bg-mystic-800 rounded-lg p-4">
+                            <h5 class="font-medium text-mystic-300 mb-2">Symbolism Analysis:</h5>
+                            <p>${getRandomAnswer()}</p>
+                        </div>
+                        
+                        <div class="bg-mystic-800 rounded-lg p-4">
+                            <h5 class="font-medium text-mystic-300 mb-2">Possible Meaning:</h5>
+                            <p>${getRandomAnswer()}</p>
+                        </div>
+                    </div>
+                `
+            };
+            
+            return sampleResponses[type];
+        };
+        
+        // Helper functions for generating sample content
+        function getRandomSign() {
+            const signs = ['Aries', 'Taurus', 'Gemini', 'Cancer', 'Leo', 'Virgo', 'Libra', 'Scorpio', 'Sagittarius', 'Capricorn', 'Aquarius', 'Pisces'];
+            return signs[Math.floor(Math.random() * signs.length)];
+        }
+        
+        function getRandomDescription() {
+            const descriptions = [
+                "This placement suggests a strong personality with creative tendencies.",
+                "You may find that this aspect of your chart influences your communication style significantly.",
+                "This position indicates a need for balance in your relationships and personal life.",
+                "You're likely to experience growth in this area during the coming year.",
+                "This configuration shows a tendency toward introspection and deep thought.",
+                "Your chart reveals potential for leadership and taking initiative in this domain."
+            ];
+            return descriptions[Math.floor(Math.random() * descriptions.length)];
+        }
+        
+        function getRandomAnswer() {
+            const answers = [
+                "The cards/stars/numbers suggest that you're entering a period of transformation. Embrace change and trust your intuition as you navigate this phase.",
+                "There appears to be a need for balance in this area of your life. Consider all perspectives before making important decisions.",
+                "This indicates a time of new beginnings. Be open to opportunities that may present themselves unexpectedly.",
+                "Your current path aligns well with your deeper purpose. Continue to follow your instincts and passions.",
+                "Challenges in this area may actually be blessings in disguise, pushing you toward necessary growth.",
+                "The message here is one of patience. Some things require time to develop fully.",
+                "You're being called to pay attention to synchronicities and subtle signs in your daily life."
+            ];
+            return answers[Math.floor(Math.random() * answers.length)];
+        }
+        
+        function getRandomNumber(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+        
+        function getRandomNumerologyMeaning() {
+            const meanings = [
+                "This number suggests a period of new beginnings and leadership opportunities.",
+                "Your vibrations indicate a time for cooperation and building harmonious relationships.",
+                "Creativity and self-expression are highlighted with this numerical influence.",
+                "This number brings energies of stability, organization, and building solid foundations.",
+                "Freedom and adaptability are key themes associated with this number.",
+                "Nurturing, responsibility, and service to others are emphasized now.",
+                "This is a number of introspection, wisdom, and spiritual growth.",
+                "Abundance, power, and material success are potential manifestations.",
+                "Humanitarianism, completion, and universal love are highlighted."
+            ];
+            return meanings[Math.floor(Math.random() * meanings.length)];
+        }
+        
+        function generateTarotCards(readingType) {
+            let cardCount = 1;
+            let positions = [];
+            
+            if (readingType === 'three') {
+                cardCount = 3;
+                positions = ['Past', 'Present', 'Future'];
+            } else if (readingType === 'celtic') {
+                cardCount = 10;
+                positions = [
+                    'Current Situation', 'Challenge', 'Subconscious', 'Recent Past', 
+                    'Near Future', 'Self', 'Environment', 'Hopes/Fears', 'Outcome'
+                ];
+            } else if (readingType === 'love') {
+                cardCount = 5;
+                positions = [
+                    'Your Feelings', 'Their Feelings', 'Relationship Dynamics', 
+                    'Challenges', 'Potential Outcome'
+                ];
+            }
+            
+            const cards = [
+                { name: 'The Fool', emoji:
 </html>
