@@ -17,7 +17,12 @@
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "server.js"
+      "dest": "server.js",
+      "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+        "Access-Control-Allow-Methods": "GET, POST, OPTIONS"
+      }
     },
     {
       "src": "/(.*)\\.(html|css|js|png|jpg|jpeg|gif|svg|ico)",
