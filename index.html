@@ -117,6 +117,7 @@
             background-image: 
                 radial-gradient(1px 1px at 10px 20px, white, rgba(0,0,0,0)),
                 radial-gradient(1px 1px at 40px 70px, white, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 40px 70px, white, rgba(0,0,0,0)),
                 radial-gradient(1px 1px at 80px 40px, white, rgba(0,0,0,0)),
                 radial-gradient(1px 1px at 120px 80px, white, rgba(0,0,0,0)),
                 radial-gradient(1px 1px at 160px 30px, white, rgba(0,0,0,0)),
@@ -149,6 +150,7 @@
                         <a href="#numerology" class="text-mystic-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Numerology</a>
                         <a href="#tarot" class="text-mystic-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Tarot</a>
                         <a href="#dreams" class="text-mystic-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Dreams</a>
+                        <a href="#past-readings" class="text-mystic-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Past Readings</a>
                     </div>
                 </div>
                 <div class="md:hidden">
@@ -167,6 +169,7 @@
                 <a href="#numerology" class="text-mystic-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Numerology</a>
                 <a href="#tarot" class="text-mystic-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Tarot</a>
                 <a href="#dreams" class="text-mystic-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Dreams</a>
+                <a href="#past-readings" class="text-mystic-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Past Readings</a>
             </div>
         </div>
     </nav>
@@ -756,6 +759,24 @@
         </div>
     </section>
 
+    <!-- Past Readings Section -->
+    <section id="past-readings" class="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-mystic-900 to-mystic-950">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-white mb-4">
+                    <i class="fas fa-history mr-2 text-mystic-400"></i> Past Readings
+                </h2>
+                <p class="text-mystic-300 max-w-2xl mx-auto">
+                    Review your previous astrology, numerology, tarot, and dream interpretation readings.
+                </p>
+            </div>
+            
+            <div id="past-readings-list" class="space-y-6">
+                <!-- Readings will be dynamically inserted here -->
+            </div>
+        </div>
+    </section>
+
     <!-- Testimonials -->
     <section class="py-20 px-4 sm:px-6 lg:px-8 bg-mystic-950">
         <div class="max-w-7xl mx-auto">
@@ -878,6 +899,7 @@
                         <li><a href="#numerology" class="text-mystic-300 hover:text-white text-sm transition-colors">Numerology</a></li>
                         <li><a href="#tarot" class="text-mystic-300 hover:text-white text-sm transition-colors">Tarot</a></li>
                         <li><a href="#dreams" class="text-mystic-300 hover:text-white text-sm transition-colors">Dreams</a></li>
+                        <li><a href="#past-readings" class="text-mystic-300 hover:text-white text-sm transition-colors">Past Readings</a></li>
                     </ul>
                 </div>
                 
@@ -907,14 +929,14 @@
                         </a>
                     </div>
                     <p class="text-mystic-300 text-sm">
-                        <i class="fas fa-envelope mr-2"></i> contact@cosmicinsights.com
+                        <i class="fas fa-envelope mr-2"></i> <a href="mailto:support@cosmicinsights.com">support@cosmicinsights.com</a>
                     </p>
                 </div>
             </div>
             
             <div class="mt-12 pt-8 border-t border-mystic-900 text-center">
                 <p class="text-mystic-400 text-sm">
-                    &copy; 2023 Cosmic Insights. All rights reserved. 
+                    © 2025 Cosmic Insights. All rights reserved. 
                     <span class="block sm:inline">This website is for entertainment purposes only.</span>
                 </p>
             </div>
@@ -975,7 +997,7 @@
             });
         });
         
-        // Form submissions with simulated AI responses
+        // Form submissions with real API calls
         const forms = {
             astrology: document.getElementById('astrology-form'),
             numerology: document.getElementById('numerology-form'),
@@ -1003,214 +1025,168 @@
             tarot: document.getElementById('tarot-submit-text'),
             dream: document.getElementById('dream-submit-text')
         };
-        
-        // Helper function to simulate AI response
-        const simulateAIResponse = async (type, data) => {
-            // In a real implementation, this would call the Groq API
-            // For this demo, we'll simulate a delay and return sample responses
-            
-            await new Promise(resolve => setTimeout(resolve, 2000));
-            
-            const sampleResponses = {
-                astrology: `
-                    <div class="space-y-4">
-                        <h4 class="text-xl font-serif font-semibold text-white">Your Birth Chart Analysis</h4>
-                        <p>Based on your birth details, here's an overview of your astrological profile:</p>
-                        
-                        <div class="bg-mystic-800 rounded-lg p-4">
-                            <h5 class="font-medium text-mystic-300 mb-2">Sun Sign: <span class="text-white">${getRandomSign()}</span></h5>
-                            <p>Your Sun sign represents your core identity and life purpose. ${getRandomDescription()}</p>
-                        </div>
-                        
-                        <div class="bg-mystic-800 rounded-lg p-4">
-                            <h5 class="font-medium text-mystic-300 mb-2">Moon Sign: <span class="text-white">${getRandomSign()}</span></h5>
-                            <p>Your Moon sign reveals your emotional nature and subconscious patterns. ${getRandomDescription()}</p>
-                        </div>
-                        
-                        <div class="bg-mystic-800 rounded-lg p-4">
-                            <h5 class="font-medium text-mystic-300 mb-2">Ascendant (Rising): <span class="text-white">${getRandomSign()}</span></h5>
-                            <p>Your Ascendant shows how you present yourself to the world. ${getRandomDescription()}</p>
-                        </div>
-                        
-                        ${data.astrologyQuestion ? `
-                        <div class="bg-mystic-800 rounded-lg p-4">
-                            <h5 class="font-medium text-mystic-300 mb-2">Regarding your question:</h5>
-                            <p>"${data.astrologyQuestion}"</p>
-                            <p class="mt-2">${getRandomAnswer()}</p>
-                        </div>
-                        ` : ''}
-                    </div>
-                `,
-                numerology: `
-                    <div class="space-y-4">
-                        <h4 class="text-xl font-serif font-semibold text-white">Numerology Report</h4>
-                        <p>Based on your name and birth date, here are your key numerology numbers:</p>
-                        
-                        <div class="grid grid-cols-2 gap-4">
-                            <div class="bg-mystic-800 rounded-lg p-4">
-                                <h5 class="font-medium text-mystic-300 mb-1">Life Path Number</h5>
-                                <div class="text-3xl font-bold text-mystic-400 mb-2">${getRandomNumber(1,9)}</div>
-                                <p class="text-sm">${getRandomNumerologyMeaning()}</p>
+
+        // Handle form submissions
+        Object.keys(forms).forEach(type => {
+            forms[type].addEventListener('submit', async (event) => {
+                event.preventDefault();
+                
+                // Show loading state
+                loadingElements[type].classList.remove('hidden');
+                submitTexts[type].textContent = 'Processing';
+                
+                let prompt = '';
+                
+                if (type === 'astrology') {
+                    const birthDate = document.getElementById('birth-date').value;
+                    const birthTime = document.getElementById('birth-time').value;
+                    const birthPlace = document.getElementById('birth-place').value;
+                    const question = document.getElementById('astrology-question').value;
+                    
+                    if (!birthDate || !birthPlace) {
+                        resultContainers[type].innerHTML = `
+                            <div class="text-center py-10 text-red-400">
+                                <p>Please provide your birth date and birth place.</p>
                             </div>
-                            
-                            <div class="bg-mystic-800 rounded-lg p-4">
-                                <h5 class="font-medium text-mystic-300 mb-1">Destiny Number</h5>
-                                <div class="text-3xl font-bold text-mystic-400 mb-2">${getRandomNumber(1,9)}</div>
-                                <p class="text-sm">${getRandomNumerologyMeaning()}</p>
+                        `;
+                        loadingElements[type].classList.add('hidden');
+                        submitTexts[type].textContent = 'Generate Reading';
+                        return;
+                    }
+                    
+                    prompt = `Provide a detailed astrology reading based on the following details:\nBirth Date: ${birthDate}\nBirth Time: ${birthTime || 'Not provided'}\nBirth Place: ${birthPlace}\nQuestion: ${question || 'No specific question'}`;
+                } else if (type === 'numerology') {
+                    const fullName = document.getElementById('full-name').value;
+                    const birthDate = document.getElementById('numerology-birth-date').value;
+                    const question = document.getElementById('numerology-question').value;
+                    
+                    if (!fullName || !birthDate) {
+                        resultContainers[type].innerHTML = `
+                            <div class="text-center py-10 text-red-400">
+                                <p>Please provide your full name and birth date.</p>
                             </div>
-                            
-                            <div class="bg-mystic-800 rounded-lg p-4">
-                                <h5 class="font-medium text-mystic-300 mb-1">Soul Urge Number</h5>
-                                <div class="text-3xl font-bold text-mystic-400 mb-2">${getRandomNumber(1,9)}</div>
-                                <p class="text-sm">${getRandomNumerologyMeaning()}</p>
+                        `;
+                        loadingElements[type].classList.add('hidden');
+                        submitTexts[type].textContent = 'Calculate Numbers';
+                        return;
+                    }
+                    
+                    prompt = `Provide a detailed numerology reading based on the following details:\nFull Name: ${fullName}\nBirth Date: ${birthDate}\nSpecific Focus: ${question || 'General Life Path Reading'}`;
+                } else if (type === 'tarot') {
+                    const readingType = document.querySelector('input[name="reading-type"]:checked').value;
+                    const question = document.getElementById('tarot-question').value;
+                    
+                    prompt = `Provide a tarot reading based on the following details:\nReading Type: ${readingType} card reading\nQuestion/Focus: ${question || 'General guidance'}`;
+                } else if (type === 'dream') {
+                    const dreamDate = document.getElementById('dream-date').value;
+                    const dreamTheme = document.getElementById('dream-theme').value;
+                    const description = document.getElementById('dream-description').value;
+                    const feeling = document.getElementById('dream-feeling').value;
+                    
+                    if (!description) {
+                        resultContainers[type].innerHTML = `
+                            <div class="text-center py-10 text-red-400">
+                                <p>Please provide a description of your dream.</p>
                             </div>
-                            
-                            <div class="bg-mystic-800 rounded-lg p-4">
-                                <h5 class="font-medium text-mystic-300 mb-1">Personality Number</h5>
-                                <div class="text-3xl font-bold text-mystic-400 mb-2">${getRandomNumber(1,9)}</div>
-                                <p class="text-sm">${getRandomNumerologyMeaning()}</p>
+                        `;
+                        loadingElements[type].classList.add('hidden');
+                        submitTexts[type].textContent = 'Interpret Dream';
+                        return;
+                    }
+                    
+                    prompt = `Provide a detailed dream interpretation based on the following details:\nDream Date: ${dreamDate || 'Not specified'}\nDream Theme: ${dreamTheme || 'Not specified'}\nDescription: ${description}\nFeeling: ${feeling || 'Not specified'}`;
+                }
+                
+                try {
+                    const response = await fetch('/api/groq', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ prompt })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (response.ok) {
+                        resultContainers[type].innerHTML = `
+                            <div class="text-mystic-100 whitespace-pre-line">
+                                ${data.text}
                             </div>
+                        `;
+                        // Refresh past readings
+                        await fetchPastReadings();
+                    } else {
+                        resultContainers[type].innerHTML = `
+                            <div class="text-center py-10 text-red-400">
+                                <p>Error: ${data.error || 'Failed to fetch response'}</p>
+                                <p>${data.details || ''}</p>
+                            </div>
+                        `;
+                    }
+                } catch (error) {
+                    resultContainers[type].innerHTML = `
+                        <div class="text-center py-10 text-red-400">
+                            <p>Network error: ${error.message}</p>
                         </div>
-                        
-                        ${data.numerologyQuestion ? `
-                        <div class="bg-mystic-800 rounded-lg p-4">
-                            <h5 class="font-medium text-mystic-300 mb-2">Regarding your focus on ${data.numerologyQuestion}:</h5>
-                            <p>${getRandomNumerologyMeaning()}</p>
+                    `;
+                } finally {
+                    // Reset loading state
+                    loadingElements[type].classList.add('hidden');
+                    submitTexts[type].textContent = type === 'astrology' ? 'Generate Reading' : type === 'numerology' ? 'Calculate Numbers' : type === 'tarot' ? 'Draw Cards' : 'Interpret Dream';
+                }
+            });
+        });
+
+        // Fetch and display past readings
+        async function fetchPastReadings() {
+            try {
+                const response = await fetch('/api/readings');
+                const readings = await response.json();
+                
+                const pastReadingsList = document.getElementById('past-readings-list');
+                
+                if (!response.ok) {
+                    pastReadingsList.innerHTML = `
+                        <div class="text-center py-10 text-red-400">
+                            <p>Error: ${readings.error || 'Failed to fetch past readings'}</p>
                         </div>
-                        ` : ''}
+                    `;
+                    return;
+                }
+                
+                if (readings.length === 0) {
+                    pastReadingsList.innerHTML = `
+                        <div class="text-center py-10 text-mystic-300">
+                            <p>No past readings available. Start a new reading above!</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                pastReadingsList.innerHTML = readings.map(reading => `
+                    <div class="bg-mystic-900 bg-opacity-50 rounded-xl p-6 card-glow">
+                        <p class="text-sm text-mystic-400 mb-2">
+                            ${new Date(reading.timestamp).toLocaleString()}
+                        </p>
+                        <p class="text-mystic-200 mb-4">
+                            <strong>Prompt:</strong> ${reading.prompt}
+                        </p>
+                        <div class="prose prose-invert max-w-none text-mystic-100">
+                            ${reading.response}
+                        </div>
                     </div>
-                `,
-                tarot: `
-                    <div class="space-y-6">
-                        <h4 class="text-xl font-serif font-semibold text-white">Your ${data.readingType === 'single' ? 'Single Card' : data.readingType === 'three' ? 'Three Card' : data.readingType === 'celtic' ? 'Celtic Cross' : 'Love'} Reading</h4>
-                        
-                        ${data.tarotQuestion ? `
-                        <div class="bg-mystic-800 rounded-lg p-4">
-                            <h5 class="font-medium text-mystic-300 mb-2">Your Question:</h5>
-                            <p>"${data.tarotQuestion}"</p>
-                        </div>
-                        ` : ''}
-                        
-                        <div class="grid ${data.readingType === 'single' ? 'grid-cols-1' : data.readingType === 'three' ? 'grid-cols-3' : 'grid-cols-2'} gap-4">
-                            ${generateTarotCards(data.readingType)}
-                        </div>
-                        
-                        <div class="bg-mystic-800 rounded-lg p-4">
-                            <h5 class="font-medium text-mystic-300 mb-2">Overall Interpretation:</h5>
-                            <p>${getRandomAnswer()}</p>
-                        </div>
+                `).join('');
+            } catch (error) {
+                document.getElementById('past-readings-list').innerHTML = `
+                    <div class="text-center py-10 text-red-400">
+                        <p>Network error: ${error.message}</p>
                     </div>
-                `,
-                dream: `
-                    <div class="space-y-4">
-                        <h4 class="text-xl font-serif font-semibold text-white">Dream Interpretation</h4>
-                        
-                        <div class="bg-mystic-800 rounded-lg p-4">
-                            <h5 class="font-medium text-mystic-300 mb-2">Dream Description:</h5>
-                            <p>"${data.dreamDescription}"</p>
-                        </div>
-                        
-                        ${data.dreamTheme ? `
-                        <div class="bg-mystic-800 rounded-lg p-4">
-                            <h5 class="font-medium text-mystic-300 mb-2">Theme: ${data.dreamTheme}</h5>
-                            <p>${getDreamThemeMeaning(data.dreamTheme)}</p>
-                        </div>
-                        ` : ''}
-                        
-                        ${data.dreamFeeling ? `
-                        <div class="bg-mystic-800 rounded-lg p-4">
-                            <h5 class="font-medium text-mystic-300 mb-2">Emotions in Dream:</h5>
-                            <p>${getDreamFeelingMeaning(data.dreamFeeling)}</p>
-                        </div>
-                        ` : ''}
-                        
-                        <div class="bg-mystic-800 rounded-lg p-4">
-                            <h5 class="font-medium text-mystic-300 mb-2">Symbolism Analysis:</h5>
-                            <p>${getRandomAnswer()}</p>
-                        </div>
-                        
-                        <div class="bg-mystic-800 rounded-lg p-4">
-                            <h5 class="font-medium text-mystic-300 mb-2">Possible Meaning:</h5>
-                            <p>${getRandomAnswer()}</p>
-                        </div>
-                    </div>
-                `
-            };
-            
-            return sampleResponses[type];
-        };
-        
-        // Helper functions for generating sample content
-        function getRandomSign() {
-            const signs = ['Aries', 'Taurus', 'Gemini', 'Cancer', 'Leo', 'Virgo', 'Libra', 'Scorpio', 'Sagittarius', 'Capricorn', 'Aquarius', 'Pisces'];
-            return signs[Math.floor(Math.random() * signs.length)];
-        }
-        
-        function getRandomDescription() {
-            const descriptions = [
-                "This placement suggests a strong personality with creative tendencies.",
-                "You may find that this aspect of your chart influences your communication style significantly.",
-                "This position indicates a need for balance in your relationships and personal life.",
-                "You're likely to experience growth in this area during the coming year.",
-                "This configuration shows a tendency toward introspection and deep thought.",
-                "Your chart reveals potential for leadership and taking initiative in this domain."
-            ];
-            return descriptions[Math.floor(Math.random() * descriptions.length)];
-        }
-        
-        function getRandomAnswer() {
-            const answers = [
-                "The cards/stars/numbers suggest that you're entering a period of transformation. Embrace change and trust your intuition as you navigate this phase.",
-                "There appears to be a need for balance in this area of your life. Consider all perspectives before making important decisions.",
-                "This indicates a time of new beginnings. Be open to opportunities that may present themselves unexpectedly.",
-                "Your current path aligns well with your deeper purpose. Continue to follow your instincts and passions.",
-                "Challenges in this area may actually be blessings in disguise, pushing you toward necessary growth.",
-                "The message here is one of patience. Some things require time to develop fully.",
-                "You're being called to pay attention to synchronicities and subtle signs in your daily life."
-            ];
-            return answers[Math.floor(Math.random() * answers.length)];
-        }
-        
-        function getRandomNumber(min, max) {
-            return Math.floor(Math.random() * (max - min + 1)) + min;
-        }
-        
-        function getRandomNumerologyMeaning() {
-            const meanings = [
-                "This number suggests a period of new beginnings and leadership opportunities.",
-                "Your vibrations indicate a time for cooperation and building harmonious relationships.",
-                "Creativity and self-expression are highlighted with this numerical influence.",
-                "This number brings energies of stability, organization, and building solid foundations.",
-                "Freedom and adaptability are key themes associated with this number.",
-                "Nurturing, responsibility, and service to others are emphasized now.",
-                "This is a number of introspection, wisdom, and spiritual growth.",
-                "Abundance, power, and material success are potential manifestations.",
-                "Humanitarianism, completion, and universal love are highlighted."
-            ];
-            return meanings[Math.floor(Math.random() * meanings.length)];
-        }
-        
-        function generateTarotCards(readingType) {
-            let cardCount = 1;
-            let positions = [];
-            
-            if (readingType === 'three') {
-                cardCount = 3;
-                positions = ['Past', 'Present', 'Future'];
-            } else if (readingType === 'celtic') {
-                cardCount = 10;
-                positions = [
-                    'Current Situation', 'Challenge', 'Subconscious', 'Recent Past', 
-                    'Near Future', 'Self', 'Environment', 'Hopes/Fears', 'Outcome'
-                ];
-            } else if (readingType === 'love') {
-                cardCount = 5;
-                positions = [
-                    'Your Feelings', 'Their Feelings', 'Relationship Dynamics', 
-                    'Challenges', 'Potential Outcome'
-                ];
+                `;
             }
-            
-            const cards = [
-                { name: 'The Fool', emoji:
-</html>
+        }
+
+        // Fetch past readings on page load
+        window.addEventListener('load', fetchPastReadings);
+    </script>
+</body

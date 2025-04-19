@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 const axios = require('axios');
 const path = require('path');
 const { MongoClient } = require('mongodb');
+const rateLimit = require('express-rate-limit');
 
 // Load environment variables from .env file
 dotenv.config();
@@ -25,11 +26,11 @@ if (!process.env.GROQ_API_KEY) {
 }
 
 const app = express();
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 
 // MongoDB setup
 const uri = process.env.MONGODB_URI;
-const client = new MongoClient(uri); // Removed deprecated options
+const client = new MongoClient(uri);
 let db;
 
 // Connect to MongoDB
@@ -49,6 +50,15 @@ app.use(express.json());
 
 // Serve static files (your frontend)
 app.use(express.static(path.join(__dirname, '.')));
+
+// Rate limiting middleware
+const apiLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // Limit each IP to 100 requests per windowMs
+    message: { error: 'Too many requests from this IP, please try again after 15 minutes' },
+});
+
+app.use('/api', apiLimiter);
 
 // Function to make a request to Groq API with retry logic
 async function makeGroqRequest(data, retries = 3, delay = 1000) {
@@ -75,7 +85,7 @@ async function makeGroqRequest(data, retries = 3, delay = 1000) {
 }
 
 // Proxy endpoint to handle Groq API requests and store results in MongoDB
-app.post('/api/grok', async (req, res) => {
+app.post('/api/groq', async (req, res) => {
     const { prompt } = req.body;
 
     if (!prompt) {
@@ -86,7 +96,7 @@ app.post('/api/grok', async (req, res) => {
         const response = await makeGroqRequest({
             model: 'llama-3.3-70b-versatile',
             messages: [
-                { role: 'system', content: 'You are a helpful AI assistant.' },
+                { role: 'system', content: 'You are a helpful AI assistant specializing in astrology, numerology, tarot, and dream interpretation.' },
                 { role: 'user', content: prompt }
             ],
             max_tokens: 500
