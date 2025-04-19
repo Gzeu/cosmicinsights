@@ -757,24 +757,6 @@
         </div>
     </section>
 
-    <!-- Past Readings Section -->
-    <section id="past-readings" class="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-mystic-900 to-mystic-950">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-serif font-bold text-white mb-4">
-                    <i class="fas fa-history mr-2 text-mystic-400"></i> Past Readings
-                </h2>
-                <p class="text-mystic-300 max-w-2xl mx-auto">
-                    Review your previous astrology, numerology, tarot, and dream interpretation readings.
-                </p>
-            </div>
-            
-            <div id="past-readings-list" class="space-y-6">
-                <!-- Readings will be dynamically inserted here -->
-            </div>
-        </div>
-    </section>
-
     <!-- Testimonials -->
     <section class="py-20 px-4 sm:px-6 lg:px-8 bg-mystic-950">
         <div class="max-w-7xl mx-auto">
@@ -897,7 +879,7 @@
                         <li><a href="#numerology" class="text-mystic-300 hover:text-white text-sm transition-colors">Numerology</a></li>
                         <li><a href="#tarot" class="text-mystic-300 hover:text-white text-sm transition-colors">Tarot</a></li>
                         <li><a href="#dreams" class="text-mystic-300 hover:text-white text-sm transition-colors">Dreams</a></li>
-                        <li><a href="#past-readings" class="text-mystic-300 hover:text-white text-sm transition-colors">Past Readings</a></li>
+                        
                     </ul>
                 </div>
                 
@@ -1112,15 +1094,7 @@
                                 ${data.text}
                             </div>
                         `;
-                        // Refresh past readings
-                        await fetchPastReadings();
-                    } else {
-                        resultContainers[type].innerHTML = `
-                            <div class="text-center py-10 text-red-400">
-                                <p>Error: ${data.error || 'Failed to fetch response'}</p>
-                                <p>${data.details || ''}</p>
-                            </div>
-                        `;
+                       
                     }
                 } catch (error) {
                     resultContainers[type].innerHTML = `
