@@ -150,7 +150,6 @@
                         <a href="#numerology" class="text-mystic-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Numerology</a>
                         <a href="#tarot" class="text-mystic-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Tarot</a>
                         <a href="#dreams" class="text-mystic-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Dreams</a>
-                        <a href="#past-readings" class="text-mystic-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Past Readings</a>
                     </div>
                 </div>
                 <div class="md:hidden">
@@ -169,7 +168,6 @@
                 <a href="#numerology" class="text-mystic-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Numerology</a>
                 <a href="#tarot" class="text-mystic-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Tarot</a>
                 <a href="#dreams" class="text-mystic-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Dreams</a>
-                <a href="#past-readings" class="text-mystic-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Past Readings</a>
             </div>
         </div>
     </nav>
@@ -1138,56 +1136,7 @@
             });
         });
 
-        // Fetch and display past readings
-        async function fetchPastReadings() {
-            try {
-                const response = await fetch('/api/readings');
-                const readings = await response.json();
-                
-                const pastReadingsList = document.getElementById('past-readings-list');
-                
-                if (!response.ok) {
-                    pastReadingsList.innerHTML = `
-                        <div class="text-center py-10 text-red-400">
-                            <p>Error: ${readings.error || 'Failed to fetch past readings'}</p>
-                        </div>
-                    `;
-                    return;
-                }
-                
-                if (readings.length === 0) {
-                    pastReadingsList.innerHTML = `
-                        <div class="text-center py-10 text-mystic-300">
-                            <p>No past readings available. Start a new reading above!</p>
-                        </div>
-                    `;
-                    return;
-                }
-                
-                pastReadingsList.innerHTML = readings.map(reading => `
-                    <div class="bg-mystic-900 bg-opacity-50 rounded-xl p-6 card-glow">
-                        <p class="text-sm text-mystic-400 mb-2">
-                            ${new Date(reading.timestamp).toLocaleString()}
-                        </p>
-                        <p class="text-mystic-200 mb-4">
-                            <strong>Prompt:</strong> ${reading.prompt}
-                        </p>
-                        <div class="prose prose-invert max-w-none text-mystic-100">
-                            ${reading.response}
-                        </div>
-                    </div>
-                `).join('');
-            } catch (error) {
-                document.getElementById('past-readings-list').innerHTML = `
-                    <div class="text-center py-10 text-red-400">
-                        <p>Network error: ${error.message}</p>
-                    </div>
-                `;
-            }
-        }
-
-        // Fetch past readings on page load
-        window.addEventListener('load', fetchPastReadings);
+        
     </script>
 </body>
 </html>
