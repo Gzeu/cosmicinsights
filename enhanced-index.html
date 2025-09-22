@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosmic Insights - AI-Powered Spiritual Guidance</title>
+    <meta name="theme-color" content="#0f1419">
+    <meta name="description" content="Advanced AI-powered spiritual guidance with dark constellation theme">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./dark-theme.css">
+    
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: var(--cosmic-dark);
+            color: white;
+            min-height: 100vh;
+        }
+        
+        .glassmorphism {
+            background: var(--glass-dark-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-dark-border);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-cosmic {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            border: 1px solid var(--accent-blue);
+            border-radius: 50px;
+            color: white;
+            padding: 14px 32px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .btn-cosmic:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 10px 35px rgba(74, 158, 255, 0.5);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #10b981, #059669);
+            border: 1px solid #10b981;
+            border-radius: 50px;
+            color: white;
+            padding: 12px 28px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .input-cosmic, .textarea-cosmic {
+            background: rgba(15, 20, 25, 0.7);
+            border: 1px solid rgba(100, 150, 200, 0.2);
+            border-radius: 15px;
+            padding: 16px 20px;
+            color: white;
+            width: 100%;
+        }
+        
+        .input-cosmic:focus, .textarea-cosmic:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(74, 158, 255, 0.2);
+        }
+        
+        .text-shimmer {
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple), var(--accent-cyan));
+            background-size: 400% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: -400% 0; }
+            100% { background-position: 400% 0; }
+        }
+        
+        .cosmic-grid {
+            display: grid;
+            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+        
+        .card-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .theme-selector {
+            position: fixed;
+            top: 90px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            background: rgba(15, 20, 25, 0.9);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 15px;
+            border: 1px solid var(--glass-dark-border);
+        }
+        
+        .theme-btn {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .theme-btn:hover, .theme-btn.active {
+            border-color: rgba(255, 255, 255, 0.6);
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+        
+        .alert-success {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid #10b981;
+            color: #10b981;
+            padding: 12px 20px;
+            border-radius: 15px;
+        }
+        
+        .alert-error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid #ef4444;
+            color: #fca5a5;
+            padding: 12px 20px;
+            border-radius: 15px;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-cosmic-dark">
+    <!-- Enhanced Theme Selector -->
+    <div class="theme-selector">
+        <div class="theme-btn active" data-theme="cosmic-dark" title="Cosmic Dark" style="background: var(--cosmic-dark);"></div>
+        <div class="theme-btn" data-theme="mystical-dark" title="Mystical Dark" style="background: var(--mystical-dark);"></div>
+        <div class="theme-btn" data-theme="aurora-dark" title="Aurora Dark" style="background: var(--aurora-dark);"></div>
+        <div class="theme-btn" data-theme="nebula-dark" title="Nebula Dark" style="background: var(--nebula-dark);"></div>
+        <div class="theme-btn" data-theme="void-dark" title="Void Dark" style="background: var(--void-dark);"></div>
+        <div class="theme-btn" data-theme="starfield-dark" title="Starfield Dark" style="background: var(--starfield-dark);"></div>
+    </div>
+    
+    <!-- Navigation -->
+    <nav class="glassmorphism fixed w-full z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <span class="text-2xl font-serif font-bold text-white">
+                    <i class="fas fa-moon mr-2 text-blue-400"></i>Cosmic Insights
+                </span>
+                <div class="hidden md:flex space-x-4">
+                    <a href="#home" class="text-white/80 hover:text-blue-400 px-3 py-2 text-sm transition-colors">Home</a>
+                    <a href="./services.html" class="text-white/80 hover:text-blue-400 px-3 py-2 text-sm transition-colors">Services</a>
+                    <a href="#astrology" class="text-white/80 hover:text-blue-400 px-3 py-2 text-sm transition-colors">Astrology</a>
+                    <a href="#numerology" class="text-white/80 hover:text-blue-400 px-3 py-2 text-sm transition-colors">Numerology</a>
+                    <a href="#tarot" class="text-white/80 hover:text-blue-400 px-3 py-2 text-sm transition-colors">Tarot</a>
+                    <a href="#dreams" class="text-white/80 hover:text-blue-400 px-3 py-2 text-sm transition-colors">Dreams</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-32 pb-20 px-4 min-h-screen flex items-center">
+        <div class="max-w-7xl mx-auto w-full text-center">
+            <h1 class="text-4xl md:text-6xl font-serif font-bold text-white mb-6 card-float">
+                Unlock Your <span class="text-shimmer">Cosmic Potential</span>
+            </h1>
+            <p class="text-xl text-white/80 max-w-3xl mx-auto mb-10">
+                Discover profound insights through astrology, numerology, tarot, and dream interpretation with our AI-powered guidance.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4 mb-12">
+                <a href="#astrology" class="btn-cosmic">
+                    Explore Now <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+                <a href="./services.html" class="btn-success">
+                    <i class="fas fa-clipboard-list mr-2"></i> Complete Reports
+                </a>
+            </div>
+            
+            <div class="cosmic-grid">
+                <div class="glassmorphism text-center">
+                    <i class="fas fa-star text-4xl text-blue-400 mb-4"></i>
+                    <h3 class="text-xl font-serif font-semibold text-white mb-3">Astrology</h3>
+                    <p class="text-white/80">Personalized birth chart readings and planetary analysis.</p>
+                </div>
+                <div class="glassmorphism text-center">
+                    <i class="fas fa-hashtag text-4xl text-purple-400 mb-4"></i>
+                    <h3 class="text-xl font-serif font-semibold text-white mb-3">Numerology</h3>
+                    <p class="text-white/80">Discover your life path number and cosmic significance.</p>
+                </div>
+                <div class="glassmorphism text-center">
+                    <i class="fas fa-cards text-4xl text-cyan-400 mb-4"></i>
+                    <h3 class="text-xl font-serif font-semibold text-white mb-3">Tarot</h3>
+                    <p class="text-white/80">AI-powered tarot readings for spiritual guidance.</p>
+                </div>
+                <div class="glassmorphism text-center">
+                    <i class="fas fa-cloud-moon text-4xl text-indigo-400 mb-4"></i>
+                    <h3 class="text-xl font-serif font-semibold text-white mb-3">Dreams</h3>
+                    <p class="text-white/80">Interpret hidden messages in your subconscious.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="py-20 px-4 bg-starfield-dark">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="glassmorphism card-float">
+                <h2 class="text-3xl font-serif font-bold text-white mb-6">
+                    Ready to Explore Your <span class="text-shimmer">Cosmic Blueprint?</span>
+                </h2>
+                <p class="text-xl text-white/80 mb-10">
+                    Sign up for our newsletter to receive monthly insights and exclusive content.
+                </p>
+                
+                <form id="newsletter-form" class="max-w-md mx-auto">
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <input type="email" id="newsletter-email" placeholder="Your email address" class="input-cosmic flex-grow" required>
+                        <button type="submit" class="btn-cosmic">
+                            <span id="newsletter-submit-text">Subscribe</span>
+                            <i class="fas fa-paper-plane ml-2"></i>
+                        </button>
+                    </div>
+                    <p class="text-xs text-white/60 mt-3">
+                        We respect your privacy. Unsubscribe at any time.
+                    </p>
+                    <div id="newsletter-result" class="mt-4"></div>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    <script>
+        // Enhanced Dark Theme JavaScript
+        class CosmicDark {
+            constructor() {
+                this.currentTheme = 'cosmic-dark';
+                this.init();
+            }
+            
+            init() {
+                this.setupThemeSelector();
+                this.setupForms();
+            }
+            
+            setupThemeSelector() {
+                const selector = document.querySelector('.theme-selector');
+                selector.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('theme-btn')) {
+                        this.changeTheme(e.target.dataset.theme);
+                    }
+                });
+            }
+            
+            changeTheme(theme) {
+                document.body.className = `min-h-screen bg-${theme}`;
+                document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+                document.querySelector(`[data-theme="${theme}"]`).classList.add('active');
+            }
+            
+            setupForms() {
+                const form = document.getElementById('newsletter-form');
+                if (form) {
+                    form.addEventListener('submit', (e) => {
+                        e.preventDefault();
+                        this.handleNewsletterSubmission();
+                    });
+                }
+            }
+            
+            async handleNewsletterSubmission() {
+                const email = document.getElementById('newsletter-email').value;
+                const result = document.getElementById('newsletter-result');
+                
+                if (!email) {
+                    result.innerHTML = '<div class="alert-error">Please enter a valid email address.</div>';
+                    return;
+                }
+                
+                // Simulate API call
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                result.innerHTML = `<div class="alert-success">Thank you! We've added ${email} to our newsletter.</div>`;
+                document.getElementById('newsletter-email').value = '';
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            new CosmicDark();
+        });
+    </script>
+</body>
+</html>

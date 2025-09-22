@@ -1,0 +1,47 @@
+/* Dark Constellation Theme Variables */
+:root {
+    --cosmic-dark: linear-gradient(135deg, #0f1419 0%, #1a1f2e 50%, #0a0e1a 100%);
+    --mystical-dark: linear-gradient(135deg, #1e1b3a 0%, #2d1b4e 50%, #1a0d2e 100%);
+    --aurora-dark: linear-gradient(135deg, #2a1810 0%, #3d2317 50%, #1f0f0a 100%);
+    --nebula-dark: linear-gradient(135deg, #1a0d2e 0%, #2d1b4e 50%, #0f0a1a 100%);
+    --void-dark: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #000000 100%);
+    --starfield-dark: linear-gradient(135deg, #0d1421 0%, #1e2a3a 50%, #0a0f1a 100%);
+    
+    --glass-dark-bg: rgba(15, 20, 25, 0.3);
+    --glass-dark-border: rgba(100, 150, 200, 0.2);
+    --accent-blue: #4a9eff;
+    --accent-purple: #8b5cf6;
+    --accent-cyan: #06b6d4;
+}
+
+/* Constellation Background */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(2px 2px at 20px 30px, var(--accent-blue), transparent),
+        radial-gradient(2px 2px at 40px 70px, var(--accent-cyan), transparent),
+        radial-gradient(1px 1px at 90px 40px, var(--accent-purple), transparent);
+    background-repeat: repeat;
+    background-size: 200px 100px;
+    opacity: 0.4;
+    z-index: -2;
+    animation: starTwinkle 8s ease-in-out infinite alternate;
+}
+
+@keyframes starTwinkle {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.8; }
+}
+
+/* Dark Theme Classes */
+.bg-cosmic-dark { background: var(--cosmic-dark); }
+.bg-mystical-dark { background: var(--mystical-dark); }
+.bg-aurora-dark { background: var(--aurora-dark); }
+.bg-nebula-dark { background: var(--nebula-dark); }
+.bg-void-dark { background: var(--void-dark); }
+.bg-starfield-dark { background: var(--starfield-dark); }
