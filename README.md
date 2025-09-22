@@ -33,44 +33,16 @@
   <div style="margin: 30px 0;">
     <h3>🌐 Live Deployment</h3>
     <a href="https://cosmicinsights.vercel.app" target="_blank">
-      <img src="https://vercel.com/api/screenshot?url=https://cosmicinsights.vercel.app&w=600&h=400" alt="Cosmic Insights - Live Preview" style="width: 100%; max-width: 600px; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.3);">
+      <img src="https://vercel.com/api/screenshot?url=https://cosmicinsights.vercel.app&w=600&h=400" alt="Cosmic Insights - Live on Vercel" style="width: 100%; max-width: 600px; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.3);">
     </a>
-    <p><em>🚀 Deployed on Vercel with automatic deployments and global CDN</em></p>
+    <p><em>🚀 Real-time screenshot from Vercel deployment</em></p>
   </div>
 
 </div>
 
 ---
 
-## 📱 **Project Preview**
-
-<div align="center">
-  <table>
-    <tr>
-      <td width="50%">
-        <h4>🌌 Desktop Experience</h4>
-        <img src="https://via.placeholder.com/500x300/1a1a3a/ffffff?text=🌟+Cosmic+Insights+Desktop" alt="Desktop Preview" style="width: 100%; border-radius: 8px;">
-      </td>
-      <td width="50%">
-        <h4>📱 Mobile Experience</h4>
-        <img src="https://via.placeholder.com/250x400/1a1a3a/ffffff?text=📱+Mobile+App" alt="Mobile Preview" style="width: 100%; border-radius: 8px;">
-      </td>
-    </tr>
-  </table>
-  
-  ### 🎯 **Key Features Showcase**
-  
-  <div style="display: flex; justify-content: space-around; margin: 20px 0;">
-    <div>🌍 <strong>Multi-Language</strong><br>5 Languages Supported</div>
-    <div>🎨 <strong>Dark Theme</strong><br>Constellation Design</div>
-    <div>⚡ <strong>Fast Load</strong><br>< 2s Load Time</div>
-    <div>📱 <strong>PWA Ready</strong><br>Install as App</div>
-  </div>
-</div>
-
----
-
-## 🎯 **What's New in v2.0**
+## 🎯 **What's New in v2.0.1**
 
 <details>
 <summary><strong>🚀 Enhanced User Experience</strong></summary>
@@ -398,7 +370,7 @@ const result = await response.json();
 ### **⚡ Performance Improvements**
 
 | Metric | Before | After | Improvement |
-|--------|--------|-------|--------------| 
+|--------|--------|-------|--------------|
 | ⚡ **Load Time** | 3.2s | 1.6s | **50% faster** |
 | 📱 **Mobile Score** | 78 | 94 | **+20% improvement** |
 | 🎯 **SEO Score** | 85 | 97 | **+14% improvement** |
