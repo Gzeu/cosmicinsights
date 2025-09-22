@@ -273,6 +273,18 @@
             background: linear-gradient(90deg, transparent, var(--star-accent), transparent);
         }
         
+        .section-title {
+            font-family: var(--font-cosmic);
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--star-primary), var(--star-accent), var(--cosmic-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        
         .constellation-text {
             font-size: 18px;
             line-height: 1.7;
@@ -320,6 +332,32 @@
             display: grid;
             gap: 24px;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+        
+        /* Tarot Cards */
+        .tarot-card {
+            width: 120px;
+            height: 180px;
+            background: linear-gradient(135deg, var(--galaxy-blue), var(--cosmic-purple));
+            border: 2px solid var(--star-accent);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tarot-card:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(96, 165, 250, 0.5);
+        }
+        
+        .tarot-card.selected {
+            border-color: var(--nebula-pink);
+            background: linear-gradient(135deg, var(--nebula-pink), var(--cosmic-purple));
         }
         
         /* Animations */
@@ -517,10 +555,273 @@
         </div>
     </section>
 
+    <!-- Astrology Section -->
+    <section id="astrology" class="py-20 px-4 min-h-screen">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="section-title">
+                    ⭐ Astrology Readings
+                </h2>
+                <p class="constellation-text max-w-3xl mx-auto">
+                    Discover the cosmic forces that shaped your destiny. Your birth chart reveals the unique celestial blueprint that guides your life's journey through the stars.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div class="constellation-glass floating">
+                    <h3 class="text-2xl font-semibold text-white mb-6" style="font-family: var(--font-cosmic);">Birth Chart Calculator</h3>
+                    
+                    <form id="astrology-form" class="space-y-6">
+                        <div>
+                            <label class="block text-white/80 mb-2 font-medium">🌟 Your Full Name</label>
+                            <input type="text" id="astro-name" placeholder="Enter your cosmic name..." class="cosmic-input" required>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-white/80 mb-2 font-medium">🌙 Birth Date</label>
+                            <input type="date" id="astro-date" class="cosmic-input" required>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-white/80 mb-2 font-medium">⏰ Birth Time (Optional)</label>
+                            <input type="time" id="astro-time" class="cosmic-input">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-white/80 mb-2 font-medium">🌍 Birth Location</label>
+                            <input type="text" id="astro-location" placeholder="City, Country..." class="cosmic-input" required>
+                        </div>
+                        
+                        <button type="submit" class="btn-constellation w-full">
+                            <span id="astro-text">Generate Birth Chart</span>
+                            <span id="astro-loading" class="cosmic-loading ml-2 hidden"></span>
+                            <i class="fas fa-stars ml-2" id="astro-icon"></i>
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="constellation-glass">
+                    <h3 class="text-2xl font-semibold text-white mb-6" style="font-family: var(--font-cosmic);">Your Cosmic Reading</h3>
+                    <div id="astrology-result">
+                        <div class="text-center py-12">
+                            <div class="text-6xl mb-6">⭐</div>
+                            <h4 class="text-lg font-semibold mb-4 text-white/80">The Stars Await Your Details</h4>
+                            <p class="text-white/60">Fill out your birth information to discover your celestial blueprint and cosmic destiny.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Numerology Section -->
+    <section id="numerology" class="py-20 px-4 min-h-screen">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="section-title">
+                    🔢 Numerology Calculator
+                </h2>
+                <p class="constellation-text max-w-3xl mx-auto">
+                    Numbers are the universal language of the cosmos. Discover the sacred mathematics that govern your existence and reveal your life's divine purpose.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div class="constellation-glass floating">
+                    <h3 class="text-2xl font-semibold text-white mb-6" style="font-family: var(--font-cosmic);">Life Path Calculator</h3>
+                    
+                    <form id="numerology-form" class="space-y-6">
+                        <div>
+                            <label class="block text-white/80 mb-2 font-medium">✨ Your Full Name</label>
+                            <input type="text" id="num-name" placeholder="Enter your complete birth name..." class="cosmic-input" required>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-white/80 mb-2 font-medium">📅 Birth Date</label>
+                            <input type="date" id="num-date" class="cosmic-input" required>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-white/80 mb-2 font-medium">🎯 Focus Area</label>
+                            <select id="num-focus" class="cosmic-input">
+                                <option value="life-path">Life Path Number</option>
+                                <option value="destiny">Destiny Number</option>
+                                <option value="soul">Soul Urge Number</option>
+                                <option value="personality">Personality Number</option>
+                                <option value="complete">Complete Analysis</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="btn-constellation w-full">
+                            <span id="num-text">Calculate Numbers</span>
+                            <span id="num-loading" class="cosmic-loading ml-2 hidden"></span>
+                            <i class="fas fa-calculator ml-2" id="num-icon"></i>
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="constellation-glass">
+                    <h3 class="text-2xl font-semibold text-white mb-6" style="font-family: var(--font-cosmic);">Your Numbers</h3>
+                    <div id="numerology-result">
+                        <div class="text-center py-12">
+                            <div class="text-6xl mb-6">🔢</div>
+                            <h4 class="text-lg font-semibold mb-4 text-white/80">Sacred Numbers Await</h4>
+                            <p class="text-white/60">Enter your name and birth date to unlock the numerical secrets of your cosmic identity.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tarot Section -->
+    <section id="tarot" class="py-20 px-4 min-h-screen">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="section-title">
+                    🃏 Tarot Reading
+                </h2>
+                <p class="constellation-text max-w-3xl mx-auto">
+                    The ancient wisdom of tarot cards reveals the hidden currents of your destiny. Draw from the cosmic deck to receive guidance for your journey.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div class="constellation-glass floating">
+                    <h3 class="text-2xl font-semibold text-white mb-6" style="font-family: var(--font-cosmic);">Draw Your Cards</h3>
+                    
+                    <form id="tarot-form" class="space-y-6">
+                        <div>
+                            <label class="block text-white/80 mb-2 font-medium">🌟 Your Question</label>
+                            <textarea id="tarot-question" placeholder="What guidance do you seek from the cosmos?" class="cosmic-textarea" rows="3"></textarea>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-white/80 mb-4 font-medium">🎴 Select Reading Type</label>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="constellation-glass p-4 cursor-pointer reading-type" data-type="single">
+                                    <div class="text-center">
+                                        <div class="text-2xl mb-2">🃏</div>
+                                        <h4 class="font-semibold text-white">Single Card</h4>
+                                        <p class="text-xs text-white/70">Daily guidance</p>
+                                    </div>
+                                </div>
+                                <div class="constellation-glass p-4 cursor-pointer reading-type" data-type="three">
+                                    <div class="text-center">
+                                        <div class="text-2xl mb-2">🎴</div>
+                                        <h4 class="font-semibold text-white">Three Cards</h4>
+                                        <p class="text-xs text-white/70">Past, Present, Future</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="card-deck" class="hidden">
+                            <label class="block text-white/80 mb-4 font-medium">🔮 Choose Your Cards</label>
+                            <div class="flex flex-wrap gap-3 justify-center">
+                                <div class="tarot-card" data-card="1">
+                                    <i class="fas fa-question text-2xl text-white"></i>
+                                </div>
+                                <div class="tarot-card" data-card="2">
+                                    <i class="fas fa-question text-2xl text-white"></i>
+                                </div>
+                                <div class="tarot-card" data-card="3">
+                                    <i class="fas fa-question text-2xl text-white"></i>
+                                </div>
+                                <div class="tarot-card" data-card="4">
+                                    <i class="fas fa-question text-2xl text-white"></i>
+                                </div>
+                                <div class="tarot-card" data-card="5">
+                                    <i class="fas fa-question text-2xl text-white"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn-constellation w-full">
+                            <span id="tarot-text">Reveal Cards</span>
+                            <span id="tarot-loading" class="cosmic-loading ml-2 hidden"></span>
+                            <i class="fas fa-magic ml-2" id="tarot-icon"></i>
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="constellation-glass">
+                    <h3 class="text-2xl font-semibold text-white mb-6" style="font-family: var(--font-cosmic);">Your Reading</h3>
+                    <div id="tarot-result">
+                        <div class="text-center py-12">
+                            <div class="text-6xl mb-6">🃏</div>
+                            <h4 class="text-lg font-semibold mb-4 text-white/80">The Cards Hold Your Answers</h4>
+                            <p class="text-white/60">Select your reading type and draw cards to receive cosmic guidance for your question.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dreams Section -->
+    <section id="dreams" class="py-20 px-4 min-h-screen">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="section-title">
+                    🌙 Dream Analysis
+                </h2>
+                <p class="constellation-text max-w-3xl mx-auto">
+                    Your dreams are messages from the cosmic unconscious. Unlock the hidden symbolism and discover the profound insights your sleeping mind reveals.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div class="constellation-glass floating">
+                    <h3 class="text-2xl font-semibold text-white mb-6" style="font-family: var(--font-cosmic);">Dream Journal</h3>
+                    
+                    <form id="dreams-form" class="space-y-6">
+                        <div>
+                            <label class="block text-white/80 mb-2 font-medium">🌙 Dream Date</label>
+                            <input type="date" id="dream-date" class="cosmic-input">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-white/80 mb-2 font-medium">🌟 Dream Description</label>
+                            <textarea id="dream-description" placeholder="Describe your dream in vivid detail..." class="cosmic-textarea" rows="5" required></textarea>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-white/80 mb-2 font-medium">💭 Emotions Felt</label>
+                            <input type="text" id="dream-emotions" placeholder="How did the dream make you feel?" class="cosmic-input">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-white/80 mb-2 font-medium">🔍 Key Symbols</label>
+                            <input type="text" id="dream-symbols" placeholder="Notable people, objects, or places..." class="cosmic-input">
+                        </div>
+                        
+                        <button type="submit" class="btn-constellation w-full">
+                            <span id="dream-text">Analyze Dream</span>
+                            <span id="dream-loading" class="cosmic-loading ml-2 hidden"></span>
+                            <i class="fas fa-search ml-2" id="dream-icon"></i>
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="constellation-glass">
+                    <h3 class="text-2xl font-semibold text-white mb-6" style="font-family: var(--font-cosmic);">Dream Interpretation</h3>
+                    <div id="dreams-result">
+                        <div class="text-center py-12">
+                            <div class="text-6xl mb-6">🌙</div>
+                            <h4 class="text-lg font-semibold mb-4 text-white/80">Your Dreams Hold Cosmic Secrets</h4>
+                            <p class="text-white/60">Share your dream details to receive a comprehensive analysis of its symbolic meaning and spiritual significance.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Services Preview -->
     <section id="services-preview" class="py-20 px-4">
         <div class="max-w-7xl mx-auto text-center">
-            <h2 class="text-3xl font-bold text-white mb-6" style="font-family: var(--font-cosmic);">
+            <h2 class="section-title">
                 🌌 Comprehensive Constellation Reports
             </h2>
             <p class="constellation-text max-w-3xl mx-auto mb-12">
@@ -656,12 +957,18 @@
     <script>
         class CosmicConstellation {
             constructor() {
+                this.selectedReadingType = 'single';
+                this.selectedCards = [];
                 this.init();
             }
             
             init() {
                 this.setupNavigation();
                 this.setupNewsletterForm();
+                this.setupAstrologyForm();
+                this.setupNumerologyForm();
+                this.setupTarotForm();
+                this.setupDreamsForm();
                 this.addShootingStars();
                 this.setupSmoothScrolling();
             }
@@ -675,6 +982,234 @@
                         mobileMenu.classList.toggle('hidden');
                     });
                 }
+            }
+            
+            setupAstrologyForm() {
+                const form = document.getElementById('astrology-form');
+                if (!form) return;
+                
+                form.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    
+                    const name = document.getElementById('astro-name').value;
+                    const date = document.getElementById('astro-date').value;
+                    const time = document.getElementById('astro-time').value;
+                    const location = document.getElementById('astro-location').value;
+                    
+                    if (!name || !date || !location) {
+                        this.showResult('astrology-result', 'error', '⚠️ Please fill in all required fields.');
+                        return;
+                    }
+                    
+                    this.showLoading('astro');
+                    
+                    await new Promise(resolve => setTimeout(resolve, 2000));
+                    
+                    const result = `
+                        <div class="space-y-6">
+                            <div class="constellation-glass p-6">
+                                <h4 class="text-lg font-semibold text-blue-400 mb-4">🌟 Birth Chart for ${name}</h4>
+                                <div class="text-white/90 space-y-3">
+                                    <p><strong class="text-blue-400">Born:</strong> ${date}${time ? ' at ' + time : ''} in ${location}</p>
+                                    <p><strong class="text-purple-400">Sun Sign:</strong> Your core essence radiates cosmic energy, illuminating your path through life's stellar journey.</p>
+                                    <p><strong class="text-cyan-400">Moon Phase:</strong> Your emotional nature flows like celestial tides, influenced by the eternal dance of cosmic bodies.</p>
+                                    <p><strong class="text-pink-400">Rising Sign:</strong> Your cosmic mask presents your soul's first impression to the universe.</p>
+                                </div>
+                            </div>
+                            <div class="constellation-glass p-6">
+                                <h4 class="text-lg font-semibold text-green-400 mb-4">🪐 Planetary Influences</h4>
+                                <div class="text-white/90 space-y-2">
+                                    <p>• <strong class="text-blue-400">Venus:</strong> Love and creativity flow through your cosmic essence</p>
+                                    <p>• <strong class="text-red-400">Mars:</strong> Your warrior spirit is guided by stellar determination</p>
+                                    <p>• <strong class="text-yellow-400">Jupiter:</strong> Expansion and wisdom illuminate your path</p>
+                                    <p>• <strong class="text-purple-400">Saturn:</strong> Cosmic lessons shape your spiritual growth</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    
+                    this.showResult('astrology-result', 'success', result);
+                    this.hideLoading('astro');
+                });
+            }
+            
+            setupNumerologyForm() {
+                const form = document.getElementById('numerology-form');
+                if (!form) return;
+                
+                form.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    
+                    const name = document.getElementById('num-name').value;
+                    const date = document.getElementById('num-date').value;
+                    const focus = document.getElementById('num-focus').value;
+                    
+                    if (!name || !date) {
+                        this.showResult('numerology-result', 'error', '⚠️ Please enter your name and birth date.');
+                        return;
+                    }
+                    
+                    this.showLoading('num');
+                    
+                    await new Promise(resolve => setTimeout(resolve, 1500));
+                    
+                    const lifePathNumber = this.calculateLifePath(date);
+                    
+                    const result = `
+                        <div class="space-y-6">
+                            <div class="constellation-glass p-6 text-center">
+                                <div class="text-6xl mb-4 text-blue-400">${lifePathNumber}</div>
+                                <h4 class="text-xl font-semibold text-white mb-2">Your Life Path Number</h4>
+                                <p class="text-white/80">This sacred number reveals your cosmic purpose and spiritual journey through the stars.</p>
+                            </div>
+                            <div class="constellation-glass p-6">
+                                <h4 class="text-lg font-semibold text-purple-400 mb-4">🔢 Numerical Analysis for ${name}</h4>
+                                <div class="text-white/90 space-y-3">
+                                    <p><strong class="text-blue-400">Life Path ${lifePathNumber}:</strong> Your cosmic journey follows the sacred mathematics of universal harmony.</p>
+                                    <p><strong class="text-cyan-400">Destiny Vibration:</strong> The numerical frequency of your name resonates with celestial energies.</p>
+                                    <p><strong class="text-pink-400">Soul Purpose:</strong> Your existence is guided by divine mathematical principles.</p>
+                                    <p><strong class="text-green-400">Cosmic Message:</strong> Embrace the numerical wisdom that flows through your being.</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    
+                    this.showResult('numerology-result', 'success', result);
+                    this.hideLoading('num');
+                });
+            }
+            
+            setupTarotForm() {
+                const form = document.getElementById('tarot-form');
+                if (!form) return;
+                
+                // Reading type selection
+                document.querySelectorAll('.reading-type').forEach(card => {
+                    card.addEventListener('click', (e) => {
+                        document.querySelectorAll('.reading-type').forEach(c => c.classList.remove('border-pink-400'));
+                        card.classList.add('border-pink-400');
+                        this.selectedReadingType = card.dataset.type;
+                        document.getElementById('card-deck').classList.remove('hidden');
+                    });
+                });
+                
+                // Card selection
+                document.querySelectorAll('.tarot-card').forEach(card => {
+                    card.addEventListener('click', (e) => {
+                        const cardId = card.dataset.card;
+                        const maxCards = this.selectedReadingType === 'single' ? 1 : 3;
+                        
+                        if (card.classList.contains('selected')) {
+                            card.classList.remove('selected');
+                            this.selectedCards = this.selectedCards.filter(id => id !== cardId);
+                        } else if (this.selectedCards.length < maxCards) {
+                            card.classList.add('selected');
+                            this.selectedCards.push(cardId);
+                        }
+                    });
+                });
+                
+                form.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    
+                    const question = document.getElementById('tarot-question').value;
+                    
+                    if (this.selectedCards.length === 0) {
+                        this.showResult('tarot-result', 'error', '⚠️ Please select at least one card.');
+                        return;
+                    }
+                    
+                    this.showLoading('tarot');
+                    
+                    await new Promise(resolve => setTimeout(resolve, 2000));
+                    
+                    const cards = [
+                        { name: 'The Star', meaning: 'Hope, inspiration, and spiritual guidance illuminate your path.' },
+                        { name: 'The Moon', meaning: 'Intuition and subconscious wisdom guide your journey.' },
+                        { name: 'The Sun', meaning: 'Joy, success, and cosmic enlightenment await you.' }
+                    ];
+                    
+                    let result = `
+                        <div class="space-y-6">
+                            <div class="constellation-glass p-6">
+                                <h4 class="text-lg font-semibold text-purple-400 mb-4">🃏 Your Cosmic Reading</h4>
+                                ${question ? `<p class="text-white/80 mb-4"><strong>Your Question:</strong> ${question}</p>` : ''}
+                    `;
+                    
+                    this.selectedCards.forEach((cardId, index) => {
+                        const card = cards[index] || cards[Math.floor(Math.random() * cards.length)];
+                        const position = this.selectedReadingType === 'three' ? 
+                            ['Past', 'Present', 'Future'][index] : 'Guidance';
+                        
+                        result += `
+                            <div class="mb-4 p-4 bg-white/10 rounded-lg">
+                                <h5 class="text-cyan-400 font-semibold">${position}: ${card.name}</h5>
+                                <p class="text-white/90 text-sm mt-2">${card.meaning}</p>
+                            </div>
+                        `;
+                    });
+                    
+                    result += `
+                            </div>
+                        </div>
+                    `;
+                    
+                    this.showResult('tarot-result', 'success', result);
+                    this.hideLoading('tarot');
+                    
+                    // Reset selection
+                    this.selectedCards = [];
+                    document.querySelectorAll('.tarot-card').forEach(c => c.classList.remove('selected'));
+                });
+            }
+            
+            setupDreamsForm() {
+                const form = document.getElementById('dreams-form');
+                if (!form) return;
+                
+                form.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    
+                    const description = document.getElementById('dream-description').value;
+                    const date = document.getElementById('dream-date').value;
+                    const emotions = document.getElementById('dream-emotions').value;
+                    const symbols = document.getElementById('dream-symbols').value;
+                    
+                    if (!description) {
+                        this.showResult('dreams-result', 'error', '⚠️ Please describe your dream.');
+                        return;
+                    }
+                    
+                    this.showLoading('dream');
+                    
+                    await new Promise(resolve => setTimeout(resolve, 2000));
+                    
+                    const result = `
+                        <div class="space-y-6">
+                            <div class="constellation-glass p-6">
+                                <h4 class="text-lg font-semibold text-blue-400 mb-4">🌙 Dream Analysis</h4>
+                                <div class="text-white/90 space-y-3">
+                                    ${date ? `<p><strong class="text-purple-400">Dream Date:</strong> ${date}</p>` : ''}
+                                    <p><strong class="text-cyan-400">Primary Meaning:</strong> Your dream reveals deep subconscious processing of cosmic energies and life transitions.</p>
+                                    ${emotions ? `<p><strong class="text-pink-400">Emotional Significance:</strong> The feelings of "${emotions}" indicate your soul's response to spiritual transformation.</p>` : ''}
+                                    ${symbols ? `<p><strong class="text-green-400">Symbol Interpretation:</strong> "${symbols}" represents archetypal energies guiding your cosmic journey.</p>` : ''}
+                                </div>
+                            </div>
+                            <div class="constellation-glass p-6">
+                                <h4 class="text-lg font-semibold text-yellow-400 mb-4">✨ Cosmic Guidance</h4>
+                                <div class="text-white/90 space-y-2">
+                                    <p>• Your subconscious is processing important spiritual lessons</p>
+                                    <p>• Pay attention to recurring symbols in future dreams</p>
+                                    <p>• This dream may be preparing you for upcoming changes</p>
+                                    <p>• Consider meditating on the emotions this dream evoked</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    
+                    this.showResult('dreams-result', 'success', result);
+                    this.hideLoading('dream');
+                });
             }
             
             setupNewsletterForm() {
@@ -713,6 +1248,57 @@
                     // Reset form
                     document.getElementById('newsletter-email').value = '';
                 });
+            }
+            
+            calculateLifePath(dateString) {
+                const date = new Date(dateString);
+                let sum = date.getFullYear() + (date.getMonth() + 1) + date.getDate();
+                
+                while (sum > 9 && sum !== 11 && sum !== 22) {
+                    sum = sum.toString().split('').reduce((a, b) => parseInt(a) + parseInt(b), 0);
+                }
+                
+                return sum;
+            }
+            
+            showLoading(type) {
+                const text = document.getElementById(`${type}-text`);
+                const icon = document.getElementById(`${type}-icon`);
+                const loading = document.getElementById(`${type}-loading`);
+                
+                if (text) text.textContent = 'Processing...';
+                if (icon) icon.classList.add('hidden');
+                if (loading) loading.classList.remove('hidden');
+            }
+            
+            hideLoading(type) {
+                const text = document.getElementById(`${type}-text`);
+                const icon = document.getElementById(`${type}-icon`);
+                const loading = document.getElementById(`${type}-loading`);
+                
+                const defaultTexts = {
+                    'astro': 'Generate Birth Chart',
+                    'num': 'Calculate Numbers',
+                    'tarot': 'Reveal Cards',
+                    'dream': 'Analyze Dream'
+                };
+                
+                if (text) text.textContent = defaultTexts[type] || 'Submit';
+                if (icon) icon.classList.remove('hidden');
+                if (loading) loading.classList.add('hidden');
+            }
+            
+            showResult(containerId, type, content) {
+                const container = document.getElementById(containerId);
+                if (type === 'success') {
+                    container.innerHTML = content;
+                } else {
+                    container.innerHTML = `
+                        <div class="text-center py-10">
+                            <div class="text-red-400 mb-4">${content}</div>
+                        </div>
+                    `;
+                }
             }
             
             addShootingStars() {
