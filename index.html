@@ -62,6 +62,7 @@
             --cosmic-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
             --mystical-gradient: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
             --aurora-gradient: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            --success-gradient: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
             
             --glass-bg: rgba(255, 255, 255, 0.1);
             --glass-border: rgba(255, 255, 255, 0.2);
@@ -105,6 +106,7 @@
         .bg-aurora { background: var(--aurora-gradient); }
         .bg-primary { background: var(--primary-gradient); }
         .bg-secondary { background: var(--secondary-gradient); }
+        .bg-success { background: var(--success-gradient); }
         
         /* Enhanced Buttons */
         .btn-cosmic {
@@ -122,6 +124,7 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
+            text-decoration: none;
         }
         
         .btn-cosmic::before {
@@ -157,12 +160,33 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
+            text-decoration: none;
         }
         
         .btn-glass:hover {
             background: rgba(255, 255, 255, 0.2);
             border-color: rgba(255, 255, 255, 0.4);
             transform: translateY(-2px);
+        }
+        
+        .btn-success {
+            background: var(--success-gradient);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            padding: 12px 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--smooth-transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+        
+        .btn-success:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 6px 25px rgba(132, 250, 176, 0.4);
         }
         
         /* Enhanced Forms */
@@ -254,20 +278,6 @@
             display: grid;
             gap: 20px;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        }
-        
-        .cosmic-grid-item {
-            background: var(--glass-bg);
-            backdrop-filter: var(--glass-backdrop);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--border-radius-md);
-            padding: 25px;
-            transition: var(--smooth-transition);
-        }
-        
-        .cosmic-grid-item:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--glass-shadow);
         }
         
         /* Theme Selector */
@@ -388,7 +398,7 @@
                 padding: 20px;
             }
             
-            .btn-cosmic, .btn-glass {
+            .btn-cosmic, .btn-glass, .btn-success {
                 padding: 12px 25px;
                 width: 100%;
             }
@@ -435,6 +445,7 @@
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
                         <a href="#home" class="text-white/80 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
+                        <a href="./services.html" class="text-white/80 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Services</a>
                         <a href="#astrology" class="text-white/80 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Astrology</a>
                         <a href="#numerology" class="text-white/80 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Numerology</a>
                         <a href="#tarot" class="text-white/80 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Tarot</a>
@@ -453,6 +464,7 @@
         <div id="mobile-menu" class="hidden md:hidden bg-white/10 backdrop-blur-lg">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 <a href="#home" class="text-white/80 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Home</a>
+                <a href="./services.html" class="text-white/80 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Services</a>
                 <a href="#astrology" class="text-white/80 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Astrology</a>
                 <a href="#numerology" class="text-white/80 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Numerology</a>
                 <a href="#tarot" class="text-white/80 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Tarot</a>
@@ -475,9 +487,19 @@
                     <a href="#astrology" class="btn-cosmic">
                         Explore Now <i class="fas fa-arrow-right ml-2"></i>
                     </a>
-                    <a href="#services" class="btn-glass">
-                        Learn More
+                    <a href="./services.html" class="btn-success">
+                        <i class="fas fa-clipboard-list mr-2"></i> Complete Reports
                     </a>
+                </div>
+                <div class="text-center mb-8">
+                    <div class="glassmorphism inline-block">
+                        <p class="text-white/90 font-semibold mb-2">
+                            <i class="fas fa-sparkles mr-2 text-yellow-400"></i> NEW: Comprehensive Reports Available!
+                        </p>
+                        <p class="text-white/70 text-sm">
+                            Generate detailed reports combining astrology, numerology, and more in one complete analysis.
+                        </p>
+                    </div>
                 </div>
             </div>
             
@@ -511,6 +533,40 @@
                     <p class="text-white/80">Interpret the hidden messages in your dreams and subconscious.</p>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- Services Preview Section -->
+    <section id="services" class="py-20 px-4 sm:px-6 lg:px-8 bg-success page-transition">
+        <div class="max-w-7xl mx-auto text-center">
+            <h2 class="text-3xl md:text-4xl font-serif font-bold text-white mb-6">
+                <i class="fas fa-clipboard-list mr-3"></i>Comprehensive Reports
+            </h2>
+            <p class="text-white/80 text-lg max-w-2xl mx-auto mb-10">
+                Get detailed, personalized reports that combine multiple spiritual insights into one complete analysis.
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                <div class="glassmorphism card-3d text-center">
+                    <i class="fas fa-chart-line text-3xl text-white mb-4"></i>
+                    <h3 class="text-xl font-semibold text-white mb-3">Multi-Discipline Analysis</h3>
+                    <p class="text-white/80">Combine astrology, numerology, compatibility, and forecasting in one report.</p>
+                </div>
+                <div class="glassmorphism card-3d text-center">
+                    <i class="fas fa-file-export text-3xl text-white mb-4"></i>
+                    <h3 class="text-xl font-semibold text-white mb-3">Export & Save</h3>
+                    <p class="text-white/80">Download as PDF, email reports, or save to your personal cosmic library.</p>
+                </div>
+                <div class="glassmorphism card-3d text-center">
+                    <i class="fas fa-history text-3xl text-white mb-4"></i>
+                    <h3 class="text-xl font-semibold text-white mb-3">Track Progress</h3>
+                    <p class="text-white/80">Access report history and track your spiritual journey over time.</p>
+                </div>
+            </div>
+            
+            <a href="./services.html" class="btn-cosmic text-lg">
+                <i class="fas fa-rocket mr-2"></i> Generate Your Complete Report
+            </a>
         </div>
     </section>
 
@@ -803,7 +859,7 @@
                         </div>
                     </div>
                     <p class="text-white/80 italic">
-                        "The astrology reading was incredibly accurate and detailed. It helped me understand myself better and gave me clarity about my career path."
+                        "The complete report feature is amazing! Having everything in one PDF made it so easy to share with my therapist."
                     </p>
                 </div>
                 
@@ -824,7 +880,7 @@
                         </div>
                     </div>
                     <p class="text-white/80 italic">
-                        "The numerology report was spot on! I was amazed at how my life path number perfectly described my personality and life challenges."
+                        "The comprehensive reports gave me insights I never would have discovered on my own. Highly recommended!"
                     </p>
                 </div>
                 
@@ -845,7 +901,7 @@
                         </div>
                     </div>
                     <p class="text-white/80 italic">
-                        "The dream interpretation helped me understand a recurring nightmare I've had since childhood. The insights were profound and healing."
+                        "The report history feature helps me track my spiritual growth over time. It's like having a cosmic journal!"
                     </p>
                 </div>
             </div>
@@ -893,6 +949,7 @@
                     <h3 class="text-lg font-serif font-semibold text-white mb-4">Quick Links</h3>
                     <ul class="space-y-2">
                         <li><a href="#home" class="text-white/70 hover:text-white text-sm transition-colors">Home</a></li>
+                        <li><a href="./services.html" class="text-white/70 hover:text-white text-sm transition-colors">Services</a></li>
                         <li><a href="#astrology" class="text-white/70 hover:text-white text-sm transition-colors">Astrology</a></li>
                         <li><a href="#numerology" class="text-white/70 hover:text-white text-sm transition-colors">Numerology</a></li>
                         <li><a href="#tarot" class="text-white/70 hover:text-white text-sm transition-colors">Tarot</a></li>
@@ -998,10 +1055,10 @@
                 
                 // Update sections
                 const sections = document.querySelectorAll('section');
-                const themes = ['cosmic', 'mystical', 'aurora', 'primary', 'secondary'];
+                const themes = ['cosmic', 'success', 'mystical', 'aurora', 'primary', 'secondary'];
                 sections.forEach((section, index) => {
                     if (index > 0) { // Skip hero section
-                        section.className = section.className.replace(/bg-(cosmic|mystical|aurora|primary|secondary)/g, `bg-${themes[index % themes.length]}`);
+                        section.className = section.className.replace(/bg-(cosmic|success|mystical|aurora|primary|secondary)/g, `bg-${themes[index % themes.length]}`);
                     }
                 });
                 
