@@ -19,9 +19,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Enhanced Styles -->
-    <link rel="stylesheet" href="advanced-styles.css">
-    
     <script>
         tailwind.config = {
             theme: {
@@ -49,11 +46,6 @@
                             800: '#6d28d9',
                             900: '#5b21b6',
                         }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        serif: ['Playfair Display', 'serif'],
-                        mono: ['Space Mono', 'monospace'],
                     }
                 }
             }
@@ -63,43 +55,374 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
         
+        /* Enhanced CSS Variables */
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --cosmic-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --mystical-gradient: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            --aurora-gradient: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            --glass-backdrop: blur(20px);
+            
+            --smooth-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --bounce-transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            --border-radius-md: 20px;
+            --border-radius-lg: 30px;
+        }
+        
         body {
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
-        }
-        
-        /* Base theme - cosmic */
-        .theme-cosmic {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-        }
-        
-        .theme-mystical {
-            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-        }
-        
-        .theme-aurora {
-            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
-        }
-        
-        .theme-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-        
-        .theme-secondary {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-        }
-        
-        .hero-bg {
-            background: var(--cosmic-gradient, linear-gradient(135deg, #4facfe 0%, #00f2fe 100%));
             min-height: 100vh;
+        }
+        
+        /* Glassmorphism Effects */
+        .glassmorphism {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-backdrop);
+            -webkit-backdrop-filter: var(--glass-backdrop);
+            border-radius: var(--border-radius-md);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+            transition: var(--smooth-transition);
+            padding: 2rem;
+        }
+        
+        .glassmorphism:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.5);
+            transform: translateY(-2px);
+        }
+        
+        /* Theme Backgrounds */
+        .bg-cosmic { background: var(--cosmic-gradient); }
+        .bg-mystical { background: var(--mystical-gradient); }
+        .bg-aurora { background: var(--aurora-gradient); }
+        .bg-primary { background: var(--primary-gradient); }
+        .bg-secondary { background: var(--secondary-gradient); }
+        
+        /* Enhanced Buttons */
+        .btn-cosmic {
             position: relative;
+            background: var(--primary-gradient);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            padding: 12px 30px;
+            font-weight: 600;
+            cursor: pointer;
+            overflow: hidden;
+            transition: var(--bounce-transition);
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn-cosmic::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn-cosmic:hover::before {
+            left: 100%;
+        }
+        
+        .btn-cosmic:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.5);
+        }
+        
+        .btn-glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--smooth-transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn-glass:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        /* Enhanced Forms */
+        .input-cosmic {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--border-radius-md);
+            padding: 15px 20px;
+            color: white;
+            font-size: 16px;
+            transition: var(--smooth-transition);
+            width: 100%;
+        }
+        
+        .input-cosmic::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .input-cosmic:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .textarea-cosmic {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--border-radius-md);
+            padding: 20px;
+            color: white;
+            font-size: 16px;
+            line-height: 1.6;
+            resize: vertical;
+            min-height: 120px;
+            transition: var(--smooth-transition);
+            width: 100%;
+        }
+        
+        .textarea-cosmic::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .textarea-cosmic:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        /* Card Effects */
+        .card-3d {
+            transform-style: preserve-3d;
+            transition: var(--smooth-transition);
+            cursor: pointer;
+        }
+        
+        .card-3d:hover {
+            transform: rotateX(5deg) rotateY(5deg) translateZ(20px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .card-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        /* Text Effects */
+        .text-gradient {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+        
+        .text-shimmer {
+            background: linear-gradient(90deg, #667eea, #764ba2, #667eea);
+            background-size: 200% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 2s ease-in-out infinite;
+        }
+        
+        /* Grid Layout */
+        .cosmic-grid {
+            display: grid;
+            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+        
+        .cosmic-grid-item {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-backdrop);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius-md);
+            padding: 25px;
+            transition: var(--smooth-transition);
+        }
+        
+        .cosmic-grid-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--glass-shadow);
+        }
+        
+        /* Theme Selector */
+        .theme-selector {
+            position: fixed;
+            top: 90px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .theme-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: var(--smooth-transition);
+        }
+        
+        .theme-btn:hover,
+        .theme-btn.active {
+            border-color: rgba(255, 255, 255, 0.8);
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+        
+        .theme-cosmic { background: var(--cosmic-gradient); }
+        .theme-mystical { background: var(--mystical-gradient); }
+        .theme-aurora { background: var(--aurora-gradient); }
+        .theme-primary { background: var(--primary-gradient); }
+        .theme-secondary { background: var(--secondary-gradient); }
+        
+        /* Particles */
+        .particles-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: radial-gradient(circle, #667eea, #764ba2);
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: particleFloat 15s linear infinite;
+        }
+        
+        /* Loading Animation */
+        .loading-cosmic {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            border-radius: 50%;
+            border-top-color: #667eea;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        /* Animations */
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) translateX(0px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(200px) rotate(180deg);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .page-transition {
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .glassmorphism {
+                margin: 10px;
+                padding: 20px;
+            }
+            
+            .btn-cosmic, .btn-glass {
+                padding: 12px 25px;
+                width: 100%;
+            }
+            
+            .cosmic-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .theme-selector {
+                top: 70px;
+                right: 10px;
+                padding: 8px;
+            }
+            
+            .theme-btn {
+                width: 25px;
+                height: 25px;
+            }
         }
     </style>
 </head>
-<body class="min-h-screen theme-cosmic">
+<body class="min-h-screen bg-cosmic">
+    <!-- Theme Selector -->
+    <div class="theme-selector">
+        <div class="theme-btn theme-cosmic active" data-theme="cosmic" title="Cosmic Theme"></div>
+        <div class="theme-btn theme-mystical" data-theme="mystical" title="Mystical Theme"></div>
+        <div class="theme-btn theme-aurora" data-theme="aurora" title="Aurora Theme"></div>
+        <div class="theme-btn theme-primary" data-theme="primary" title="Primary Theme"></div>
+        <div class="theme-btn theme-secondary" data-theme="secondary" title="Secondary Theme"></div>
+    </div>
     
     <!-- Navigation -->
-    <nav class="glassmorphism fixed w-full z-50 border-b border-white/10">
+    <nav class="glassmorphism fixed w-full z-40 border-b border-white/10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center">
@@ -127,7 +450,7 @@
         </div>
         
         <!-- Mobile menu -->
-        <div id="mobile-menu" class="hidden md:hidden glassmorphism-intense">
+        <div id="mobile-menu" class="hidden md:hidden bg-white/10 backdrop-blur-lg">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 <a href="#home" class="text-white/80 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Home</a>
                 <a href="#astrology" class="text-white/80 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Astrology</a>
@@ -139,8 +462,8 @@
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="hero-bg pt-32 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden page-transition">
-        <div class="max-w-7xl mx-auto">
+    <section id="home" class="pt-32 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden min-h-screen flex items-center page-transition">
+        <div class="max-w-7xl mx-auto w-full">
             <div class="text-center">
                 <h1 class="text-4xl md:text-6xl font-serif font-bold text-white mb-6 card-float">
                     Unlock Your <span class="text-shimmer">Cosmic Potential</span>
@@ -148,7 +471,7 @@
                 <p class="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto mb-10">
                     Discover profound insights through astrology, numerology, tarot, and dream interpretation with our AI-powered guidance.
                 </p>
-                <div class="flex flex-wrap justify-center gap-4">
+                <div class="flex flex-wrap justify-center gap-4 mb-16">
                     <a href="#astrology" class="btn-cosmic">
                         Explore Now <i class="fas fa-arrow-right ml-2"></i>
                     </a>
@@ -158,33 +481,33 @@
                 </div>
             </div>
             
-            <div class="mt-20 cosmic-grid">
-                <div class="glassmorphism card-3d">
-                    <div class="text-white text-3xl mb-4">
+            <div class="cosmic-grid">
+                <div class="glassmorphism card-3d text-center">
+                    <div class="text-white text-4xl mb-4">
                         <i class="fas fa-star"></i>
                     </div>
-                    <h3 class="text-xl font-serif font-semibold text-white mb-2">Astrology</h3>
+                    <h3 class="text-xl font-serif font-semibold text-white mb-3">Astrology</h3>
                     <p class="text-white/80">Personalized birth chart readings and planetary transit analysis.</p>
                 </div>
-                <div class="glassmorphism card-3d">
-                    <div class="text-white text-3xl mb-4">
+                <div class="glassmorphism card-3d text-center">
+                    <div class="text-white text-4xl mb-4">
                         <i class="fas fa-hashtag"></i>
                     </div>
-                    <h3 class="text-xl font-serif font-semibold text-white mb-2">Numerology</h3>
+                    <h3 class="text-xl font-serif font-semibold text-white mb-3">Numerology</h3>
                     <p class="text-white/80">Discover your life path number and its profound significance.</p>
                 </div>
-                <div class="glassmorphism card-3d">
-                    <div class="text-white text-3xl mb-4">
+                <div class="glassmorphism card-3d text-center">
+                    <div class="text-white text-4xl mb-4">
                         <i class="fas fa-cards"></i>
                     </div>
-                    <h3 class="text-xl font-serif font-semibold text-white mb-2">Tarot</h3>
+                    <h3 class="text-xl font-serif font-semibold text-white mb-3">Tarot</h3>
                     <p class="text-white/80">AI-powered tarot readings for guidance and self-reflection.</p>
                 </div>
-                <div class="glassmorphism card-3d">
-                    <div class="text-white text-3xl mb-4">
+                <div class="glassmorphism card-3d text-center">
+                    <div class="text-white text-4xl mb-4">
                         <i class="fas fa-cloud-moon"></i>
                     </div>
-                    <h3 class="text-xl font-serif font-semibold text-white mb-2">Dreams</h3>
+                    <h3 class="text-xl font-serif font-semibold text-white mb-3">Dreams</h3>
                     <p class="text-white/80">Interpret the hidden messages in your dreams and subconscious.</p>
                 </div>
             </div>
@@ -192,7 +515,7 @@
     </section>
 
     <!-- Astrology Section -->
-    <section id="astrology" class="py-20 px-4 sm:px-6 lg:px-8 bg-mystical page-transition">
+    <section id="astrology" class="py-20 px-4 sm:px-6 lg:px-8 bg-mystical page-transition min-h-screen">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-serif font-bold text-white mb-4">
@@ -209,22 +532,22 @@
                     
                     <form id="astrology-form" class="space-y-4">
                         <div>
-                            <label for="birth-date" class="block text-white/80 mb-2">Birth Date</label>
+                            <label for="birth-date" class="block text-white/80 mb-2 font-medium">Birth Date</label>
                             <input type="date" id="birth-date" class="input-cosmic">
                         </div>
                         
                         <div>
-                            <label for="birth-time" class="block text-white/80 mb-2">Birth Time (optional)</label>
+                            <label for="birth-time" class="block text-white/80 mb-2 font-medium">Birth Time (optional)</label>
                             <input type="time" id="birth-time" class="input-cosmic">
                         </div>
                         
                         <div>
-                            <label for="birth-place" class="block text-white/80 mb-2">Birth Place</label>
+                            <label for="birth-place" class="block text-white/80 mb-2 font-medium">Birth Place</label>
                             <input type="text" id="birth-place" placeholder="City, Country" class="input-cosmic">
                         </div>
                         
                         <div>
-                            <label for="astrology-question" class="block text-white/80 mb-2">Specific Question (optional)</label>
+                            <label for="astrology-question" class="block text-white/80 mb-2 font-medium">Specific Question (optional)</label>
                             <textarea id="astrology-question" rows="3" placeholder="What would you like to know about your chart?" class="textarea-cosmic"></textarea>
                         </div>
                         
@@ -238,7 +561,7 @@
                 <div class="glassmorphism h-full">
                     <h3 class="text-2xl font-serif font-semibold text-white mb-6">Your Astrology Reading</h3>
                     
-                    <div id="astrology-result" class="prose prose-invert max-w-none">
+                    <div id="astrology-result" class="text-white/90">
                         <div class="text-center py-10 text-white/70">
                             <i class="fas fa-stars text-4xl mb-4"></i>
                             <p>Enter your birth details to receive a personalized astrology reading.</p>
@@ -250,7 +573,7 @@
     </section>
 
     <!-- Numerology Section -->
-    <section id="numerology" class="py-20 px-4 sm:px-6 lg:px-8 bg-aurora page-transition">
+    <section id="numerology" class="py-20 px-4 sm:px-6 lg:px-8 bg-aurora page-transition min-h-screen">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-serif font-bold text-white mb-4">
@@ -267,17 +590,17 @@
                     
                     <form id="numerology-form" class="space-y-4">
                         <div>
-                            <label for="full-name" class="block text-white/80 mb-2">Full Name (at birth)</label>
+                            <label for="full-name" class="block text-white/80 mb-2 font-medium">Full Name (at birth)</label>
                             <input type="text" id="full-name" placeholder="Enter your full birth name" class="input-cosmic">
                         </div>
                         
                         <div>
-                            <label for="numerology-birth-date" class="block text-white/80 mb-2">Birth Date</label>
+                            <label for="numerology-birth-date" class="block text-white/80 mb-2 font-medium">Birth Date</label>
                             <input type="date" id="numerology-birth-date" class="input-cosmic">
                         </div>
                         
                         <div>
-                            <label for="numerology-question" class="block text-white/80 mb-2">Specific Focus (optional)</label>
+                            <label for="numerology-question" class="block text-white/80 mb-2 font-medium">Specific Focus (optional)</label>
                             <select id="numerology-question" class="input-cosmic">
                                 <option value="">General Life Path Reading</option>
                                 <option value="destiny">Destiny Number</option>
@@ -297,7 +620,7 @@
                 <div class="glassmorphism h-full">
                     <h3 class="text-2xl font-serif font-semibold text-white mb-6">Your Numerology Report</h3>
                     
-                    <div id="numerology-result" class="prose prose-invert max-w-none">
+                    <div id="numerology-result" class="text-white/90">
                         <div class="text-center py-10 text-white/70">
                             <i class="fas fa-calculator text-4xl mb-4"></i>
                             <p>Enter your name and birth date to discover your numerology profile.</p>
@@ -309,7 +632,7 @@
     </section>
 
     <!-- Tarot Section -->
-    <section id="tarot" class="py-20 px-4 sm:px-6 lg:px-8 bg-primary page-transition">
+    <section id="tarot" class="py-20 px-4 sm:px-6 lg:px-8 bg-primary page-transition min-h-screen">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-serif font-bold text-white mb-4">
@@ -326,45 +649,45 @@
                     
                     <form id="tarot-form" class="space-y-6">
                         <div>
-                            <label class="block text-white/80 mb-4">Reading Type</label>
-                            <div class="cosmic-grid">
+                            <label class="block text-white/80 mb-4 font-medium">Reading Type</label>
+                            <div class="grid grid-cols-2 gap-4">
                                 <div>
                                     <input type="radio" id="single-card" name="reading-type" value="single" class="hidden peer" checked>
-                                    <label for="single-card" class="block glassmorphism cursor-pointer peer-checked:border-white/50">
-                                        <div class="text-white text-lg mb-1">
+                                    <label for="single-card" class="block glassmorphism cursor-pointer peer-checked:border-white/50 text-center">
+                                        <div class="text-white text-2xl mb-2">
                                             <i class="fas fa-card-club"></i>
                                         </div>
-                                        <h4 class="font-medium text-white">Single Card</h4>
+                                        <h4 class="font-medium text-white mb-1">Single Card</h4>
                                         <p class="text-sm text-white/70">Quick daily guidance</p>
                                     </label>
                                 </div>
                                 <div>
                                     <input type="radio" id="three-card" name="reading-type" value="three" class="hidden peer">
-                                    <label for="three-card" class="block glassmorphism cursor-pointer peer-checked:border-white/50">
-                                        <div class="text-white text-lg mb-1">
+                                    <label for="three-card" class="block glassmorphism cursor-pointer peer-checked:border-white/50 text-center">
+                                        <div class="text-white text-2xl mb-2">
                                             <i class="fas fa-cards"></i>
                                         </div>
-                                        <h4 class="font-medium text-white">Three Cards</h4>
+                                        <h4 class="font-medium text-white mb-1">Three Cards</h4>
                                         <p class="text-sm text-white/70">Past, Present, Future</p>
                                     </label>
                                 </div>
                                 <div>
                                     <input type="radio" id="celtic-cross" name="reading-type" value="celtic" class="hidden peer">
-                                    <label for="celtic-cross" class="block glassmorphism cursor-pointer peer-checked:border-white/50">
-                                        <div class="text-white text-lg mb-1">
+                                    <label for="celtic-cross" class="block glassmorphism cursor-pointer peer-checked:border-white/50 text-center">
+                                        <div class="text-white text-2xl mb-2">
                                             <i class="fas fa-cross"></i>
                                         </div>
-                                        <h4 class="font-medium text-white">Celtic Cross</h4>
-                                        <p class="text-sm text-white/70">In-depth 10 card spread</p>
+                                        <h4 class="font-medium text-white mb-1">Celtic Cross</h4>
+                                        <p class="text-sm text-white/70">In-depth spread</p>
                                     </label>
                                 </div>
                                 <div>
                                     <input type="radio" id="love" name="reading-type" value="love" class="hidden peer">
-                                    <label for="love" class="block glassmorphism cursor-pointer peer-checked:border-white/50">
-                                        <div class="text-white text-lg mb-1">
+                                    <label for="love" class="block glassmorphism cursor-pointer peer-checked:border-white/50 text-center">
+                                        <div class="text-white text-2xl mb-2">
                                             <i class="fas fa-heart"></i>
                                         </div>
-                                        <h4 class="font-medium text-white">Love Reading</h4>
+                                        <h4 class="font-medium text-white mb-1">Love Reading</h4>
                                         <p class="text-sm text-white/70">Relationship insights</p>
                                     </label>
                                 </div>
@@ -372,7 +695,7 @@
                         </div>
                         
                         <div>
-                            <label for="tarot-question" class="block text-white/80 mb-2">Your Question or Focus</label>
+                            <label for="tarot-question" class="block text-white/80 mb-2 font-medium">Your Question or Focus</label>
                             <textarea id="tarot-question" rows="3" placeholder="What guidance do you seek today?" class="textarea-cosmic"></textarea>
                         </div>
                         
@@ -386,7 +709,7 @@
                 <div class="glassmorphism h-full">
                     <h3 class="text-2xl font-serif font-semibold text-white mb-6">Your Tarot Reading</h3>
                     
-                    <div id="tarot-result" class="prose prose-invert max-w-none">
+                    <div id="tarot-result" class="text-white/90">
                         <div class="text-center py-10 text-white/70">
                             <i class="fas fa-cards-blank text-4xl mb-4"></i>
                             <p>Select a reading type and focus to receive your tarot guidance.</p>
@@ -398,7 +721,7 @@
     </section>
 
     <!-- Dream Interpretation Section -->
-    <section id="dreams" class="py-20 px-4 sm:px-6 lg:px-8 bg-secondary page-transition">
+    <section id="dreams" class="py-20 px-4 sm:px-6 lg:px-8 bg-secondary page-transition min-h-screen">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-serif font-bold text-white mb-4">
@@ -415,34 +738,17 @@
                     
                     <form id="dream-form" class="space-y-4">
                         <div>
-                            <label for="dream-date" class="block text-white/80 mb-2">Dream Date (approximate)</label>
+                            <label for="dream-date" class="block text-white/80 mb-2 font-medium">Dream Date (approximate)</label>
                             <input type="date" id="dream-date" class="input-cosmic">
                         </div>
                         
                         <div>
-                            <label for="dream-theme" class="block text-white/80 mb-2">Dream Theme</label>
-                            <select id="dream-theme" class="input-cosmic">
-                                <option value="">Select a theme (optional)</option>
-                                <option value="flying">Flying</option>
-                                <option value="falling">Falling</option>
-                                <option value="chase">Being Chased</option>
-                                <option value="teeth">Losing Teeth</option>
-                                <option value="water">Water</option>
-                                <option value="death">Death</option>
-                                <option value="naked">Being Naked</option>
-                                <option value="test">Taking a Test</option>
-                                <option value="house">House/Rooms</option>
-                                <option value="vehicle">Vehicle</option>
-                            </select>
-                        </div>
-                        
-                        <div>
-                            <label for="dream-description" class="block text-white/80 mb-2">Dream Description</label>
+                            <label for="dream-description" class="block text-white/80 mb-2 font-medium">Dream Description</label>
                             <textarea id="dream-description" rows="6" placeholder="Describe your dream in as much detail as possible..." class="textarea-cosmic"></textarea>
                         </div>
                         
                         <div>
-                            <label for="dream-feeling" class="block text-white/80 mb-2">How did you feel in the dream?</label>
+                            <label for="dream-feeling" class="block text-white/80 mb-2 font-medium">How did you feel in the dream?</label>
                             <input type="text" id="dream-feeling" placeholder="Scared, happy, confused, etc." class="input-cosmic">
                         </div>
                         
@@ -456,7 +762,7 @@
                 <div class="glassmorphism h-full">
                     <h3 class="text-2xl font-serif font-semibold text-white mb-6">Your Dream Interpretation</h3>
                     
-                    <div id="dream-result" class="prose prose-invert max-w-none">
+                    <div id="dream-result" class="text-white/90">
                         <div class="text-center py-10 text-white/70">
                             <i class="fas fa-moon-stars text-4xl mb-4"></i>
                             <p>Describe your dream to receive a detailed interpretation of its symbolism and meaning.</p>
@@ -547,7 +853,7 @@
     </section>
 
     <!-- CTA Section -->
-    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-cosmic page-transition">
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-primary page-transition">
         <div class="max-w-4xl mx-auto text-center">
             <div class="glassmorphism card-float">
                 <h2 class="text-3xl md:text-4xl font-serif font-bold text-white mb-6">
@@ -573,13 +879,13 @@
     </section>
 
     <!-- Footer -->
-    <footer class="glassmorphism py-12 px-4 sm:px-6 lg:px-8 border-t border-white/10">
+    <footer class="glassmorphism py-12 px-4 sm:px-6 lg:px-8 border-t border-white/10 m-4 rounded-lg">
         <div class="max-w-7xl mx-auto">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
                 <div>
                     <h3 class="text-lg font-serif font-semibold text-white mb-4">Cosmic Insights</h3>
                     <p class="text-white/70 text-sm">
-                        Exploring the mysteries of the universe to bring you clarity and guidance through astrology, numerology, tarot, and dream interpretation.
+                        Exploring the mysteries of the universe to bring you clarity and guidance.
                     </p>
                 </div>
                 
@@ -620,183 +926,312 @@
                         </a>
                     </div>
                     <p class="text-white/70 text-sm">
-                        <i class="fas fa-envelope mr-2"></i> <a href="mailto:support@cosmicinsights.com">support@cosmicinsights.com</a>
+                        <i class="fas fa-envelope mr-2"></i> support@cosmicinsights.com
                     </p>
                 </div>
             </div>
             
             <div class="mt-12 pt-8 border-t border-white/10 text-center">
                 <p class="text-white/60 text-sm">
-                    © 2025 Cosmic Insights. All rights reserved. 
-                    <span class="block sm:inline">This website is for entertainment purposes only.</span>
+                    © 2025 Cosmic Insights. All rights reserved.
                 </p>
             </div>
         </div>
     </footer>
-
-    <!-- Enhanced Features JavaScript -->
-    <script src="enhanced-features.js" defer></script>
     
-    <!-- Original JavaScript -->
     <script>
-        // Mobile menu toggle
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
+        // Enhanced Cosmic Insights JavaScript
+        class CosmicEnhancements {
+            constructor() {
+                this.particleCount = 30;
+                this.particles = [];
+                this.currentTheme = 'cosmic';
+                this.init();
+            }
+            
+            init() {
+                this.createParticleSystem();
+                this.setupThemeSelector();
+                this.setup3DCardEffects();
+                this.setupScrollAnimations();
+                this.loadPreferences();
+            }
+            
+            createParticleSystem() {
+                const container = document.createElement('div');
+                container.className = 'particles-container';
+                document.body.appendChild(container);
+                
+                for (let i = 0; i < this.particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.animationDelay = Math.random() * 15 + 's';
+                    particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+                    
+                    container.appendChild(particle);
+                    this.particles.push(particle);
+                }
+            }
+            
+            setupThemeSelector() {
+                const themeSelector = document.querySelector('.theme-selector');
+                if (!themeSelector) return;
+                
+                themeSelector.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('theme-btn')) {
+                        this.changeTheme(e.target.dataset.theme);
+                    }
+                });
+            }
+            
+            changeTheme(theme) {
+                this.currentTheme = theme;
+                document.body.className = `min-h-screen bg-${theme}`;
+                
+                // Update active button
+                document.querySelectorAll('.theme-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                document.querySelector(`[data-theme="${theme}"]`).classList.add('active');
+                
+                // Update sections
+                const sections = document.querySelectorAll('section');
+                const themes = ['cosmic', 'mystical', 'aurora', 'primary', 'secondary'];
+                sections.forEach((section, index) => {
+                    if (index > 0) { // Skip hero section
+                        section.className = section.className.replace(/bg-(cosmic|mystical|aurora|primary|secondary)/g, `bg-${themes[index % themes.length]}`);
+                    }
+                });
+                
+                // Save preference
+                localStorage.setItem('cosmic-theme', theme);
+            }
+            
+            setup3DCardEffects() {
+                const cards = document.querySelectorAll('.card-3d, .glassmorphism');
+                
+                cards.forEach(card => {
+                    card.addEventListener('mouseenter', () => {
+                        if (!card.classList.contains('card-3d')) return;
+                        card.style.transform = 'perspective(1000px) rotateX(5deg) rotateY(5deg) translateZ(20px)';
+                    });
+                    
+                    card.addEventListener('mouseleave', () => {
+                        if (!card.classList.contains('card-3d')) return;
+                        card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
+                    });
+                });
+            }
+            
+            setupScrollAnimations() {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('page-transition');
+                        }
+                    });
+                }, { threshold: 0.1 });
+                
+                document.querySelectorAll('section').forEach(section => {
+                    observer.observe(section);
+                });
+            }
+            
+            loadPreferences() {
+                const savedTheme = localStorage.getItem('cosmic-theme');
+                if (savedTheme) {
+                    this.changeTheme(savedTheme);
+                }
+            }
+        }
         
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
+        // Initialize when DOM loads
+        document.addEventListener('DOMContentLoaded', () => {
+            window.cosmicEnhancements = new CosmicEnhancements();
+        });
+        
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', () => {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
         });
         
         // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
                     
-                    // Close mobile menu if open
-                    mobileMenu.classList.add('hidden');
-                }
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Close mobile menu if open
+                        const mobileMenu = document.getElementById('mobile-menu');
+                        if (mobileMenu) {
+                            mobileMenu.classList.add('hidden');
+                        }
+                    }
+                });
             });
         });
         
-        // Form submissions with real API calls
-        const forms = {
-            astrology: document.getElementById('astrology-form'),
-            numerology: document.getElementById('numerology-form'),
-            tarot: document.getElementById('tarot-form'),
-            dream: document.getElementById('dream-form')
-        };
-        
-        const resultContainers = {
-            astrology: document.getElementById('astrology-result'),
-            numerology: document.getElementById('numerology-result'),
-            tarot: document.getElementById('tarot-result'),
-            dream: document.getElementById('dream-result')
-        };
-        
-        const loadingElements = {
-            astrology: document.getElementById('astrology-loading'),
-            numerology: document.getElementById('numerology-loading'),
-            tarot: document.getElementById('tarot-loading'),
-            dream: document.getElementById('dream-loading')
-        };
-        
-        const submitTexts = {
-            astrology: document.getElementById('astrology-submit-text'),
-            numerology: document.getElementById('numerology-submit-text'),
-            tarot: document.getElementById('tarot-submit-text'),
-            dream: document.getElementById('dream-submit-text')
-        };
-
-        // Handle form submissions
-        Object.keys(forms).forEach(type => {
-            forms[type].addEventListener('submit', async (event) => {
-                event.preventDefault();
+        // Form submissions with API calls
+        document.addEventListener('DOMContentLoaded', () => {
+            const forms = {
+                astrology: document.getElementById('astrology-form'),
+                numerology: document.getElementById('numerology-form'),
+                tarot: document.getElementById('tarot-form'),
+                dream: document.getElementById('dream-form')
+            };
+            
+            const resultContainers = {
+                astrology: document.getElementById('astrology-result'),
+                numerology: document.getElementById('numerology-result'),
+                tarot: document.getElementById('tarot-result'),
+                dream: document.getElementById('dream-result')
+            };
+            
+            const loadingElements = {
+                astrology: document.getElementById('astrology-loading'),
+                numerology: document.getElementById('numerology-loading'),
+                tarot: document.getElementById('tarot-loading'),
+                dream: document.getElementById('dream-loading')
+            };
+            
+            const submitTexts = {
+                astrology: document.getElementById('astrology-submit-text'),
+                numerology: document.getElementById('numerology-submit-text'),
+                tarot: document.getElementById('tarot-submit-text'),
+                dream: document.getElementById('dream-submit-text')
+            };
+            
+            // Handle form submissions
+            Object.keys(forms).forEach(type => {
+                if (!forms[type]) return;
                 
-                // Show loading state
-                loadingElements[type].classList.remove('hidden');
-                submitTexts[type].textContent = 'Processing';
-                
-                let prompt = '';
-                
-                if (type === 'astrology') {
-                    const birthDate = document.getElementById('birth-date').value;
-                    const birthTime = document.getElementById('birth-time').value;
-                    const birthPlace = document.getElementById('birth-place').value;
-                    const question = document.getElementById('astrology-question').value;
+                forms[type].addEventListener('submit', async (event) => {
+                    event.preventDefault();
                     
-                    if (!birthDate || !birthPlace) {
+                    // Show loading state
+                    if (loadingElements[type]) loadingElements[type].classList.remove('hidden');
+                    if (submitTexts[type]) submitTexts[type].textContent = 'Processing';
+                    
+                    let prompt = '';
+                    
+                    if (type === 'astrology') {
+                        const birthDate = document.getElementById('birth-date').value;
+                        const birthTime = document.getElementById('birth-time').value;
+                        const birthPlace = document.getElementById('birth-place').value;
+                        const question = document.getElementById('astrology-question').value;
+                        
+                        if (!birthDate || !birthPlace) {
+                            resultContainers[type].innerHTML = `
+                                <div class="text-center py-10 text-red-400">
+                                    <p>Please provide your birth date and birth place.</p>
+                                </div>
+                            `;
+                            if (loadingElements[type]) loadingElements[type].classList.add('hidden');
+                            if (submitTexts[type]) submitTexts[type].textContent = 'Generate Reading';
+                            return;
+                        }
+                        
+                        prompt = `Provide a detailed astrology reading for someone born on ${birthDate}${birthTime ? ' at ' + birthTime : ''} in ${birthPlace}. ${question ? 'Focus on: ' + question : ''}`;
+                    } else if (type === 'numerology') {
+                        const fullName = document.getElementById('full-name').value;
+                        const birthDate = document.getElementById('numerology-birth-date').value;
+                        const question = document.getElementById('numerology-question').value;
+                        
+                        if (!fullName || !birthDate) {
+                            resultContainers[type].innerHTML = `
+                                <div class="text-center py-10 text-red-400">
+                                    <p>Please provide your full name and birth date.</p>
+                                </div>
+                            `;
+                            if (loadingElements[type]) loadingElements[type].classList.add('hidden');
+                            if (submitTexts[type]) submitTexts[type].textContent = 'Calculate Numbers';
+                            return;
+                        }
+                        
+                        prompt = `Provide a detailed numerology reading for ${fullName} born on ${birthDate}. ${question ? 'Focus on: ' + question : 'Include life path, destiny, and soul urge numbers.'}`;
+                    } else if (type === 'tarot') {
+                        const readingType = document.querySelector('input[name="reading-type"]:checked')?.value || 'single';
+                        const question = document.getElementById('tarot-question').value;
+                        
+                        prompt = `Provide a ${readingType} card tarot reading. ${question ? 'Question: ' + question : 'Provide general guidance.'}`;
+                    } else if (type === 'dream') {
+                        const dreamDate = document.getElementById('dream-date').value;
+                        const description = document.getElementById('dream-description').value;
+                        const feeling = document.getElementById('dream-feeling').value;
+                        
+                        if (!description) {
+                            resultContainers[type].innerHTML = `
+                                <div class="text-center py-10 text-red-400">
+                                    <p>Please provide a description of your dream.</p>
+                                </div>
+                            `;
+                            if (loadingElements[type]) loadingElements[type].classList.add('hidden');
+                            if (submitTexts[type]) submitTexts[type].textContent = 'Interpret Dream';
+                            return;
+                        }
+                        
+                        prompt = `Interpret this dream: ${description}. ${feeling ? 'The dreamer felt: ' + feeling : ''} ${dreamDate ? 'Dream occurred around: ' + dreamDate : ''}`;
+                    }
+                    
+                    try {
+                        const response = await fetch('/api/groq', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ prompt })
+                        });
+                        
+                        const data = await response.json();
+                        
+                        if (response.ok && data.text) {
+                            resultContainers[type].innerHTML = `
+                                <div class="text-white/90 whitespace-pre-line leading-relaxed">
+                                    ${data.text}
+                                </div>
+                            `;
+                        } else {
+                            throw new Error(data.error || 'Failed to generate reading');
+                        }
+                    } catch (error) {
                         resultContainers[type].innerHTML = `
                             <div class="text-center py-10 text-red-400">
-                                <p>Please provide your birth date and birth place.</p>
+                                <p>Error: ${error.message}</p>
+                                <p class="text-sm mt-2">Please try again later.</p>
                             </div>
                         `;
-                        loadingElements[type].classList.add('hidden');
-                        submitTexts[type].textContent = 'Generate Reading';
-                        return;
+                    } finally {
+                        // Reset loading state
+                        if (loadingElements[type]) loadingElements[type].classList.add('hidden');
+                        if (submitTexts[type]) {
+                            const defaultTexts = {
+                                astrology: 'Generate Reading',
+                                numerology: 'Calculate Numbers',
+                                tarot: 'Draw Cards',
+                                dream: 'Interpret Dream'
+                            };
+                            submitTexts[type].textContent = defaultTexts[type];
+                        }
                     }
-                    
-                    prompt = `Provide a detailed astrology reading based on the following details:\nBirth Date: ${birthDate}\nBirth Time: ${birthTime || 'Not provided'}\nBirth Place: ${birthPlace}\nQuestion: ${question || 'No specific question'}`;
-                } else if (type === 'numerology') {
-                    const fullName = document.getElementById('full-name').value;
-                    const birthDate = document.getElementById('numerology-birth-date').value;
-                    const question = document.getElementById('numerology-question').value;
-                    
-                    if (!fullName || !birthDate) {
-                        resultContainers[type].innerHTML = `
-                            <div class="text-center py-10 text-red-400">
-                                <p>Please provide your full name and birth date.</p>
-                            </div>
-                        `;
-                        loadingElements[type].classList.add('hidden');
-                        submitTexts[type].textContent = 'Calculate Numbers';
-                        return;
-                    }
-                    
-                    prompt = `Provide a detailed numerology reading based on the following details:\nFull Name: ${fullName}\nBirth Date: ${birthDate}\nSpecific Focus: ${question || 'General Life Path Reading'}`;
-                } else if (type === 'tarot') {
-                    const readingType = document.querySelector('input[name="reading-type"]:checked').value;
-                    const question = document.getElementById('tarot-question').value;
-                    
-                    prompt = `Provide a tarot reading based on the following details:\nReading Type: ${readingType} card reading\nQuestion/Focus: ${question || 'General guidance'}`;
-                } else if (type === 'dream') {
-                    const dreamDate = document.getElementById('dream-date').value;
-                    const dreamTheme = document.getElementById('dream-theme').value;
-                    const description = document.getElementById('dream-description').value;
-                    const feeling = document.getElementById('dream-feeling').value;
-                    
-                    if (!description) {
-                        resultContainers[type].innerHTML = `
-                            <div class="text-center py-10 text-red-400">
-                                <p>Please provide a description of your dream.</p>
-                            </div>
-                        `;
-                        loadingElements[type].classList.add('hidden');
-                        submitTexts[type].textContent = 'Interpret Dream';
-                        return;
-                    }
-                    
-                    prompt = `Provide a detailed dream interpretation based on the following details:\nDream Date: ${dreamDate || 'Not specified'}\nDream Theme: ${dreamTheme || 'Not specified'}\nDescription: ${description}\nFeeling: ${feeling || 'Not specified'}`;
-                }
-                
-                try {
-                    const response = await fetch('/api/groq', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ prompt })
-                    });
-                    
-                    const data = await response.json();
-                    
-                    if (response.ok) {
-                        resultContainers[type].innerHTML = `
-                            <div class="text-white/90 whitespace-pre-line">
-                                ${data.text}
-                            </div>
-                        `;
-                       
-                    }
-                } catch (error) {
-                    resultContainers[type].innerHTML = `
-                        <div class="text-center py-10 text-red-400">
-                            <p>Network error: ${error.message}</p>
-                        </div>
-                    `;
-                } finally {
-                    // Reset loading state
-                    loadingElements[type].classList.add('hidden');
-                    submitTexts[type].textContent = type === 'astrology' ? 'Generate Reading' : type === 'numerology' ? 'Calculate Numbers' : type === 'tarot' ? 'Draw Cards' : 'Interpret Dream';
-                }
+                });
             });
         });
     </script>
