@@ -3,131 +3,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cosmic Insights - AI-Powered Spiritual Guidance</title>
-    
-    <!-- PWA Meta Tags -->
-    <meta name="theme-color" content="#667eea">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="Cosmic Insights">
-    <meta name="description" content="Advanced AI-powered spiritual guidance with astrology, numerology, tarot, and dream interpretation">
-    
-    <!-- PWA Manifest -->
-    <link rel="manifest" href="manifest.json">
+    <title>Cosmic Insights - Constellation Spiritual Guidance</title>
+    <meta name="description" content="Advanced constellation-themed spiritual guidance with astrology, numerology, tarot, and dream interpretation">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌌</text></svg>">
     
     <!-- External Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        cosmic: {
-                            100: '#f0f4ff',
-                            200: '#d9e0ff',
-                            300: '#a5b4fc',
-                            400: '#818cf8',
-                            500: '#6366f1',
-                            600: '#4f46e5',
-                            700: '#4338ca',
-                            800: '#3730a3',
-                            900: '#1e1b4b',
-                        },
-                        mystic: {
-                            100: '#f5f3ff',
-                            200: '#ede9fe',
-                            300: '#ddd6fe',
-                            400: '#c4b5fd',
-                            500: '#a78bfa',
-                            600: '#8b5cf6',
-                            700: '#7c3aed',
-                            800: '#6d28d9',
-                            900: '#5b21b6',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cinzel:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
         
-        /* Enhanced CSS Variables */
+        /* Constellation Theme Variables - Matching services.html */
         :root {
-            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --cosmic-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            --mystical-gradient: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-            --aurora-gradient: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
-            --success-gradient: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+            /* Deep Space Gradients */
+            --constellation-bg: linear-gradient(135deg, #0a0a1e 0%, #1a1a3a 25%, #000011 50%, #2d1b4e 75%, #0a0a0f 100%);
+            --nebula-glow: radial-gradient(circle at 30% 20%, #4338ca44, transparent 50%), 
+                           radial-gradient(circle at 70% 80%, #7c3aed33, transparent 50%);
             
-            --glass-bg: rgba(255, 255, 255, 0.1);
-            --glass-border: rgba(255, 255, 255, 0.2);
-            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-            --glass-backdrop: blur(20px);
+            /* Constellation Colors */
+            --star-primary: #f8fafc;
+            --star-secondary: #e2e8f0;
+            --star-accent: #60a5fa;
+            --constellation-line: #3b82f6;
+            --cosmic-purple: #8b5cf6;
+            --deep-space: #0f172a;
+            --nebula-pink: #ec4899;
+            --galaxy-blue: #1e40af;
             
-            --smooth-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --bounce-transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            --border-radius-md: 20px;
-            --border-radius-lg: 30px;
+            /* Glass Effects */
+            --glass-bg: rgba(15, 23, 42, 0.3);
+            --glass-border: rgba(96, 165, 250, 0.2);
+            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            
+            /* Typography */
+            --font-cosmic: 'Cinzel', serif;
+            --font-body: 'Inter', sans-serif;
+            --font-mono: 'Space Mono', monospace;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
         
         body {
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
+            font-family: var(--font-body);
+            background: var(--constellation-bg);
+            color: var(--star-primary);
             min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
         }
         
-        /* Glassmorphism Effects */
-        .glassmorphism {
+        /* Constellation Background Animation */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--nebula-glow);
+            opacity: 0.6;
+            z-index: -2;
+            animation: nebulaShift 20s ease-in-out infinite alternate;
+        }
+        
+        /* Animated Star Field */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(2px 2px at 20px 30px, var(--star-accent), transparent),
+                radial-gradient(2px 2px at 40px 70px, var(--star-primary), transparent),
+                radial-gradient(1px 1px at 90px 40px, var(--cosmic-purple), transparent),
+                radial-gradient(1px 1px at 130px 80px, var(--star-secondary), transparent),
+                radial-gradient(2px 2px at 160px 30px, var(--nebula-pink), transparent),
+                radial-gradient(1px 1px at 200px 90px, var(--galaxy-blue), transparent),
+                radial-gradient(1px 1px at 240px 50px, var(--star-accent), transparent),
+                radial-gradient(2px 2px at 300px 20px, var(--cosmic-purple), transparent);
+            background-repeat: repeat;
+            background-size: 350px 200px;
+            opacity: 0.8;
+            z-index: -1;
+            animation: starField 30s linear infinite, starTwinkle 4s ease-in-out infinite alternate;
+        }
+        
+        /* Constellation Glass Cards */
+        .constellation-glass {
             background: var(--glass-bg);
-            backdrop-filter: var(--glass-backdrop);
-            -webkit-backdrop-filter: var(--glass-backdrop);
-            border-radius: var(--border-radius-md);
+            backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
-            box-shadow: var(--glass-shadow);
-            transition: var(--smooth-transition);
+            border-radius: 20px;
+            box-shadow: var(--glass-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
             padding: 2rem;
         }
         
-        .glassmorphism:hover {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: rgba(255, 255, 255, 0.3);
-            box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.5);
-            transform: translateY(-2px);
+        .constellation-glass::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--star-accent), var(--cosmic-purple), var(--nebula-pink), var(--galaxy-blue));
+            border-radius: 22px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
         
-        /* Theme Backgrounds */
-        .bg-cosmic { background: var(--cosmic-gradient); }
-        .bg-mystical { background: var(--mystical-gradient); }
-        .bg-aurora { background: var(--aurora-gradient); }
-        .bg-primary { background: var(--primary-gradient); }
-        .bg-secondary { background: var(--secondary-gradient); }
-        .bg-success { background: var(--success-gradient); }
+        .constellation-glass:hover::before {
+            opacity: 0.3;
+        }
         
-        /* Enhanced Buttons */
-        .btn-cosmic {
-            position: relative;
-            background: var(--primary-gradient);
-            border: none;
+        .constellation-glass:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(96, 165, 250, 0.2), var(--glass-shadow);
+            border-color: var(--star-accent);
+        }
+        
+        /* Cosmic Buttons */
+        .btn-constellation {
+            background: linear-gradient(135deg, var(--galaxy-blue), var(--cosmic-purple));
+            border: 2px solid var(--star-accent);
+            color: var(--star-primary);
+            padding: 16px 32px;
             border-radius: 50px;
-            color: white;
-            padding: 12px 30px;
             font-weight: 600;
+            font-size: 16px;
             cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
             overflow: hidden;
-            transition: var(--bounce-transition);
-            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 4px 20px rgba(30, 64, 175, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            text-decoration: none;
         }
         
-        .btn-cosmic::before {
+        .btn-constellation::before {
             content: '';
             position: absolute;
             top: 0;
@@ -138,242 +165,182 @@
             transition: left 0.5s;
         }
         
-        .btn-cosmic:hover::before {
+        .btn-constellation:hover::before {
             left: 100%;
         }
         
-        .btn-cosmic:hover {
+        .btn-constellation:hover {
             transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.5);
-        }
-        
-        .btn-glass {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: white;
-            padding: 12px 30px;
-            border-radius: 50px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--smooth-transition);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-        }
-        
-        .btn-glass:hover {
-            background: rgba(255, 255, 255, 0.2);
-            border-color: rgba(255, 255, 255, 0.4);
-            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(96, 165, 250, 0.6);
+            border-color: var(--star-primary);
         }
         
         .btn-success {
-            background: var(--success-gradient);
-            border: none;
-            border-radius: 50px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            border: 1px solid #10b981;
             color: white;
-            padding: 12px 30px;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 14px;
             font-weight: 600;
             cursor: pointer;
-            transition: var(--smooth-transition);
+            transition: all 0.3s ease;
+            text-decoration: none;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            text-decoration: none;
         }
         
         .btn-success:hover {
-            transform: translateY(-2px) scale(1.05);
-            box-shadow: 0 6px 25px rgba(132, 250, 176, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
         }
         
-        /* Enhanced Forms */
-        .input-cosmic {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: var(--border-radius-md);
-            padding: 15px 20px;
-            color: white;
+        /* Cosmic Form Inputs */
+        .cosmic-input {
+            background: rgba(15, 23, 42, 0.6);
+            border: 2px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 18px 24px;
+            color: var(--star-primary);
             font-size: 16px;
-            transition: var(--smooth-transition);
             width: 100%;
-        }
-        
-        .input-cosmic::placeholder {
-            color: rgba(255, 255, 255, 0.7);
-        }
-        
-        .input-cosmic:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-            background: rgba(255, 255, 255, 0.15);
-        }
-        
-        .textarea-cosmic {
-            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: var(--border-radius-md);
-            padding: 20px;
-            color: white;
+        }
+        
+        .cosmic-input::placeholder {
+            color: rgba(248, 250, 252, 0.6);
+            font-style: italic;
+        }
+        
+        .cosmic-input:focus {
+            outline: none;
+            border-color: var(--star-accent);
+            box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.2), 
+                        0 0 20px rgba(96, 165, 250, 0.3);
+            background: rgba(15, 23, 42, 0.8);
+        }
+        
+        .cosmic-textarea {
+            background: rgba(15, 23, 42, 0.6);
+            border: 2px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 20px 24px;
+            color: var(--star-primary);
             font-size: 16px;
-            line-height: 1.6;
-            resize: vertical;
+            width: 100%;
             min-height: 120px;
-            transition: var(--smooth-transition);
-            width: 100%;
+            resize: vertical;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
         }
         
-        .textarea-cosmic::placeholder {
-            color: rgba(255, 255, 255, 0.7);
+        .cosmic-textarea::placeholder {
+            color: rgba(248, 250, 252, 0.6);
+            font-style: italic;
         }
         
-        .textarea-cosmic:focus {
+        .cosmic-textarea:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--star-accent);
+            box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.2);
+            background: rgba(15, 23, 42, 0.8);
         }
         
-        /* Card Effects */
-        .card-3d {
-            transform-style: preserve-3d;
-            transition: var(--smooth-transition);
-            cursor: pointer;
-        }
-        
-        .card-3d:hover {
-            transform: rotateX(5deg) rotateY(5deg) translateZ(20px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-        }
-        
-        .card-float {
-            animation: float 6s ease-in-out infinite;
-        }
-        
-        /* Text Effects */
-        .text-gradient {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+        /* Typography */
+        .cosmic-title {
+            font-family: var(--font-cosmic);
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--star-primary), var(--star-accent), var(--cosmic-purple));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .cosmic-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--star-accent), transparent);
+        }
+        
+        .constellation-text {
+            font-size: 18px;
+            line-height: 1.7;
+            color: rgba(248, 250, 252, 0.9);
+            text-align: center;
+            margin-bottom: 2rem;
         }
         
         .text-shimmer {
-            background: linear-gradient(90deg, #667eea, #764ba2, #667eea);
+            background: linear-gradient(90deg, var(--star-accent), var(--cosmic-purple), var(--star-accent));
             background-size: 200% 100%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: shimmer 2s ease-in-out infinite;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+        
+        /* Navigation */
+        .cosmic-nav {
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+        }
+        
+        .nav-link {
+            color: rgba(248, 250, 252, 0.8);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: var(--star-accent);
+            background: rgba(96, 165, 250, 0.1);
         }
         
         /* Grid Layout */
         .cosmic-grid {
             display: grid;
-            gap: 20px;
+            gap: 24px;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         }
         
-        /* Theme Selector */
-        .theme-selector {
-            position: fixed;
-            top: 90px;
-            right: 20px;
-            z-index: 1000;
-            display: flex;
-            gap: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 25px;
-            padding: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .theme-btn {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            cursor: pointer;
-            transition: var(--smooth-transition);
-        }
-        
-        .theme-btn:hover,
-        .theme-btn.active {
-            border-color: rgba(255, 255, 255, 0.8);
-            transform: scale(1.1);
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-        }
-        
-        .theme-cosmic { background: var(--cosmic-gradient); }
-        .theme-mystical { background: var(--mystical-gradient); }
-        .theme-aurora { background: var(--aurora-gradient); }
-        .theme-primary { background: var(--primary-gradient); }
-        .theme-secondary { background: var(--secondary-gradient); }
-        
-        /* Particles */
-        .particles-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-            overflow: hidden;
-        }
-        
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: radial-gradient(circle, #667eea, #764ba2);
-            border-radius: 50%;
-            opacity: 0.7;
-            animation: particleFloat 15s linear infinite;
-        }
-        
-        /* Loading Animation */
-        .loading-cosmic {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 2px solid rgba(102, 126, 234, 0.3);
-            border-radius: 50%;
-            border-top-color: #667eea;
-            animation: spin 1s ease-in-out infinite;
-        }
-        
         /* Animations */
+        @keyframes nebulaShift {
+            0% { transform: translateX(-10px) translateY(-5px) scale(1); }
+            100% { transform: translateX(10px) translateY(5px) scale(1.05); }
+        }
+        
+        @keyframes starField {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(-100px) translateY(-50px); }
+        }
+        
+        @keyframes starTwinkle {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+        
         @keyframes shimmer {
             0% { background-position: -200% 0; }
             100% { background-position: 200% 0; }
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        @keyframes particleFloat {
-            0% {
-                transform: translateY(100vh) translateX(0px) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100vh) translateX(200px) rotate(180deg);
-                opacity: 0;
-            }
         }
         
         @keyframes fadeInUp {
@@ -387,909 +354,445 @@
             }
         }
         
-        .page-transition {
-            animation: fadeInUp 0.6s ease-out;
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
         }
         
-        /* Mobile Responsive */
+        .page-enter {
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+        
+        /* Loading Spinner */
+        .cosmic-loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(96, 165, 250, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--star-accent);
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Alert Messages */
+        .alert-success {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(5, 150, 105, 0.1));
+            border: 2px solid #10b981;
+            border-radius: 15px;
+            padding: 16px 20px;
+            color: #34d399;
+            margin: 16px 0;
+            backdrop-filter: blur(10px);
+        }
+        
+        .alert-error {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(220, 38, 38, 0.1));
+            border: 2px solid #ef4444;
+            border-radius: 15px;
+            padding: 16px 20px;
+            color: #fca5a5;
+            margin: 16px 0;
+            backdrop-filter: blur(10px);
+        }
+        
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .glassmorphism {
+            .constellation-glass {
                 margin: 10px;
                 padding: 20px;
             }
             
-            .btn-cosmic, .btn-glass, .btn-success {
-                padding: 12px 25px;
+            .btn-constellation {
                 width: 100%;
+                margin: 10px 0;
+                padding: 14px 24px;
             }
             
-            .cosmic-grid {
-                grid-template-columns: 1fr;
-                gap: 15px;
-            }
-            
-            .theme-selector {
-                top: 70px;
-                right: 10px;
-                padding: 8px;
-            }
-            
-            .theme-btn {
-                width: 25px;
-                height: 25px;
+            .cosmic-title {
+                font-size: 2.5rem;
             }
         }
     </style>
 </head>
-<body class="min-h-screen bg-cosmic">
-    <!-- Theme Selector -->
-    <div class="theme-selector">
-        <div class="theme-btn theme-cosmic active" data-theme="cosmic" title="Cosmic Theme"></div>
-        <div class="theme-btn theme-mystical" data-theme="mystical" title="Mystical Theme"></div>
-        <div class="theme-btn theme-aurora" data-theme="aurora" title="Aurora Theme"></div>
-        <div class="theme-btn theme-primary" data-theme="primary" title="Primary Theme"></div>
-        <div class="theme-btn theme-secondary" data-theme="secondary" title="Secondary Theme"></div>
-    </div>
-    
+
+<body class="page-enter">
     <!-- Navigation -->
-    <nav class="glassmorphism fixed w-full z-40 border-b border-white/10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <div class="flex items-center">
-                    <div class="flex-shrink-0">
-                        <span class="text-2xl font-serif font-bold text-white">
-                            <i class="fas fa-moon mr-2"></i>Cosmic Insights
-                        </span>
-                    </div>
-                </div>
-                <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-4">
-                        <a href="#home" class="text-white/80 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
-                        <a href="./services.html" class="text-white/80 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Services</a>
-                        <a href="#astrology" class="text-white/80 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Astrology</a>
-                        <a href="#numerology" class="text-white/80 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Numerology</a>
-                        <a href="#tarot" class="text-white/80 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Tarot</a>
-                        <a href="#dreams" class="text-white/80 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Dreams</a>
-                    </div>
-                </div>
-                <div class="md:hidden">
-                    <button id="mobile-menu-button" class="text-white/80 hover:text-white focus:outline-none">
-                        <i class="fas fa-bars text-xl"></i>
-                    </button>
-                </div>
+    <nav class="cosmic-nav">
+        <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <span class="text-2xl">🌌</span>
+                <h1 class="text-xl font-bold" style="font-family: var(--font-cosmic);">Cosmic Insights</h1>
+            </div>
+            <div class="hidden md:flex items-center space-x-4">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="./services.html" class="nav-link">Services</a>
+                <a href="#astrology" class="nav-link">Astrology</a>
+                <a href="#numerology" class="nav-link">Numerology</a>
+                <a href="#tarot" class="nav-link">Tarot</a>
+                <a href="#dreams" class="nav-link">Dreams</a>
+            </div>
+            <div class="md:hidden">
+                <button id="mobile-menu-btn" class="text-white/80 hover:text-white">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
             </div>
         </div>
         
-        <!-- Mobile menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white/10 backdrop-blur-lg">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="#home" class="text-white/80 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Home</a>
-                <a href="./services.html" class="text-white/80 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Services</a>
-                <a href="#astrology" class="text-white/80 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Astrology</a>
-                <a href="#numerology" class="text-white/80 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Numerology</a>
-                <a href="#tarot" class="text-white/80 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Tarot</a>
-                <a href="#dreams" class="text-white/80 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Dreams</a>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-black/20 backdrop-blur-lg mt-4">
+            <div class="px-4 py-3 space-y-2">
+                <a href="#home" class="nav-link block">Home</a>
+                <a href="./services.html" class="nav-link block">Services</a>
+                <a href="#astrology" class="nav-link block">Astrology</a>
+                <a href="#numerology" class="nav-link block">Numerology</a>
+                <a href="#tarot" class="nav-link block">Tarot</a>
+                <a href="#dreams" class="nav-link block">Dreams</a>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="pt-32 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden min-h-screen flex items-center page-transition">
+    <section id="home" class="pt-32 pb-20 px-4 min-h-screen flex items-center">
         <div class="max-w-7xl mx-auto w-full">
-            <div class="text-center">
-                <h1 class="text-4xl md:text-6xl font-serif font-bold text-white mb-6 card-float">
-                    Unlock Your <span class="text-shimmer">Cosmic Potential</span>
+            <div class="text-center mb-16">
+                <h1 class="cosmic-title floating">
+                    Unlock Your <span class="text-shimmer">Cosmic Constellation</span>
                 </h1>
-                <p class="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto mb-10">
-                    Discover profound insights through astrology, numerology, tarot, and dream interpretation with our AI-powered guidance.
+                <p class="constellation-text max-w-4xl mx-auto">
+                    Journey through the infinite cosmos of self-discovery with our AI-powered constellation guidance.
+                    <br>Let the stars illuminate your path through astrology, numerology, tarot, and dream interpretation.
                 </p>
-                <div class="flex flex-wrap justify-center gap-4 mb-16">
-                    <a href="#astrology" class="btn-cosmic">
-                        Explore Now <i class="fas fa-arrow-right ml-2"></i>
+                <div class="flex flex-wrap justify-center gap-6 mb-12">
+                    <a href="#astrology" class="btn-constellation">
+                        ✨ Explore Now <i class="fas fa-arrow-right ml-2"></i>
                     </a>
                     <a href="./services.html" class="btn-success">
                         <i class="fas fa-clipboard-list mr-2"></i> Complete Reports
                     </a>
                 </div>
-                <div class="text-center mb-8">
-                    <div class="glassmorphism inline-block">
-                        <p class="text-white/90 font-semibold mb-2">
-                            <i class="fas fa-sparkles mr-2 text-yellow-400"></i> NEW: Comprehensive Reports Available!
-                        </p>
-                        <p class="text-white/70 text-sm">
-                            Generate detailed reports combining astrology, numerology, and more in one complete analysis.
-                        </p>
-                    </div>
+                <div class="constellation-glass inline-block floating">
+                    <p class="text-white font-semibold mb-2 flex items-center justify-center">
+                        <i class="fas fa-sparkles mr-2 text-yellow-400"></i> 
+                        NEW: Comprehensive Constellation Reports!
+                    </p>
+                    <p class="text-white/80 text-sm">
+                        Generate detailed reports combining astrology, numerology, and cosmic wisdom.
+                    </p>
                 </div>
             </div>
             
             <div class="cosmic-grid">
-                <div class="glassmorphism card-3d text-center">
-                    <div class="text-white text-4xl mb-4">
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <h3 class="text-xl font-serif font-semibold text-white mb-3">Astrology</h3>
-                    <p class="text-white/80">Personalized birth chart readings and planetary transit analysis.</p>
+                <div class="constellation-glass text-center floating">
+                    <div class="text-5xl mb-4">⭐</div>
+                    <h3 class="text-xl font-semibold text-white mb-3" style="font-family: var(--font-cosmic);">Astrology</h3>
+                    <p class="text-white/80">Discover your celestial blueprint through personalized birth chart readings and planetary alignments.</p>
                 </div>
-                <div class="glassmorphism card-3d text-center">
-                    <div class="text-white text-4xl mb-4">
-                        <i class="fas fa-hashtag"></i>
-                    </div>
-                    <h3 class="text-xl font-serif font-semibold text-white mb-3">Numerology</h3>
-                    <p class="text-white/80">Discover your life path number and its profound significance.</p>
+                
+                <div class="constellation-glass text-center floating" style="animation-delay: 0.2s;">
+                    <div class="text-5xl mb-4">🔢</div>
+                    <h3 class="text-xl font-semibold text-white mb-3" style="font-family: var(--font-cosmic);">Numerology</h3>
+                    <p class="text-white/80">Uncover the sacred mathematics of your existence and life path through cosmic numbers.</p>
                 </div>
-                <div class="glassmorphism card-3d text-center">
-                    <div class="text-white text-4xl mb-4">
-                        <i class="fas fa-cards"></i>
-                    </div>
-                    <h3 class="text-xl font-serif font-semibold text-white mb-3">Tarot</h3>
-                    <p class="text-white/80">AI-powered tarot readings for guidance and self-reflection.</p>
+                
+                <div class="constellation-glass text-center floating" style="animation-delay: 0.4s;">
+                    <div class="text-5xl mb-4">🃏</div>
+                    <h3 class="text-xl font-semibold text-white mb-3" style="font-family: var(--font-cosmic);">Tarot</h3>
+                    <p class="text-white/80">Receive divine guidance through AI-enhanced tarot readings for life's cosmic questions.</p>
                 </div>
-                <div class="glassmorphism card-3d text-center">
-                    <div class="text-white text-4xl mb-4">
-                        <i class="fas fa-cloud-moon"></i>
-                    </div>
-                    <h3 class="text-xl font-serif font-semibold text-white mb-3">Dreams</h3>
-                    <p class="text-white/80">Interpret the hidden messages in your dreams and subconscious.</p>
+                
+                <div class="constellation-glass text-center floating" style="animation-delay: 0.6s;">
+                    <div class="text-5xl mb-4">🌙</div>
+                    <h3 class="text-xl font-semibold text-white mb-3" style="font-family: var(--font-cosmic);">Dreams</h3>
+                    <p class="text-white/80">Decode the mystical messages hidden within your subconscious cosmic dreams.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Services Preview Section -->
-    <section id="services" class="py-20 px-4 sm:px-6 lg:px-8 bg-success page-transition">
+    <!-- Services Preview -->
+    <section id="services-preview" class="py-20 px-4">
         <div class="max-w-7xl mx-auto text-center">
-            <h2 class="text-3xl md:text-4xl font-serif font-bold text-white mb-6">
-                <i class="fas fa-clipboard-list mr-3"></i>Comprehensive Reports
+            <h2 class="text-3xl font-bold text-white mb-6" style="font-family: var(--font-cosmic);">
+                🌌 Comprehensive Constellation Reports
             </h2>
-            <p class="text-white/80 text-lg max-w-2xl mx-auto mb-10">
-                Get detailed, personalized reports that combine multiple spiritual insights into one complete analysis.
+            <p class="constellation-text max-w-3xl mx-auto mb-12">
+                Experience the full power of cosmic guidance with our comprehensive reports that combine
+                multiple spiritual insights into one detailed constellation analysis.
             </p>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-                <div class="glassmorphism card-3d text-center">
-                    <i class="fas fa-chart-line text-3xl text-white mb-4"></i>
-                    <h3 class="text-xl font-semibold text-white mb-3">Multi-Discipline Analysis</h3>
-                    <p class="text-white/80">Combine astrology, numerology, compatibility, and forecasting in one report.</p>
+                <div class="constellation-glass text-center">
+                    <div class="text-4xl mb-4">📊</div>
+                    <h3 class="text-lg font-semibold text-white mb-3">Multi-Discipline Analysis</h3>
+                    <p class="text-white/80 text-sm">Combine astrology, numerology, compatibility, and forecasting in one cosmic report.</p>
                 </div>
-                <div class="glassmorphism card-3d text-center">
-                    <i class="fas fa-file-export text-3xl text-white mb-4"></i>
-                    <h3 class="text-xl font-semibold text-white mb-3">Export & Save</h3>
-                    <p class="text-white/80">Download as PDF, email reports, or save to your personal cosmic library.</p>
+                <div class="constellation-glass text-center">
+                    <div class="text-4xl mb-4">💾</div>
+                    <h3 class="text-lg font-semibold text-white mb-3">Export & Save</h3>
+                    <p class="text-white/80 text-sm">Download as PDF, email directly, or save to your personal constellation library.</p>
                 </div>
-                <div class="glassmorphism card-3d text-center">
-                    <i class="fas fa-history text-3xl text-white mb-4"></i>
-                    <h3 class="text-xl font-semibold text-white mb-3">Track Progress</h3>
-                    <p class="text-white/80">Access report history and track your spiritual journey over time.</p>
+                <div class="constellation-glass text-center">
+                    <div class="text-4xl mb-4">📚</div>
+                    <h3 class="text-lg font-semibold text-white mb-3">Cosmic Journey Tracking</h3>
+                    <p class="text-white/80 text-sm">Access report history and track your spiritual evolution through the cosmos.</p>
                 </div>
             </div>
             
-            <a href="./services.html" class="btn-cosmic text-lg">
-                <i class="fas fa-rocket mr-2"></i> Generate Your Complete Report
+            <a href="./services.html" class="btn-constellation text-lg">
+                <i class="fas fa-rocket mr-2"></i> Generate Your Constellation Report
             </a>
         </div>
     </section>
 
-    <!-- Astrology Section -->
-    <section id="astrology" class="py-20 px-4 sm:px-6 lg:px-8 bg-mystical page-transition min-h-screen">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-serif font-bold text-white mb-4">
-                    <i class="fas fa-star mr-2 text-white"></i> Astrology Readings
+    <!-- Newsletter Section -->
+    <section class="py-20 px-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="constellation-glass text-center floating">
+                <h2 class="text-3xl font-bold text-white mb-6" style="font-family: var(--font-cosmic);">
+                    Join the <span class="text-shimmer">Cosmic Constellation</span>
                 </h2>
-                <p class="text-white/80 max-w-2xl mx-auto">
-                    Uncover the secrets of your birth chart and how the celestial bodies influence your life path.
+                <p class="constellation-text mb-8">
+                    Subscribe to receive monthly cosmic insights, constellation forecasts, and exclusive spiritual guidance.
                 </p>
-            </div>
-            
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-                <div class="glassmorphism card-float">
-                    <h3 class="text-2xl font-serif font-semibold text-white mb-6">Get Your Birth Chart Analysis</h3>
-                    
-                    <form id="astrology-form" class="space-y-4">
-                        <div>
-                            <label for="birth-date" class="block text-white/80 mb-2 font-medium">Birth Date</label>
-                            <input type="date" id="birth-date" class="input-cosmic">
-                        </div>
-                        
-                        <div>
-                            <label for="birth-time" class="block text-white/80 mb-2 font-medium">Birth Time (optional)</label>
-                            <input type="time" id="birth-time" class="input-cosmic">
-                        </div>
-                        
-                        <div>
-                            <label for="birth-place" class="block text-white/80 mb-2 font-medium">Birth Place</label>
-                            <input type="text" id="birth-place" placeholder="City, Country" class="input-cosmic">
-                        </div>
-                        
-                        <div>
-                            <label for="astrology-question" class="block text-white/80 mb-2 font-medium">Specific Question (optional)</label>
-                            <textarea id="astrology-question" rows="3" placeholder="What would you like to know about your chart?" class="textarea-cosmic"></textarea>
-                        </div>
-                        
-                        <button type="submit" class="btn-cosmic w-full">
-                            <span id="astrology-submit-text">Generate Reading</span>
-                            <span id="astrology-loading" class="loading-cosmic hidden ml-2"></span>
-                        </button>
-                    </form>
-                </div>
                 
-                <div class="glassmorphism h-full">
-                    <h3 class="text-2xl font-serif font-semibold text-white mb-6">Your Astrology Reading</h3>
-                    
-                    <div id="astrology-result" class="text-white/90">
-                        <div class="text-center py-10 text-white/70">
-                            <i class="fas fa-stars text-4xl mb-4"></i>
-                            <p>Enter your birth details to receive a personalized astrology reading.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Numerology Section -->
-    <section id="numerology" class="py-20 px-4 sm:px-6 lg:px-8 bg-aurora page-transition min-h-screen">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-serif font-bold text-white mb-4">
-                    <i class="fas fa-hashtag mr-2 text-white"></i> Numerology Insights
-                </h2>
-                <p class="text-white/80 max-w-2xl mx-auto">
-                    Numbers hold powerful vibrations that can reveal your life path, destiny, and personal year cycles.
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-                <div class="glassmorphism card-float">
-                    <h3 class="text-2xl font-serif font-semibold text-white mb-6">Calculate Your Numbers</h3>
-                    
-                    <form id="numerology-form" class="space-y-4">
-                        <div>
-                            <label for="full-name" class="block text-white/80 mb-2 font-medium">Full Name (at birth)</label>
-                            <input type="text" id="full-name" placeholder="Enter your full birth name" class="input-cosmic">
-                        </div>
-                        
-                        <div>
-                            <label for="numerology-birth-date" class="block text-white/80 mb-2 font-medium">Birth Date</label>
-                            <input type="date" id="numerology-birth-date" class="input-cosmic">
-                        </div>
-                        
-                        <div>
-                            <label for="numerology-question" class="block text-white/80 mb-2 font-medium">Specific Focus (optional)</label>
-                            <select id="numerology-question" class="input-cosmic">
-                                <option value="">General Life Path Reading</option>
-                                <option value="destiny">Destiny Number</option>
-                                <option value="soul">Soul Urge Number</option>
-                                <option value="personality">Personality Number</option>
-                                <option value="current">Current Personal Year</option>
-                            </select>
-                        </div>
-                        
-                        <button type="submit" class="btn-cosmic w-full">
-                            <span id="numerology-submit-text">Calculate Numbers</span>
-                            <span id="numerology-loading" class="loading-cosmic hidden ml-2"></span>
+                <form id="newsletter-form" class="max-w-md mx-auto">
+                    <div class="flex flex-col sm:flex-row gap-4 mb-4">
+                        <input 
+                            type="email" 
+                            id="newsletter-email"
+                            placeholder="Enter your cosmic email address..." 
+                            class="cosmic-input flex-grow" 
+                            required
+                        >
+                        <button type="submit" class="btn-constellation">
+                            <span id="newsletter-text">Subscribe</span>
+                            <span id="newsletter-loading" class="cosmic-loading ml-2 hidden"></span>
+                            <i class="fas fa-paper-plane ml-2" id="newsletter-icon"></i>
                         </button>
-                    </form>
-                </div>
-                
-                <div class="glassmorphism h-full">
-                    <h3 class="text-2xl font-serif font-semibold text-white mb-6">Your Numerology Report</h3>
-                    
-                    <div id="numerology-result" class="text-white/90">
-                        <div class="text-center py-10 text-white/70">
-                            <i class="fas fa-calculator text-4xl mb-4"></i>
-                            <p>Enter your name and birth date to discover your numerology profile.</p>
-                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Tarot Section -->
-    <section id="tarot" class="py-20 px-4 sm:px-6 lg:px-8 bg-primary page-transition min-h-screen">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-serif font-bold text-white mb-4">
-                    <i class="fas fa-cards mr-2 text-white"></i> Tarot Guidance
-                </h2>
-                <p class="text-white/80 max-w-2xl mx-auto">
-                    Receive divine guidance through AI-powered tarot readings for any life situation.
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
-                <div class="glassmorphism card-float">
-                    <h3 class="text-2xl font-serif font-semibold text-white mb-6">Select Your Reading</h3>
-                    
-                    <form id="tarot-form" class="space-y-6">
-                        <div>
-                            <label class="block text-white/80 mb-4 font-medium">Reading Type</label>
-                            <div class="grid grid-cols-2 gap-4">
-                                <div>
-                                    <input type="radio" id="single-card" name="reading-type" value="single" class="hidden peer" checked>
-                                    <label for="single-card" class="block glassmorphism cursor-pointer peer-checked:border-white/50 text-center">
-                                        <div class="text-white text-2xl mb-2">
-                                            <i class="fas fa-card-club"></i>
-                                        </div>
-                                        <h4 class="font-medium text-white mb-1">Single Card</h4>
-                                        <p class="text-sm text-white/70">Quick daily guidance</p>
-                                    </label>
-                                </div>
-                                <div>
-                                    <input type="radio" id="three-card" name="reading-type" value="three" class="hidden peer">
-                                    <label for="three-card" class="block glassmorphism cursor-pointer peer-checked:border-white/50 text-center">
-                                        <div class="text-white text-2xl mb-2">
-                                            <i class="fas fa-cards"></i>
-                                        </div>
-                                        <h4 class="font-medium text-white mb-1">Three Cards</h4>
-                                        <p class="text-sm text-white/70">Past, Present, Future</p>
-                                    </label>
-                                </div>
-                                <div>
-                                    <input type="radio" id="celtic-cross" name="reading-type" value="celtic" class="hidden peer">
-                                    <label for="celtic-cross" class="block glassmorphism cursor-pointer peer-checked:border-white/50 text-center">
-                                        <div class="text-white text-2xl mb-2">
-                                            <i class="fas fa-cross"></i>
-                                        </div>
-                                        <h4 class="font-medium text-white mb-1">Celtic Cross</h4>
-                                        <p class="text-sm text-white/70">In-depth spread</p>
-                                    </label>
-                                </div>
-                                <div>
-                                    <input type="radio" id="love" name="reading-type" value="love" class="hidden peer">
-                                    <label for="love" class="block glassmorphism cursor-pointer peer-checked:border-white/50 text-center">
-                                        <div class="text-white text-2xl mb-2">
-                                            <i class="fas fa-heart"></i>
-                                        </div>
-                                        <h4 class="font-medium text-white mb-1">Love Reading</h4>
-                                        <p class="text-sm text-white/70">Relationship insights</p>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div>
-                            <label for="tarot-question" class="block text-white/80 mb-2 font-medium">Your Question or Focus</label>
-                            <textarea id="tarot-question" rows="3" placeholder="What guidance do you seek today?" class="textarea-cosmic"></textarea>
-                        </div>
-                        
-                        <button type="submit" class="btn-cosmic w-full">
-                            <span id="tarot-submit-text">Draw Cards</span>
-                            <span id="tarot-loading" class="loading-cosmic hidden ml-2"></span>
-                        </button>
-                    </form>
-                </div>
-                
-                <div class="glassmorphism h-full">
-                    <h3 class="text-2xl font-serif font-semibold text-white mb-6">Your Tarot Reading</h3>
-                    
-                    <div id="tarot-result" class="text-white/90">
-                        <div class="text-center py-10 text-white/70">
-                            <i class="fas fa-cards-blank text-4xl mb-4"></i>
-                            <p>Select a reading type and focus to receive your tarot guidance.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Dream Interpretation Section -->
-    <section id="dreams" class="py-20 px-4 sm:px-6 lg:px-8 bg-secondary page-transition min-h-screen">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-serif font-bold text-white mb-4">
-                    <i class="fas fa-cloud-moon mr-2 text-white"></i> Dream Interpretation
-                </h2>
-                <p class="text-white/80 max-w-2xl mx-auto">
-                    Unlock the hidden messages and symbolism in your dreams with our AI dream analyzer.
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
-                <div class="glassmorphism card-float">
-                    <h3 class="text-2xl font-serif font-semibold text-white mb-6">Describe Your Dream</h3>
-                    
-                    <form id="dream-form" class="space-y-4">
-                        <div>
-                            <label for="dream-date" class="block text-white/80 mb-2 font-medium">Dream Date (approximate)</label>
-                            <input type="date" id="dream-date" class="input-cosmic">
-                        </div>
-                        
-                        <div>
-                            <label for="dream-description" class="block text-white/80 mb-2 font-medium">Dream Description</label>
-                            <textarea id="dream-description" rows="6" placeholder="Describe your dream in as much detail as possible..." class="textarea-cosmic"></textarea>
-                        </div>
-                        
-                        <div>
-                            <label for="dream-feeling" class="block text-white/80 mb-2 font-medium">How did you feel in the dream?</label>
-                            <input type="text" id="dream-feeling" placeholder="Scared, happy, confused, etc." class="input-cosmic">
-                        </div>
-                        
-                        <button type="submit" class="btn-cosmic w-full">
-                            <span id="dream-submit-text">Interpret Dream</span>
-                            <span id="dream-loading" class="loading-cosmic hidden ml-2"></span>
-                        </button>
-                    </form>
-                </div>
-                
-                <div class="glassmorphism h-full">
-                    <h3 class="text-2xl font-serif font-semibold text-white mb-6">Your Dream Interpretation</h3>
-                    
-                    <div id="dream-result" class="text-white/90">
-                        <div class="text-center py-10 text-white/70">
-                            <i class="fas fa-moon-stars text-4xl mb-4"></i>
-                            <p>Describe your dream to receive a detailed interpretation of its symbolism and meaning.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials -->
-    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-cosmic page-transition">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-serif font-bold text-white mb-4">
-                    <span class="text-gradient">Cosmic Experiences</span>
-                </h2>
-                <p class="text-white/80 max-w-2xl mx-auto">
-                    Hear what others have to say about their journey with Cosmic Insights.
-                </p>
-            </div>
-            
-            <div class="cosmic-grid">
-                <div class="glassmorphism card-3d">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center text-xl">
-                            <i class="fas fa-user-astronaut text-white"></i>
-                        </div>
-                        <div class="ml-4">
-                            <h4 class="font-medium text-white">Sarah K.</h4>
-                            <div class="flex text-yellow-400 text-sm">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="text-white/80 italic">
-                        "The complete report feature is amazing! Having everything in one PDF made it so easy to share with my therapist."
+                    <p class="text-xs text-white/60">
+                        🌟 We respect your cosmic privacy. Unsubscribe at any time.
                     </p>
-                </div>
-                
-                <div class="glassmorphism card-3d">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center text-xl">
-                            <i class="fas fa-user-ninja text-white"></i>
-                        </div>
-                        <div class="ml-4">
-                            <h4 class="font-medium text-white">Michael T.</h4>
-                            <div class="flex text-yellow-400 text-sm">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="text-white/80 italic">
-                        "The comprehensive reports gave me insights I never would have discovered on my own. Highly recommended!"
-                    </p>
-                </div>
-                
-                <div class="glassmorphism card-3d">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center text-xl">
-                            <i class="fas fa-user-secret text-white"></i>
-                        </div>
-                        <div class="ml-4">
-                            <h4 class="font-medium text-white">Jessica L.</h4>
-                            <div class="flex text-yellow-400 text-sm">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="text-white/80 italic">
-                        "The report history feature helps me track my spiritual growth over time. It's like having a cosmic journal!"
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-primary page-transition">
-        <div class="max-w-4xl mx-auto text-center">
-            <div class="glassmorphism card-float">
-                <h2 class="text-3xl md:text-4xl font-serif font-bold text-white mb-6">
-                    Ready to Explore Your <span class="text-shimmer">Cosmic Blueprint?</span>
-                </h2>
-                <p class="text-xl text-white/80 mb-10">
-                    Sign up for our newsletter to receive monthly insights, special offers, and exclusive content.
-                </p>
-                
-                <form class="max-w-md mx-auto">
-                    <div class="flex flex-col sm:flex-row gap-3">
-                        <input type="email" placeholder="Your email address" class="input-cosmic flex-grow">
-                        <button type="submit" class="btn-cosmic">
-                            Subscribe <i class="fas fa-paper-plane ml-2"></i>
-                        </button>
-                    </div>
-                    <p class="text-xs text-white/60 mt-3">
-                        We respect your privacy. Unsubscribe at any time.
-                    </p>
+                    <div id="newsletter-result"></div>
                 </form>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="glassmorphism py-12 px-4 sm:px-6 lg:px-8 border-t border-white/10 m-4 rounded-lg">
+    <footer class="py-12 px-4">
         <div class="max-w-7xl mx-auto">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-                <div>
-                    <h3 class="text-lg font-serif font-semibold text-white mb-4">Cosmic Insights</h3>
-                    <p class="text-white/70 text-sm">
-                        Exploring the mysteries of the universe to bring you clarity and guidance.
-                    </p>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-serif font-semibold text-white mb-4">Quick Links</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#home" class="text-white/70 hover:text-white text-sm transition-colors">Home</a></li>
-                        <li><a href="./services.html" class="text-white/70 hover:text-white text-sm transition-colors">Services</a></li>
-                        <li><a href="#astrology" class="text-white/70 hover:text-white text-sm transition-colors">Astrology</a></li>
-                        <li><a href="#numerology" class="text-white/70 hover:text-white text-sm transition-colors">Numerology</a></li>
-                        <li><a href="#tarot" class="text-white/70 hover:text-white text-sm transition-colors">Tarot</a></li>
-                        <li><a href="#dreams" class="text-white/70 hover:text-white text-sm transition-colors">Dreams</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-serif font-semibold text-white mb-4">Legal</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-white/70 hover:text-white text-sm transition-colors">Privacy Policy</a></li>
-                        <li><a href="#" class="text-white/70 hover:text-white text-sm transition-colors">Terms of Service</a></li>
-                        <li><a href="#" class="text-white/70 hover:text-white text-sm transition-colors">Disclaimer</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-serif font-semibold text-white mb-4">Connect</h3>
-                    <div class="flex space-x-4 mb-4">
-                        <a href="#" class="text-white/70 hover:text-white text-xl transition-colors">
-                            <i class="fab fa-facebook"></i>
-                        </a>
-                        <a href="#" class="text-white/70 hover:text-white text-xl transition-colors">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="#" class="text-white/70 hover:text-white text-xl transition-colors">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="text-white/70 hover:text-white text-xl transition-colors">
-                            <i class="fab fa-pinterest"></i>
-                        </a>
+            <div class="constellation-glass">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
+                    <div>
+                        <h3 class="text-lg font-semibold text-white mb-4 flex items-center" style="font-family: var(--font-cosmic);">
+                            <span class="mr-2">🌌</span>Cosmic Insights
+                        </h3>
+                        <p class="text-white/70 text-sm">
+                            Exploring the infinite cosmos to illuminate your spiritual path through constellation wisdom.
+                        </p>
                     </div>
-                    <p class="text-white/70 text-sm">
-                        <i class="fas fa-envelope mr-2"></i> support@cosmicinsights.com
+                    
+                    <div>
+                        <h3 class="text-lg font-semibold text-white mb-4">Cosmic Links</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#home" class="text-white/70 hover:text-star-accent text-sm transition-colors">Home</a></li>
+                            <li><a href="./services.html" class="text-white/70 hover:text-star-accent text-sm transition-colors">Services</a></li>
+                            <li><a href="#astrology" class="text-white/70 hover:text-star-accent text-sm transition-colors">Astrology</a></li>
+                            <li><a href="#numerology" class="text-white/70 hover:text-star-accent text-sm transition-colors">Numerology</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-lg font-semibold text-white mb-4">Cosmic Guidance</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#tarot" class="text-white/70 hover:text-star-accent text-sm transition-colors">Tarot Readings</a></li>
+                            <li><a href="#dreams" class="text-white/70 hover:text-star-accent text-sm transition-colors">Dream Analysis</a></li>
+                            <li><a href="#" class="text-white/70 hover:text-star-accent text-sm transition-colors">Cosmic Calendar</a></li>
+                            <li><a href="#" class="text-white/70 hover:text-star-accent text-sm transition-colors">Meditation Guide</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-lg font-semibold text-white mb-4">Connect</h3>
+                        <div class="flex space-x-4 mb-4">
+                            <a href="#" class="text-white/70 hover:text-star-accent text-xl transition-colors">
+                                <i class="fab fa-facebook"></i>
+                            </a>
+                            <a href="#" class="text-white/70 hover:text-star-accent text-xl transition-colors">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="text-white/70 hover:text-star-accent text-xl transition-colors">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="text-white/70 hover:text-star-accent text-xl transition-colors">
+                                <i class="fab fa-pinterest"></i>
+                            </a>
+                        </div>
+                        <p class="text-white/70 text-sm flex items-center">
+                            <i class="fas fa-envelope mr-2 text-star-accent"></i> 
+                            cosmic@insights.com
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="pt-8 border-t border-white/10 text-center">
+                    <p class="text-white/60 text-sm">
+                        © 2025 Cosmic Insights. All rights reserved. | Guided by the infinite constellation of wisdom.
                     </p>
                 </div>
-            </div>
-            
-            <div class="mt-12 pt-8 border-t border-white/10 text-center">
-                <p class="text-white/60 text-sm">
-                    © 2025 Cosmic Insights. All rights reserved.
-                </p>
             </div>
         </div>
     </footer>
     
     <script>
-        // Enhanced Cosmic Insights JavaScript
-        class CosmicEnhancements {
+        class CosmicConstellation {
             constructor() {
-                this.particleCount = 30;
-                this.particles = [];
-                this.currentTheme = 'cosmic';
                 this.init();
             }
             
             init() {
-                this.createParticleSystem();
-                this.setupThemeSelector();
-                this.setup3DCardEffects();
-                this.setupScrollAnimations();
-                this.loadPreferences();
+                this.setupNavigation();
+                this.setupNewsletterForm();
+                this.addShootingStars();
+                this.setupSmoothScrolling();
             }
             
-            createParticleSystem() {
-                const container = document.createElement('div');
-                container.className = 'particles-container';
-                document.body.appendChild(container);
+            setupNavigation() {
+                const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+                const mobileMenu = document.getElementById('mobile-menu');
                 
-                for (let i = 0; i < this.particleCount; i++) {
-                    const particle = document.createElement('div');
-                    particle.className = 'particle';
-                    
-                    particle.style.left = Math.random() * 100 + '%';
-                    particle.style.animationDelay = Math.random() * 15 + 's';
-                    particle.style.animationDuration = (15 + Math.random() * 10) + 's';
-                    
-                    container.appendChild(particle);
-                    this.particles.push(particle);
+                if (mobileMenuBtn && mobileMenu) {
+                    mobileMenuBtn.addEventListener('click', () => {
+                        mobileMenu.classList.toggle('hidden');
+                    });
                 }
             }
             
-            setupThemeSelector() {
-                const themeSelector = document.querySelector('.theme-selector');
-                if (!themeSelector) return;
+            setupNewsletterForm() {
+                const form = document.getElementById('newsletter-form');
+                if (!form) return;
                 
-                themeSelector.addEventListener('click', (e) => {
-                    if (e.target.classList.contains('theme-btn')) {
-                        this.changeTheme(e.target.dataset.theme);
-                    }
-                });
-            }
-            
-            changeTheme(theme) {
-                this.currentTheme = theme;
-                document.body.className = `min-h-screen bg-${theme}`;
-                
-                // Update active button
-                document.querySelectorAll('.theme-btn').forEach(btn => {
-                    btn.classList.remove('active');
-                });
-                document.querySelector(`[data-theme="${theme}"]`).classList.add('active');
-                
-                // Update sections
-                const sections = document.querySelectorAll('section');
-                const themes = ['cosmic', 'success', 'mystical', 'aurora', 'primary', 'secondary'];
-                sections.forEach((section, index) => {
-                    if (index > 0) { // Skip hero section
-                        section.className = section.className.replace(/bg-(cosmic|success|mystical|aurora|primary|secondary)/g, `bg-${themes[index % themes.length]}`);
-                    }
-                });
-                
-                // Save preference
-                localStorage.setItem('cosmic-theme', theme);
-            }
-            
-            setup3DCardEffects() {
-                const cards = document.querySelectorAll('.card-3d, .glassmorphism');
-                
-                cards.forEach(card => {
-                    card.addEventListener('mouseenter', () => {
-                        if (!card.classList.contains('card-3d')) return;
-                        card.style.transform = 'perspective(1000px) rotateX(5deg) rotateY(5deg) translateZ(20px)';
-                    });
+                form.addEventListener('submit', async (e) => {
+                    e.preventDefault();
                     
-                    card.addEventListener('mouseleave', () => {
-                        if (!card.classList.contains('card-3d')) return;
-                        card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
-                    });
+                    const email = document.getElementById('newsletter-email').value;
+                    const submitText = document.getElementById('newsletter-text');
+                    const submitIcon = document.getElementById('newsletter-icon');
+                    const loading = document.getElementById('newsletter-loading');
+                    const result = document.getElementById('newsletter-result');
+                    
+                    if (!email || !email.includes('@')) {
+                        this.showAlert(result, 'error', '⚠️ Please enter a valid cosmic email address.');
+                        return;
+                    }
+                    
+                    // Show loading
+                    submitText.textContent = 'Subscribing...';
+                    submitIcon.classList.add('hidden');
+                    loading.classList.remove('hidden');
+                    
+                    // Simulate API call
+                    await new Promise(resolve => setTimeout(resolve, 1500));
+                    
+                    // Show success
+                    submitText.textContent = 'Subscribe';
+                    submitIcon.classList.remove('hidden');
+                    loading.classList.add('hidden');
+                    
+                    this.showAlert(result, 'success', `🌟 Welcome to the constellation, ${email}! Check your inbox for cosmic insights.`);
+                    
+                    // Reset form
+                    document.getElementById('newsletter-email').value = '';
                 });
             }
             
-            setupScrollAnimations() {
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('page-transition');
+            addShootingStars() {
+                setInterval(() => {
+                    if (Math.random() < 0.2) {
+                        this.createShootingStar();
+                    }
+                }, 6000);
+            }
+            
+            createShootingStar() {
+                const star = document.createElement('div');
+                star.style.cssText = `
+                    position: fixed;
+                    width: 3px;
+                    height: 3px;
+                    background: linear-gradient(45deg, #60a5fa, #8b5cf6);
+                    border-radius: 50%;
+                    box-shadow: 0 0 15px #60a5fa;
+                    z-index: 1000;
+                    pointer-events: none;
+                    top: ${Math.random() * 40}%;
+                    left: -10px;
+                `;
+                
+                document.body.appendChild(star);
+                
+                star.animate([
+                    { transform: 'translateX(-10px) translateY(0px)', opacity: 0 },
+                    { transform: 'translateX(30px) translateY(-15px)', opacity: 1, offset: 0.1 },
+                    { transform: 'translateX(100vw) translateY(-30px)', opacity: 0 }
+                ], {
+                    duration: 2500,
+                    easing: 'ease-out'
+                }).onfinish = () => star.remove();
+            }
+            
+            setupSmoothScrolling() {
+                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        
+                        const targetId = this.getAttribute('href');
+                        const targetElement = document.querySelector(targetId);
+                        
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 80,
+                                behavior: 'smooth'
+                            });
+                            
+                            // Close mobile menu if open
+                            const mobileMenu = document.getElementById('mobile-menu');
+                            if (mobileMenu) {
+                                mobileMenu.classList.add('hidden');
+                            }
                         }
                     });
-                }, { threshold: 0.1 });
-                
-                document.querySelectorAll('section').forEach(section => {
-                    observer.observe(section);
                 });
             }
             
-            loadPreferences() {
-                const savedTheme = localStorage.getItem('cosmic-theme');
-                if (savedTheme) {
-                    this.changeTheme(savedTheme);
-                }
+            showAlert(container, type, message) {
+                const alertClass = type === 'success' ? 'alert-success' : 'alert-error';
+                const icon = type === 'success' ? '✅' : '❌';
+                
+                container.innerHTML = `
+                    <div class="${alertClass}">
+                        ${icon} ${message}
+                    </div>
+                `;
+                
+                setTimeout(() => {
+                    container.innerHTML = '';
+                }, 5000);
             }
         }
         
-        // Initialize when DOM loads
+        // Initialize Cosmic Constellation
         document.addEventListener('DOMContentLoaded', () => {
-            window.cosmicEnhancements = new CosmicEnhancements();
-        });
-        
-        // Mobile menu toggle
-        document.addEventListener('DOMContentLoaded', () => {
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            
-            if (mobileMenuButton && mobileMenu) {
-                mobileMenuButton.addEventListener('click', () => {
-                    mobileMenu.classList.toggle('hidden');
-                });
-            }
-        });
-        
-        // Smooth scrolling for navigation links
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
-                        
-                        // Close mobile menu if open
-                        const mobileMenu = document.getElementById('mobile-menu');
-                        if (mobileMenu) {
-                            mobileMenu.classList.add('hidden');
-                        }
-                    }
-                });
-            });
-        });
-        
-        // Form submissions with API calls
-        document.addEventListener('DOMContentLoaded', () => {
-            const forms = {
-                astrology: document.getElementById('astrology-form'),
-                numerology: document.getElementById('numerology-form'),
-                tarot: document.getElementById('tarot-form'),
-                dream: document.getElementById('dream-form')
-            };
-            
-            const resultContainers = {
-                astrology: document.getElementById('astrology-result'),
-                numerology: document.getElementById('numerology-result'),
-                tarot: document.getElementById('tarot-result'),
-                dream: document.getElementById('dream-result')
-            };
-            
-            const loadingElements = {
-                astrology: document.getElementById('astrology-loading'),
-                numerology: document.getElementById('numerology-loading'),
-                tarot: document.getElementById('tarot-loading'),
-                dream: document.getElementById('dream-loading')
-            };
-            
-            const submitTexts = {
-                astrology: document.getElementById('astrology-submit-text'),
-                numerology: document.getElementById('numerology-submit-text'),
-                tarot: document.getElementById('tarot-submit-text'),
-                dream: document.getElementById('dream-submit-text')
-            };
-            
-            // Handle form submissions
-            Object.keys(forms).forEach(type => {
-                if (!forms[type]) return;
-                
-                forms[type].addEventListener('submit', async (event) => {
-                    event.preventDefault();
-                    
-                    // Show loading state
-                    if (loadingElements[type]) loadingElements[type].classList.remove('hidden');
-                    if (submitTexts[type]) submitTexts[type].textContent = 'Processing';
-                    
-                    let prompt = '';
-                    
-                    if (type === 'astrology') {
-                        const birthDate = document.getElementById('birth-date').value;
-                        const birthTime = document.getElementById('birth-time').value;
-                        const birthPlace = document.getElementById('birth-place').value;
-                        const question = document.getElementById('astrology-question').value;
-                        
-                        if (!birthDate || !birthPlace) {
-                            resultContainers[type].innerHTML = `
-                                <div class="text-center py-10 text-red-400">
-                                    <p>Please provide your birth date and birth place.</p>
-                                </div>
-                            `;
-                            if (loadingElements[type]) loadingElements[type].classList.add('hidden');
-                            if (submitTexts[type]) submitTexts[type].textContent = 'Generate Reading';
-                            return;
-                        }
-                        
-                        prompt = `Provide a detailed astrology reading for someone born on ${birthDate}${birthTime ? ' at ' + birthTime : ''} in ${birthPlace}. ${question ? 'Focus on: ' + question : ''}`;
-                    } else if (type === 'numerology') {
-                        const fullName = document.getElementById('full-name').value;
-                        const birthDate = document.getElementById('numerology-birth-date').value;
-                        const question = document.getElementById('numerology-question').value;
-                        
-                        if (!fullName || !birthDate) {
-                            resultContainers[type].innerHTML = `
-                                <div class="text-center py-10 text-red-400">
-                                    <p>Please provide your full name and birth date.</p>
-                                </div>
-                            `;
-                            if (loadingElements[type]) loadingElements[type].classList.add('hidden');
-                            if (submitTexts[type]) submitTexts[type].textContent = 'Calculate Numbers';
-                            return;
-                        }
-                        
-                        prompt = `Provide a detailed numerology reading for ${fullName} born on ${birthDate}. ${question ? 'Focus on: ' + question : 'Include life path, destiny, and soul urge numbers.'}`;
-                    } else if (type === 'tarot') {
-                        const readingType = document.querySelector('input[name="reading-type"]:checked')?.value || 'single';
-                        const question = document.getElementById('tarot-question').value;
-                        
-                        prompt = `Provide a ${readingType} card tarot reading. ${question ? 'Question: ' + question : 'Provide general guidance.'}`;
-                    } else if (type === 'dream') {
-                        const dreamDate = document.getElementById('dream-date').value;
-                        const description = document.getElementById('dream-description').value;
-                        const feeling = document.getElementById('dream-feeling').value;
-                        
-                        if (!description) {
-                            resultContainers[type].innerHTML = `
-                                <div class="text-center py-10 text-red-400">
-                                    <p>Please provide a description of your dream.</p>
-                                </div>
-                            `;
-                            if (loadingElements[type]) loadingElements[type].classList.add('hidden');
-                            if (submitTexts[type]) submitTexts[type].textContent = 'Interpret Dream';
-                            return;
-                        }
-                        
-                        prompt = `Interpret this dream: ${description}. ${feeling ? 'The dreamer felt: ' + feeling : ''} ${dreamDate ? 'Dream occurred around: ' + dreamDate : ''}`;
-                    }
-                    
-                    try {
-                        const response = await fetch('/api/groq', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({ prompt })
-                        });
-                        
-                        const data = await response.json();
-                        
-                        if (response.ok && data.text) {
-                            resultContainers[type].innerHTML = `
-                                <div class="text-white/90 whitespace-pre-line leading-relaxed">
-                                    ${data.text}
-                                </div>
-                            `;
-                        } else {
-                            throw new Error(data.error || 'Failed to generate reading');
-                        }
-                    } catch (error) {
-                        resultContainers[type].innerHTML = `
-                            <div class="text-center py-10 text-red-400">
-                                <p>Error: ${error.message}</p>
-                                <p class="text-sm mt-2">Please try again later.</p>
-                            </div>
-                        `;
-                    } finally {
-                        // Reset loading state
-                        if (loadingElements[type]) loadingElements[type].classList.add('hidden');
-                        if (submitTexts[type]) {
-                            const defaultTexts = {
-                                astrology: 'Generate Reading',
-                                numerology: 'Calculate Numbers',
-                                tarot: 'Draw Cards',
-                                dream: 'Interpret Dream'
-                            };
-                            submitTexts[type].textContent = defaultTexts[type];
-                        }
-                    }
-                });
-            });
+            new CosmicConstellation();
         });
     </script>
 </body>
