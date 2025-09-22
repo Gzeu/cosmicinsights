@@ -153,7 +153,7 @@
 <div align="center">
 
 | Frontend | Backend | Database | AI/ML | Deployment |
-|----------|---------|----------|-------|------------|
+|----------|---------|----------|-------|-----------|
 | ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white) | ![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat&logo=node.js&logoColor=white) | ![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=flat&logo=mongodb&logoColor=white) | ![Groq](https://img.shields.io/badge/Groq%20API-FF6B35?style=flat&logo=ai&logoColor=white) | ![Vercel](https://img.shields.io/badge/Vercel-000000?style=flat&logo=vercel&logoColor=white) |
 | ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white) | ![Express](https://img.shields.io/badge/Express-000000?style=flat&logo=express&logoColor=white) | ![Atlas](https://img.shields.io/badge/Atlas-47A248?style=flat&logo=mongodb&logoColor=white) | ![LLaMA](https://img.shields.io/badge/LLaMA%203.3-0066CC?style=flat&logo=meta&logoColor=white) | ![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white) |
 | ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black) | ![Helmet](https://img.shields.io/badge/Security-Helmet-green?style=flat) | ![Cache](https://img.shields.io/badge/Caching-NodeCache-blue?style=flat) | ![AI](https://img.shields.io/badge/AI%20Models-Multiple-purple?style=flat) | ![PWA](https://img.shields.io/badge/PWA-Ready-orange?style=flat) |
@@ -189,19 +189,25 @@ cp .env.example .env
 npm run dev
 ```
 
-### 🔧 **Environment Variables**
+### 🔧 **Environment Configuration**
+
+Create a `.env` file in the root directory with the following variables:
 
 ```env
-# Required
-MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/cosmicinsights
-GROQ_API_KEY=gsk_your_groq_api_key_here
+# Database Configuration
+MONGODB_URI=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/<database>
 
-# Optional
+# AI Service Configuration  
+GROQ_API_KEY=gsk_<your_actual_groq_api_key>
+
+# Server Configuration (Optional)
 PORT=8000
 NODE_ENV=development
 RATE_LIMIT_MAX=100
 CACHE_TTL=600
 ```
+
+**🔐 Security Note:** Replace `<username>`, `<password>`, `<cluster>`, `<database>`, and `<your_actual_groq_api_key>` with your actual credentials. Never commit the `.env` file to version control.
 
 ---
 
@@ -463,7 +469,7 @@ We welcome contributions! Here's how to get started:
 - 📖 [Full Documentation](https://docs.cosmicinsights.com)
 - 🎓 [Video Tutorials](https://youtube.com/@cosmicinsights)
 - 💡 [Feature Requests](https://github.com/Gzeu/cosmicinsights/issues/new?template=feature_request.md)
-- 🐛 [Bug Reports](https://github.com/Gzeu/cosmicinsights/issues/new?template=bug_report.md)
+- 🐛 [Bug Reports](https://github.com/Gzeu/cosmicinsights/issues/new?template=bug_request.md)
 - 💬 [Discussions](https://github.com/Gzeu/cosmicinsights/discussions)
 
 ---
