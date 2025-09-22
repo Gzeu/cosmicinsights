@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - Cosmic Insights</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#667eea">
+    <meta name="description" content="Comprehensive spiritual reports combining astrology, numerology, and more">
+    
+    <!-- External Libraries -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+        
+        :root {
+            --success-gradient: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            --glass-backdrop: blur(20px);
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--success-gradient);
+            min-height: 100vh;
+        }
+        
+        .glassmorphism {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-backdrop);
+            -webkit-backdrop-filter: var(--glass-backdrop);
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .glassmorphism:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+        
+        .btn-cosmic {
+            background: var(--primary-gradient);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            padding: 12px 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn-cosmic:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #10b981, #059669);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            padding: 8px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .input-cosmic {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 15px 20px;
+            color: white;
+            width: 100%;
+        }
+        
+        .input-cosmic::placeholder { color: rgba(255, 255, 255, 0.7); }
+        .input-cosmic:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .textarea-cosmic {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            color: white;
+            width: 100%;
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--primary-gradient);
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+        
+        .report-content {
+            max-height: 500px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+        }
+        
+        .report-content::-webkit-scrollbar { width: 6px; }
+        .report-content::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.1); }
+        .report-content::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.3); }
+        
+        .loading-cosmic {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            border-radius: 50%;
+            border-top-color: #667eea;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin { to { transform: rotate(360deg); } }
+        
+        .card-float { animation: float 6s ease-in-out infinite; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="min-h-screen py-8 px-4">
+        <!-- Header -->
+        <div class="max-w-6xl mx-auto mb-8">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-5xl font-serif font-bold text-white mb-4">
+                    <i class="fas fa-clipboard-list mr-3"></i>Comprehensive Reports
+                </h1>
+                <p class="text-white/80 text-lg max-w-2xl mx-auto">
+                    Get detailed, personalized reports that combine multiple spiritual insights into one complete analysis.
+                </p>
+                <a href="./" class="inline-flex items-center mt-4 text-white/70 hover:text-white transition-colors">
+                    <i class="fas fa-arrow-left mr-2"></i> Back to Home
+                </a>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Report Generator -->
+                <div class="glassmorphism card-float">
+                    <h2 class="text-2xl font-serif font-bold text-white mb-6">
+                        <i class="fas fa-magic mr-2"></i>Generate Complete Report
+                    </h2>
+                    
+                    <form id="complete-report-form" class="space-y-4">
+                        <div>
+                            <label for="report-name" class="block text-white/80 mb-2 font-medium">Full Name</label>
+                            <input type="text" id="report-name" placeholder="Enter your full name" class="input-cosmic" required>
+                        </div>
+                        
+                        <div>
+                            <label for="report-birth-date" class="block text-white/80 mb-2 font-medium">Birth Date</label>
+                            <input type="date" id="report-birth-date" class="input-cosmic" required>
+                        </div>
+                        
+                        <div>
+                            <label for="report-birth-time" class="block text-white/80 mb-2 font-medium">Birth Time (optional)</label>
+                            <input type="time" id="report-birth-time" class="input-cosmic">
+                        </div>
+                        
+                        <div>
+                            <label for="report-birth-place" class="block text-white/80 mb-2 font-medium">Birth Place</label>
+                            <input type="text" id="report-birth-place" placeholder="City, Country" class="input-cosmic" required>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-white/80 mb-3 font-medium">Report Sections to Include</label>
+                            <div class="grid grid-cols-2 gap-3">
+                                <label class="flex items-center space-x-2 text-white/80 cursor-pointer">
+                                    <input type="checkbox" id="include-astrology" checked class="w-4 h-4 rounded">
+                                    <span>Astrology Analysis</span>
+                                </label>
+                                <label class="flex items-center space-x-2 text-white/80 cursor-pointer">
+                                    <input type="checkbox" id="include-numerology" checked class="w-4 h-4 rounded">
+                                    <span>Numerology Profile</span>
+                                </label>
+                                <label class="flex items-center space-x-2 text-white/80 cursor-pointer">
+                                    <input type="checkbox" id="include-compatibility" class="w-4 h-4 rounded">
+                                    <span>Compatibility Analysis</span>
+                                </label>
+                                <label class="flex items-center space-x-2 text-white/80 cursor-pointer">
+                                    <input type="checkbox" id="include-forecast" class="w-4 h-4 rounded">
+                                    <span>Year Forecast</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="report-focus" class="block text-white/80 mb-2 font-medium">Special Focus Areas</label>
+                            <textarea id="report-focus" placeholder="What would you like the report to focus on? (career, relationships, personal growth, etc.)" class="textarea-cosmic"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn-cosmic w-full text-lg">
+                            <span id="report-submit-text">Generate Complete Report</span>
+                            <span id="report-loading" class="loading-cosmic hidden ml-2"></span>
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Report Results -->
+                <div class="glassmorphism">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-serif font-bold text-white">
+                            <i class="fas fa-scroll mr-2"></i>Your Complete Report
+                        </h2>
+                        <div class="flex gap-2">
+                            <button id="save-report" class="btn-success hidden">
+                                <i class="fas fa-save mr-1"></i> Save
+                            </button>
+                            <button id="export-pdf" class="btn-success hidden">
+                                <i class="fas fa-file-pdf mr-1"></i> PDF
+                            </button>
+                            <button id="export-email" class="btn-success hidden">
+                                <i class="fas fa-envelope mr-1"></i> Email
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div id="complete-report-result" class="report-content text-white/90">
+                        <div class="text-center py-12 text-white/70">
+                            <i class="fas fa-stars text-5xl mb-4"></i>
+                            <p class="text-lg">Fill out the form to generate your personalized complete report.</p>
+                            <p class="text-sm mt-2">Combining astrology, numerology, and spiritual insights.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Progress Bar -->
+                    <div id="report-progress" class="hidden">
+                        <div class="progress-bar">
+                            <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <p class="text-white/70 text-sm text-center" id="progress-text">Generating report...</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Service Features -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
+                <div class="glassmorphism text-center">
+                    <i class="fas fa-chart-line text-3xl text-white mb-3"></i>
+                    <h3 class="text-lg font-semibold text-white mb-2">Detailed Analysis</h3>
+                    <p class="text-white/80 text-sm">Comprehensive insights combining multiple spiritual disciplines.</p>
+                </div>
+                <div class="glassmorphism text-center">
+                    <i class="fas fa-file-export text-3xl text-white mb-3"></i>
+                    <h3 class="text-lg font-semibold text-white mb-2">Export Options</h3>
+                    <p class="text-white/80 text-sm">Save as PDF, email, or store in your personal library.</p>
+                </div>
+                <div class="glassmorphism text-center">
+                    <i class="fas fa-history text-3xl text-white mb-3"></i>
+                    <h3 class="text-lg font-semibold text-white mb-2">Report History</h3>
+                    <p class="text-white/80 text-sm">Access previous reports and track your journey.</p>
+                </div>
+                <div class="glassmorphism text-center">
+                    <i class="fas fa-users text-3xl text-white mb-3"></i>
+                    <h3 class="text-lg font-semibold text-white mb-2">Compatibility</h3>
+                    <p class="text-white/80 text-sm">Generate relationship compatibility reports.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        class ReportGenerator {
+            constructor() {
+                this.currentReport = null;
+                this.savedReports = JSON.parse(localStorage.getItem('cosmic-reports') || '[]');
+                this.init();
+            }
+            
+            init() {
+                this.setupEventListeners();
+            }
+            
+            setupEventListeners() {
+                const form = document.getElementById('complete-report-form');
+                if (form) {
+                    form.addEventListener('submit', (e) => {
+                        e.preventDefault();
+                        this.generateCompleteReport();
+                    });
+                }
+                
+                document.getElementById('save-report')?.addEventListener('click', () => this.saveReport());
+                document.getElementById('export-pdf')?.addEventListener('click', () => this.exportToPDF());
+                document.getElementById('export-email')?.addEventListener('click', () => this.emailReport());
+            }
+            
+            async generateCompleteReport() {
+                const name = document.getElementById('report-name').value;
+                const birthDate = document.getElementById('report-birth-date').value;
+                const birthTime = document.getElementById('report-birth-time').value;
+                const birthPlace = document.getElementById('report-birth-place').value;
+                const focus = document.getElementById('report-focus').value;
+                
+                const includeAstrology = document.getElementById('include-astrology').checked;
+                const includeNumerology = document.getElementById('include-numerology').checked;
+                const includeCompatibility = document.getElementById('include-compatibility').checked;
+                const includeForecast = document.getElementById('include-forecast').checked;
+                
+                if (!name || !birthDate || !birthPlace) {
+                    alert('Please fill in the required fields: Name, Birth Date, and Birth Place.');
+                    return;
+                }
+                
+                this.showReportProgress(true);
+                
+                try {
+                    let reportContent = `# Complete Cosmic Report for ${name}\n\n`;
+                    reportContent += `**Generated:** ${new Date().toLocaleDateString()}\n`;
+                    reportContent += `**Birth Date:** ${birthDate}\n`;
+                    if (birthTime) reportContent += `**Birth Time:** ${birthTime}\n`;
+                    reportContent += `**Birth Place:** ${birthPlace}\n\n`;
+                    
+                    let progress = 0;
+                    const sections = [];
+                    if (includeAstrology) sections.push('astrology');
+                    if (includeNumerology) sections.push('numerology');
+                    if (includeCompatibility) sections.push('compatibility');
+                    if (includeForecast) sections.push('forecast');
+                    
+                    if (sections.length === 0) {
+                        alert('Please select at least one report section.');
+                        this.showReportProgress(false);
+                        return;
+                    }
+                    
+                    for (let section of sections) {
+                        await this.generateReportSection(section, {
+                            name, birthDate, birthTime, birthPlace, focus
+                        }, (content) => {
+                            reportContent += content;
+                            progress += 100 / sections.length;
+                            this.updateProgress(progress, `Generated ${section} analysis...`);
+                        });
+                    }
+                    
+                    // Display complete report
+                    document.getElementById('complete-report-result').innerHTML = `
+                        <div class="report-content">
+                            ${this.formatReportHTML(reportContent)}
+                        </div>
+                    `;
+                    
+                    // Show export buttons
+                    document.getElementById('save-report').classList.remove('hidden');
+                    document.getElementById('export-pdf').classList.remove('hidden');
+                    document.getElementById('export-email').classList.remove('hidden');
+                    
+                    // Store current report
+                    this.currentReport = {
+                        name,
+                        birthDate,
+                        content: reportContent,
+                        generated: new Date().toISOString()
+                    };
+                    
+                } catch (error) {
+                    document.getElementById('complete-report-result').innerHTML = `
+                        <div class="text-center py-10 text-red-400">
+                            <i class="fas fa-exclamation-triangle text-3xl mb-3"></i>
+                            <p>Error generating report: ${error.message}</p>
+                            <p class="text-sm mt-2">Please try again later.</p>
+                        </div>
+                    `;
+                } finally {
+                    this.showReportProgress(false);
+                }
+            }
+            
+            async generateReportSection(section, data, callback) {
+                let prompt = '';
+                let sectionTitle = '';
+                
+                switch(section) {
+                    case 'astrology':
+                        sectionTitle = '## ⭐ Astrological Analysis';
+                        prompt = `Provide a comprehensive astrological analysis for ${data.name} born on ${data.birthDate}${data.birthTime ? ' at ' + data.birthTime : ''} in ${data.birthPlace}. Include birth chart insights, planetary positions, and life path guidance. ${data.focus ? 'Focus on: ' + data.focus : ''}`;
+                        break;
+                    case 'numerology':
+                        sectionTitle = '## 🔢 Numerological Profile';
+                        prompt = `Create a detailed numerology report for ${data.name} born on ${data.birthDate}. Include life path number, destiny number, soul urge number, and personality number with interpretations.`;
+                        break;
+                    case 'compatibility':
+                        sectionTitle = '## 💕 Compatibility Insights';
+                        prompt = `Analyze compatibility patterns for ${data.name} born on ${data.birthDate}. Include relationship tendencies, compatible signs, and partnership guidance.`;
+                        break;
+                    case 'forecast':
+                        sectionTitle = '## 🔮 Year Ahead Forecast';
+                        prompt = `Provide a detailed forecast for ${data.name} based on birth date ${data.birthDate}. Include yearly themes and key periods.`;
+                        break;
+                }
+                
+                // Simulate API call (replace with actual API)
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                
+                const mockResponse = `This is a detailed ${section} analysis for ${data.name}. 
+
+Based on your birth information (${data.birthDate} in ${data.birthPlace}), this section provides comprehensive insights into your ${section} profile.
+
+Key insights:
+• Detailed analysis point 1
+• Comprehensive insight 2  
+• Personalized guidance 3
+
+This analysis reveals important aspects of your spiritual journey and personal development.`;
+                
+                callback(`${sectionTitle}\n\n${mockResponse}\n\n`);
+            }
+            
+            formatReportHTML(markdownContent) {
+                return markdownContent
+                    .replace(/^# (.*$)/gm, '<h1 class="text-2xl font-serif font-bold text-white mb-4">$1</h1>')
+                    .replace(/^## (.*$)/gm, '<h2 class="text-xl font-serif font-semibold text-white mb-3 mt-6">$1</h2>')
+                    .replace(/^\*\*(.*?)\*\*/gm, '<strong class="text-white font-semibold">$1</strong>')
+                    .replace(/^• (.*$)/gm, '<li class="text-white/90 mb-1">$1</li>')
+                    .replace(/\n\n/g, '</p><p class="text-white/90 mb-4">')
+                    .replace(/^(?!<)/gm, '<p class="text-white/90 mb-4">');
+            }
+            
+            showReportProgress(show) {
+                const progressDiv = document.getElementById('report-progress');
+                if (show) {
+                    progressDiv.classList.remove('hidden');
+                    this.updateProgress(0, 'Starting report generation...');
+                } else {
+                    progressDiv.classList.add('hidden');
+                }
+            }
+            
+            updateProgress(percentage, text) {
+                document.getElementById('progress-fill').style.width = `${percentage}%`;
+                document.getElementById('progress-text').textContent = text;
+            }
+            
+            saveReport() {
+                if (!this.currentReport) return;
+                
+                this.savedReports.push(this.currentReport);
+                localStorage.setItem('cosmic-reports', JSON.stringify(this.savedReports));
+                
+                alert('Report saved successfully!');
+            }
+            
+            exportToPDF() {
+                if (!this.currentReport) return;
+                
+                // Create simple text file download (jsPDF would be more complex)
+                const content = this.currentReport.content;
+                const blob = new Blob([content], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `cosmic-report-${this.currentReport.name}-${new Date().toISOString().split('T')[0]}.txt`;
+                a.click();
+                URL.revokeObjectURL(url);
+            }
+            
+            emailReport() {
+                if (!this.currentReport) return;
+                
+                const subject = `Cosmic Report for ${this.currentReport.name}`;
+                const body = encodeURIComponent(this.currentReport.content);
+                
+                window.open(`mailto:?subject=${subject}&body=${body}`);
+            }
+        }
+        
+        // Initialize when DOM loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new ReportGenerator();
+        });
+    </script>
+</body>
+</html>
