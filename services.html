@@ -3,65 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Services - Cosmic Insights</title>
-    <meta name="theme-color" content="#0f1419">
-    <meta name="description" content="Comprehensive spiritual reports with dark constellation theme">
+    <title>Cosmic Services - Constellation Reports</title>
+    <meta name="description" content="Generate comprehensive spiritual reports with authentic constellation theme">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌌</text></svg>">
     
+    <!-- External Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="./dark-theme.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     
     <style>
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background: var(--cosmic-dark);
-            color: white;
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cinzel:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+        
+        /* Constellation Theme Variables */
+        :root {
+            /* Deep Space Gradients */
+            --constellation-bg: linear-gradient(135deg, #0a0a1e 0%, #1a1a3a 25%, #000011 50%, #2d1b4e 75%, #0a0a0f 100%);
+            --nebula-glow: radial-gradient(circle at 30% 20%, #4338ca44, transparent 50%), 
+                           radial-gradient(circle at 70% 80%, #7c3aed33, transparent 50%);
+            
+            /* Constellation Colors */
+            --star-primary: #f8fafc;
+            --star-secondary: #e2e8f0;
+            --star-accent: #60a5fa;
+            --constellation-line: #3b82f6;
+            --cosmic-purple: #8b5cf6;
+            --deep-space: #0f172a;
+            --nebula-pink: #ec4899;
+            --galaxy-blue: #1e40af;
+            
+            /* Glass Effects */
+            --glass-bg: rgba(15, 23, 42, 0.3);
+            --glass-border: rgba(96, 165, 250, 0.2);
+            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            
+            /* Typography */
+            --font-cosmic: 'Cinzel', serif;
+            --font-body: 'Inter', sans-serif;
+            --font-mono: 'Space Mono', monospace;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            background: var(--constellation-bg);
+            color: var(--star-primary);
             min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
         }
         
-        .glassmorphism {
-            background: var(--glass-dark-bg);
+        /* Constellation Background Animation */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--nebula-glow);
+            opacity: 0.6;
+            z-index: -2;
+            animation: nebulaShift 20s ease-in-out infinite alternate;
+        }
+        
+        /* Animated Star Field */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(2px 2px at 20px 30px, var(--star-accent), transparent),
+                radial-gradient(2px 2px at 40px 70px, var(--star-primary), transparent),
+                radial-gradient(1px 1px at 90px 40px, var(--cosmic-purple), transparent),
+                radial-gradient(1px 1px at 130px 80px, var(--star-secondary), transparent),
+                radial-gradient(2px 2px at 160px 30px, var(--nebula-pink), transparent),
+                radial-gradient(1px 1px at 200px 90px, var(--galaxy-blue), transparent),
+                radial-gradient(1px 1px at 240px 50px, var(--star-accent), transparent),
+                radial-gradient(2px 2px at 300px 20px, var(--cosmic-purple), transparent);
+            background-repeat: repeat;
+            background-size: 350px 200px;
+            opacity: 0.8;
+            z-index: -1;
+            animation: starField 30s linear infinite, starTwinkle 4s ease-in-out infinite alternate;
+        }
+        
+        /* Constellation Glass Cards */
+        .constellation-glass {
+            background: var(--glass-bg);
             backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-dark-border);
+            border: 1px solid var(--glass-border);
             border-radius: 20px;
-            padding: 2rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
+            box-shadow: var(--glass-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
         }
         
-        .glassmorphism:hover {
-            background: rgba(15, 20, 25, 0.4);
-            transform: translateY(-2px);
-            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.8);
+        .constellation-glass::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--star-accent), var(--cosmic-purple), var(--nebula-pink), var(--galaxy-blue));
+            border-radius: 22px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
         
-        .btn-cosmic {
-            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-            border: 1px solid var(--accent-blue);
+        .constellation-glass:hover::before {
+            opacity: 0.3;
+        }
+        
+        .constellation-glass:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(96, 165, 250, 0.2), var(--glass-shadow);
+            border-color: var(--star-accent);
+        }
+        
+        /* Cosmic Buttons */
+        .btn-constellation {
+            background: linear-gradient(135deg, var(--galaxy-blue), var(--cosmic-purple));
+            border: 2px solid var(--star-accent);
+            color: var(--star-primary);
+            padding: 16px 32px;
             border-radius: 50px;
-            color: white;
-            padding: 14px 32px;
             font-weight: 600;
+            font-size: 16px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 6px 25px rgba(74, 158, 255, 0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(30, 64, 175, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         
-        .btn-cosmic:hover {
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: 0 10px 35px rgba(74, 158, 255, 0.5);
+        .btn-constellation::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn-constellation:hover::before {
+            left: 100%;
+        }
+        
+        .btn-constellation:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 30px rgba(96, 165, 250, 0.6);
+            border-color: var(--star-primary);
         }
         
         .btn-success {
             background: linear-gradient(135deg, #10b981, #059669);
             border: 1px solid #10b981;
-            border-radius: 50px;
             color: white;
-            padding: 8px 20px;
+            padding: 10px 20px;
+            border-radius: 25px;
             font-size: 14px;
             font-weight: 600;
             cursor: pointer;
@@ -69,274 +184,473 @@
         }
         
         .btn-success:hover {
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: 0 8px 30px rgba(16, 185, 129, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
         }
         
-        .input-cosmic, .textarea-cosmic {
-            background: rgba(15, 20, 25, 0.7);
-            border: 1px solid rgba(100, 150, 200, 0.2);
+        /* Cosmic Form Inputs */
+        .cosmic-input {
+            background: rgba(15, 23, 42, 0.6);
+            border: 2px solid var(--glass-border);
             border-radius: 15px;
-            padding: 16px 20px;
-            color: white;
+            padding: 18px 24px;
+            color: var(--star-primary);
+            font-size: 16px;
             width: 100%;
             transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
         }
         
-        .input-cosmic::placeholder, .textarea-cosmic::placeholder {
-            color: rgba(255, 255, 255, 0.6);
+        .cosmic-input::placeholder {
+            color: rgba(248, 250, 252, 0.6);
+            font-style: italic;
         }
         
-        .input-cosmic:focus, .textarea-cosmic:focus {
+        .cosmic-input:focus {
             outline: none;
-            border-color: var(--accent-blue);
-            box-shadow: 0 0 0 3px rgba(74, 158, 255, 0.2);
-            background: rgba(15, 20, 25, 0.9);
+            border-color: var(--star-accent);
+            box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.2), 
+                        0 0 20px rgba(96, 165, 250, 0.3);
+            background: rgba(15, 23, 42, 0.8);
         }
         
-        .progress-bar {
+        .cosmic-textarea {
+            background: rgba(15, 23, 42, 0.6);
+            border: 2px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 20px 24px;
+            color: var(--star-primary);
+            font-size: 16px;
+            width: 100%;
+            min-height: 120px;
+            resize: vertical;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .cosmic-textarea::placeholder {
+            color: rgba(248, 250, 252, 0.6);
+            font-style: italic;
+        }
+        
+        .cosmic-textarea:focus {
+            outline: none;
+            border-color: var(--star-accent);
+            box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.2);
+            background: rgba(15, 23, 42, 0.8);
+        }
+        
+        /* Progress Bar */
+        .cosmic-progress {
             width: 100%;
             height: 8px;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(15, 23, 42, 0.8);
             border-radius: 4px;
             overflow: hidden;
-            margin: 15px 0;
+            margin: 20px 0;
+            position: relative;
         }
         
-        .progress-fill {
+        .cosmic-progress-bar {
             height: 100%;
-            background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+            background: linear-gradient(90deg, var(--galaxy-blue), var(--cosmic-purple), var(--star-accent));
             border-radius: 4px;
             transition: width 0.5s ease;
+            position: relative;
         }
         
+        .cosmic-progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: progressShimmer 1.5s ease-in-out infinite;
+        }
+        
+        /* Constellation Checkbox */
+        .cosmic-checkbox {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--star-accent);
+            border-radius: 6px;
+            background: rgba(15, 23, 42, 0.6);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .cosmic-checkbox:checked {
+            background: linear-gradient(135deg, var(--galaxy-blue), var(--cosmic-purple));
+            border-color: var(--star-primary);
+        }
+        
+        .cosmic-checkbox:checked::after {
+            content: '✦';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--star-primary);
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        /* Typography */
+        .cosmic-title {
+            font-family: var(--font-cosmic);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--star-primary), var(--star-accent), var(--cosmic-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+        
+        .cosmic-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--star-accent), transparent);
+        }
+        
+        .constellation-text {
+            font-size: 18px;
+            line-height: 1.7;
+            color: rgba(248, 250, 252, 0.9);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        /* Alert Messages */
+        .alert-success {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(5, 150, 105, 0.1));
+            border: 2px solid #10b981;
+            border-radius: 15px;
+            padding: 16px 20px;
+            color: #34d399;
+            margin: 16px 0;
+            backdrop-filter: blur(10px);
+        }
+        
+        .alert-error {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(220, 38, 38, 0.1));
+            border: 2px solid #ef4444;
+            border-radius: 15px;
+            padding: 16px 20px;
+            color: #fca5a5;
+            margin: 16px 0;
+            backdrop-filter: blur(10px);
+        }
+        
+        /* Animations */
+        @keyframes nebulaShift {
+            0% { transform: translateX(-10px) translateY(-5px) scale(1); }
+            100% { transform: translateX(10px) translateY(5px) scale(1.05); }
+        }
+        
+        @keyframes starField {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(-100px) translateY(-50px); }
+        }
+        
+        @keyframes starTwinkle {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+        
+        @keyframes progressShimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        .page-enter {
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .constellation-glass {
+                margin: 10px;
+                padding: 20px;
+            }
+            
+            .btn-constellation {
+                width: 100%;
+                margin: 10px 0;
+            }
+            
+            .cosmic-title {
+                font-size: 2.5rem;
+            }
+        }
+        
+        /* Report Content Styles */
         .report-content {
             max-height: 500px;
             overflow-y: auto;
             scrollbar-width: thin;
-            scrollbar-color: rgba(74, 158, 255, 0.5) transparent;
+            scrollbar-color: var(--star-accent) transparent;
         }
         
-        .report-content::-webkit-scrollbar { width: 6px; }
-        .report-content::-webkit-scrollbar-track { background: rgba(15, 20, 25, 0.5); }
-        .report-content::-webkit-scrollbar-thumb { 
-            background: rgba(74, 158, 255, 0.5); 
-            border-radius: 3px;
+        .report-content::-webkit-scrollbar {
+            width: 8px;
         }
         
-        .card-float {
-            animation: float 6s ease-in-out infinite;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-        
-        input[type="checkbox"] {
-            appearance: none;
-            width: 18px;
-            height: 18px;
-            border: 2px solid rgba(100, 150, 200, 0.3);
+        .report-content::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.5);
             border-radius: 4px;
-            background: rgba(15, 20, 25, 0.7);
-            cursor: pointer;
+        }
+        
+        .report-content::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, var(--galaxy-blue), var(--cosmic-purple));
+            border-radius: 4px;
+        }
+        
+        /* Loading Spinner */
+        .cosmic-loading {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(96, 165, 250, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--star-accent);
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Grid Layout */
+        .cosmic-grid {
+            display: grid;
+            gap: 24px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+        
+        /* Navigation Improvements */
+        .cosmic-nav {
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-link {
+            color: rgba(248, 250, 252, 0.8);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
             transition: all 0.3s ease;
         }
         
-        input[type="checkbox"]:checked {
-            background: var(--accent-blue);
-            border-color: var(--accent-blue);
-        }
-        
-        input[type="checkbox"]:checked::after {
-            content: '✓';
-            display: block;
-            text-align: center;
-            color: white;
-            font-size: 12px;
-            font-weight: bold;
-            line-height: 14px;
-        }
-        
-        .alert-success {
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid #10b981;
-            color: #10b981;
-            padding: 12px 20px;
-            border-radius: 15px;
-            margin: 10px 0;
-        }
-        
-        .alert-error {
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid #ef4444;
-            color: #fca5a5;
-            padding: 12px 20px;
-            border-radius: 15px;
-            margin: 10px 0;
-        }
-        
-        .text-shimmer {
-            background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple), var(--accent-cyan));
-            background-size: 400% 100%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shimmer 3s ease-in-out infinite;
-        }
-        
-        @keyframes shimmer {
-            0% { background-position: -400% 0; }
-            100% { background-position: 400% 0; }
+        .nav-link:hover {
+            color: var(--star-accent);
+            background: rgba(96, 165, 250, 0.1);
         }
     </style>
 </head>
-<body>
-    <div class="min-h-screen py-8 px-4">
-        <!-- Header -->
-        <div class="max-w-6xl mx-auto mb-8">
-            <div class="text-center">
-                <h1 class="text-4xl md:text-5xl font-serif font-bold text-white mb-4">
-                    <i class="fas fa-clipboard-list mr-3 text-cyan-400"></i><span class="text-shimmer">Comprehensive Reports</span>
-                </h1>
-                <p class="text-white/80 text-lg max-w-2xl mx-auto">
-                    Get detailed, personalized reports that combine multiple spiritual insights into one complete analysis with our dark constellation theme.
-                </p>
-                <a href="./" class="inline-flex items-center mt-4 text-white/70 hover:text-cyan-400 transition-colors">
-                    <i class="fas fa-arrow-left mr-2"></i> Back to Home
-                </a>
+
+<body class="page-enter">
+    <!-- Navigation -->
+    <nav class="cosmic-nav">
+        <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <span class="text-2xl">🌌</span>
+                <h1 class="text-xl font-bold" style="font-family: var(--font-cosmic);">Cosmic Insights</h1>
             </div>
+            <div class="flex items-center space-x-4">
+                <a href="./" class="nav-link">
+                    <i class="fas fa-arrow-left mr-2"></i>Home
+                </a>
+                <a href="#generator" class="nav-link">Generator</a>
+                <a href="#features" class="nav-link">Features</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="min-h-screen py-12 px-4">
+        <!-- Hero Section -->
+        <div class="max-w-6xl mx-auto mb-16 text-center">
+            <h1 class="cosmic-title floating">
+                🌟 Constellation Reports
+            </h1>
+            <p class="constellation-text">
+                Harness the power of the cosmos to generate comprehensive spiritual reports.
+                <br>Let the stars guide your journey through personalized insights.
+            </p>
         </div>
         
         <!-- Main Content -->
-        <div class="max-w-6xl mx-auto">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
                 <!-- Report Generator -->
-                <div class="glassmorphism card-float">
-                    <h2 class="text-2xl font-serif font-bold text-white mb-6">
-                        <i class="fas fa-magic mr-2 text-purple-400"></i>Generate Complete Report
+                <div class="constellation-glass p-8 floating" id="generator">
+                    <h2 class="text-2xl font-semibold mb-6 flex items-center" style="font-family: var(--font-cosmic);">
+                        <i class="fas fa-magic mr-3 text-purple-400"></i>
+                        Cosmic Report Generator
                     </h2>
                     
-                    <form id="complete-report-form" class="space-y-4">
+                    <form id="cosmic-report-form" class="space-y-6">
                         <div>
-                            <label for="report-name" class="block text-white/80 mb-2 font-medium">Full Name</label>
-                            <input type="text" id="report-name" placeholder="Enter your full name" class="input-cosmic" required>
+                            <label class="block text-sm font-medium mb-2 text-gray-300">✨ Your Full Name</label>
+                            <input type="text" id="report-name" placeholder="Enter your cosmic name..." class="cosmic-input" required>
                         </div>
                         
                         <div>
-                            <label for="report-birth-date" class="block text-white/80 mb-2 font-medium">Birth Date</label>
-                            <input type="date" id="report-birth-date" class="input-cosmic" required>
+                            <label class="block text-sm font-medium mb-2 text-gray-300">🌙 Birth Date</label>
+                            <input type="date" id="report-birth-date" class="cosmic-input" required>
                         </div>
                         
                         <div>
-                            <label for="report-birth-time" class="block text-white/80 mb-2 font-medium">Birth Time (optional)</label>
-                            <input type="time" id="report-birth-time" class="input-cosmic">
+                            <label class="block text-sm font-medium mb-2 text-gray-300">⏰ Birth Time (Optional)</label>
+                            <input type="time" id="report-birth-time" class="cosmic-input">
                         </div>
                         
                         <div>
-                            <label for="report-birth-place" class="block text-white/80 mb-2 font-medium">Birth Place</label>
-                            <input type="text" id="report-birth-place" placeholder="City, Country" class="input-cosmic" required>
+                            <label class="block text-sm font-medium mb-2 text-gray-300">🌍 Birth Place</label>
+                            <input type="text" id="report-birth-place" placeholder="City, Country..." class="cosmic-input" required>
                         </div>
                         
                         <div>
-                            <label class="block text-white/80 mb-3 font-medium">Report Sections to Include</label>
-                            <div class="grid grid-cols-2 gap-3">
-                                <label class="flex items-center space-x-2 text-white/80 cursor-pointer hover:text-blue-400 transition-colors">
-                                    <input type="checkbox" id="include-astrology" checked>
-                                    <span>Astrology Analysis</span>
+                            <label class="block text-sm font-medium mb-3 text-gray-300">🔮 Select Your Cosmic Insights</label>
+                            <div class="grid grid-cols-2 gap-4">
+                                <label class="flex items-center space-x-3 cursor-pointer p-3 rounded-lg hover:bg-white/5 transition-colors">
+                                    <input type="checkbox" id="include-astrology" checked class="cosmic-checkbox">
+                                    <span class="text-sm">⭐ Astrology Analysis</span>
                                 </label>
-                                <label class="flex items-center space-x-2 text-white/80 cursor-pointer hover:text-purple-400 transition-colors">
-                                    <input type="checkbox" id="include-numerology" checked>
-                                    <span>Numerology Profile</span>
+                                <label class="flex items-center space-x-3 cursor-pointer p-3 rounded-lg hover:bg-white/5 transition-colors">
+                                    <input type="checkbox" id="include-numerology" checked class="cosmic-checkbox">
+                                    <span class="text-sm">🔢 Numerology Profile</span>
                                 </label>
-                                <label class="flex items-center space-x-2 text-white/80 cursor-pointer hover:text-cyan-400 transition-colors">
-                                    <input type="checkbox" id="include-compatibility">
-                                    <span>Compatibility Analysis</span>
+                                <label class="flex items-center space-x-3 cursor-pointer p-3 rounded-lg hover:bg-white/5 transition-colors">
+                                    <input type="checkbox" id="include-compatibility" class="cosmic-checkbox">
+                                    <span class="text-sm">💕 Compatibility</span>
                                 </label>
-                                <label class="flex items-center space-x-2 text-white/80 cursor-pointer hover:text-green-400 transition-colors">
-                                    <input type="checkbox" id="include-forecast">
-                                    <span>Year Forecast</span>
+                                <label class="flex items-center space-x-3 cursor-pointer p-3 rounded-lg hover:bg-white/5 transition-colors">
+                                    <input type="checkbox" id="include-forecast" class="cosmic-checkbox">
+                                    <span class="text-sm">🌠 Year Forecast</span>
                                 </label>
                             </div>
                         </div>
                         
                         <div>
-                            <label for="report-focus" class="block text-white/80 mb-2 font-medium">Special Focus Areas</label>
-                            <textarea id="report-focus" placeholder="What would you like the report to focus on? (career, relationships, personal growth, etc.)" class="textarea-cosmic" rows="3"></textarea>
+                            <label class="block text-sm font-medium mb-2 text-gray-300">🎯 Special Focus Areas</label>
+                            <textarea id="report-focus" placeholder="What cosmic guidance do you seek? (career, relationships, personal growth...)" class="cosmic-textarea"></textarea>
                         </div>
                         
-                        <button type="submit" class="btn-cosmic w-full text-lg">
-                            <span id="report-submit-text">Generate Complete Report</span>
-                            <i class="fas fa-stars ml-2"></i>
+                        <button type="submit" class="btn-constellation w-full text-lg flex items-center justify-center">
+                            <span id="submit-text">Generate Cosmic Report</span>
+                            <span id="loading-spinner" class="cosmic-loading ml-3 hidden"></span>
+                            <i class="fas fa-stars ml-2" id="submit-icon"></i>
                         </button>
                     </form>
                 </div>
                 
                 <!-- Report Results -->
-                <div class="glassmorphism">
+                <div class="constellation-glass p-8">
                     <div class="flex justify-between items-center mb-6">
-                        <h2 class="text-2xl font-serif font-bold text-white">
-                            <i class="fas fa-scroll mr-2 text-blue-400"></i>Your Complete Report
+                        <h2 class="text-2xl font-semibold flex items-center" style="font-family: var(--font-cosmic);">
+                            <i class="fas fa-scroll mr-3 text-blue-400"></i>
+                            Your Cosmic Report
                         </h2>
                         <div class="flex gap-2">
                             <button id="save-report" class="btn-success hidden">
-                                <i class="fas fa-save mr-1"></i> Save
+                                <i class="fas fa-save mr-2"></i>Save
                             </button>
                             <button id="export-pdf" class="btn-success hidden">
-                                <i class="fas fa-file-pdf mr-1"></i> PDF
+                                <i class="fas fa-file-pdf mr-2"></i>PDF
                             </button>
                             <button id="export-email" class="btn-success hidden">
-                                <i class="fas fa-envelope mr-1"></i> Email
+                                <i class="fas fa-envelope mr-2"></i>Email
                             </button>
                         </div>
                     </div>
                     
-                    <div id="complete-report-result" class="report-content text-white/90">
-                        <div class="text-center py-12 text-white/60">
-                            <i class="fas fa-stars text-5xl mb-4 text-purple-400"></i>
-                            <p class="text-lg">Fill out the form to generate your personalized complete report.</p>
-                            <p class="text-sm mt-2 text-white/50">Combining astrology, numerology, and spiritual insights in dark constellation theme.</p>
+                    <div id="report-result" class="report-content">
+                        <div class="text-center py-16">
+                            <div class="text-6xl mb-6">🌌</div>
+                            <h3 class="text-xl font-semibold mb-4 text-gray-300">Your Cosmic Journey Awaits</h3>
+                            <p class="text-gray-400 mb-6">Fill out the form to generate your personalized constellation report.</p>
+                            <div class="text-sm text-gray-500">Combining astrology, numerology, and cosmic wisdom.</div>
                         </div>
                     </div>
                     
                     <!-- Progress Bar -->
-                    <div id="report-progress" class="hidden">
-                        <div class="progress-bar">
-                            <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
+                    <div id="progress-container" class="hidden">
+                        <div class="cosmic-progress">
+                            <div id="progress-bar" class="cosmic-progress-bar" style="width: 0%"></div>
                         </div>
-                        <p class="text-white/70 text-sm text-center" id="progress-text">Generating report...</p>
+                        <p class="text-center text-sm text-gray-400" id="progress-text">Connecting to cosmic database...</p>
                     </div>
                 </div>
             </div>
             
-            <!-- Service Features -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
-                <div class="glassmorphism text-center">
-                    <i class="fas fa-chart-line text-3xl text-blue-400 mb-3"></i>
-                    <h3 class="text-lg font-semibold text-white mb-2">Detailed Analysis</h3>
-                    <p class="text-white/80 text-sm">Comprehensive insights combining multiple spiritual disciplines with dark theme aesthetics.</p>
+            <!-- Features Section -->
+            <div id="features" class="cosmic-grid mt-16">
+                <div class="constellation-glass p-6 text-center">
+                    <div class="text-4xl mb-4">📊</div>
+                    <h3 class="text-lg font-semibold mb-3">Deep Cosmic Analysis</h3>
+                    <p class="text-gray-400 text-sm">Comprehensive insights combining multiple spiritual disciplines with authentic constellation wisdom.</p>
                 </div>
-                <div class="glassmorphism text-center">
-                    <i class="fas fa-file-export text-3xl text-green-400 mb-3"></i>
-                    <h3 class="text-lg font-semibold text-white mb-2">Export Options</h3>
-                    <p class="text-white/80 text-sm">Save as PDF, email, or store in your personal cosmic library.</p>
+                
+                <div class="constellation-glass p-6 text-center">
+                    <div class="text-4xl mb-4">💾</div>
+                    <h3 class="text-lg font-semibold mb-3">Export & Save</h3>
+                    <p class="text-gray-400 text-sm">Download as PDF, email directly, or save to your personal cosmic library for future reference.</p>
                 </div>
-                <div class="glassmorphism text-center">
-                    <i class="fas fa-history text-3xl text-purple-400 mb-3"></i>
-                    <h3 class="text-lg font-semibold text-white mb-2">Report History</h3>
-                    <p class="text-white/80 text-sm">Access previous reports and track your spiritual journey over time.</p>
+                
+                <div class="constellation-glass p-6 text-center">
+                    <div class="text-4xl mb-4">📚</div>
+                    <h3 class="text-lg font-semibold mb-3">Report History</h3>
+                    <p class="text-gray-400 text-sm">Access previous reports and track your spiritual journey through the constellation of time.</p>
                 </div>
-                <div class="glassmorphism text-center">
-                    <i class="fas fa-users text-3xl text-cyan-400 mb-3"></i>
-                    <h3 class="text-lg font-semibold text-white mb-2">Compatibility</h3>
-                    <p class="text-white/80 text-sm">Generate relationship compatibility reports with constellation insights.</p>
+                
+                <div class="constellation-glass p-6 text-center">
+                    <div class="text-4xl mb-4">💫</div>
+                    <h3 class="text-lg font-semibold mb-3">Compatibility Insights</h3>
+                    <p class="text-gray-400 text-sm">Generate relationship compatibility reports guided by the cosmic dance of celestial bodies.</p>
                 </div>
             </div>
         </div>
     </div>
     
     <script>
-        class DarkReportGenerator {
+        class CosmicReportGenerator {
             constructor() {
                 this.currentReport = null;
                 this.savedReports = JSON.parse(localStorage.getItem('cosmic-reports') || '[]');
@@ -345,199 +659,286 @@
             
             init() {
                 this.setupEventListeners();
+                this.addConstellationEffects();
             }
             
             setupEventListeners() {
-                const form = document.getElementById('complete-report-form');
-                if (form) {
-                    form.addEventListener('submit', (e) => {
-                        e.preventDefault();
-                        this.generateCompleteReport();
-                    });
-                }
+                const form = document.getElementById('cosmic-report-form');
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.generateReport();
+                });
                 
                 document.getElementById('save-report')?.addEventListener('click', () => this.saveReport());
                 document.getElementById('export-pdf')?.addEventListener('click', () => this.exportToPDF());
                 document.getElementById('export-email')?.addEventListener('click', () => this.emailReport());
             }
             
-            async generateCompleteReport() {
-                const name = document.getElementById('report-name').value;
-                const birthDate = document.getElementById('report-birth-date').value;
-                const birthTime = document.getElementById('report-birth-time').value;
-                const birthPlace = document.getElementById('report-birth-place').value;
-                const focus = document.getElementById('report-focus').value;
+            addConstellationEffects() {
+                // Add shooting star effect occasionally
+                setInterval(() => {
+                    if (Math.random() < 0.3) {
+                        this.createShootingStar();
+                    }
+                }, 5000);
+            }
+            
+            createShootingStar() {
+                const star = document.createElement('div');
+                star.style.cssText = `
+                    position: fixed;
+                    width: 2px;
+                    height: 2px;
+                    background: linear-gradient(45deg, #60a5fa, #8b5cf6);
+                    border-radius: 50%;
+                    box-shadow: 0 0 10px #60a5fa;
+                    z-index: 1000;
+                    pointer-events: none;
+                    top: ${Math.random() * 50}%;
+                    left: -10px;
+                `;
                 
-                const includeAstrology = document.getElementById('include-astrology').checked;
-                const includeNumerology = document.getElementById('include-numerology').checked;
-                const includeCompatibility = document.getElementById('include-compatibility').checked;
-                const includeForecast = document.getElementById('include-forecast').checked;
+                document.body.appendChild(star);
                 
-                if (!name || !birthDate || !birthPlace) {
-                    this.showAlert('Please fill in all required fields: Name, Birth Date, and Birth Place.', 'error');
+                star.animate([
+                    { transform: 'translateX(-10px) translateY(0px)', opacity: 0 },
+                    { transform: 'translateX(50px) translateY(-20px)', opacity: 1, offset: 0.1 },
+                    { transform: 'translateX(100vw) translateY(-40px)', opacity: 0 }
+                ], {
+                    duration: 2000,
+                    easing: 'ease-out'
+                }).onfinish = () => star.remove();
+            }
+            
+            async generateReport() {
+                const formData = this.collectFormData();
+                
+                if (!this.validateForm(formData)) {
                     return;
                 }
                 
-                const sections = [];
-                if (includeAstrology) sections.push('astrology');
-                if (includeNumerology) sections.push('numerology');
-                if (includeCompatibility) sections.push('compatibility');
-                if (includeForecast) sections.push('forecast');
-                
-                if (sections.length === 0) {
-                    this.showAlert('Please select at least one report section.', 'error');
-                    return;
-                }
-                
-                this.showReportProgress(true);
+                this.showProgress(true);
+                this.toggleSubmitButton(true);
                 
                 try {
-                    await this.generateSections(sections, { name, birthDate, birthTime, birthPlace, focus });
-                    
-                    const reportContent = `
-                        <div class="space-y-6">
-                            <div class="p-6 bg-blue-500/10 border border-blue-400/30 rounded-lg">
-                                <h3 class="text-xl font-bold text-blue-400 mb-4">
-                                    🌌 Complete Cosmic Report for ${name}
-                                </h3>
-                                <div class="text-sm text-white/70 space-y-1">
-                                    <p>📅 Generated: ${new Date().toLocaleDateString()}</p>
-                                    <p>🌟 Birth: ${birthDate}${birthTime ? ' at ' + birthTime : ''} in ${birthPlace}</p>
-                                    <p>🔍 Sections: ${sections.join(', ').toUpperCase()}</p>
-                                    ${focus ? `<p>🎯 Focus: ${focus}</p>` : ''}
-                                </div>
-                            </div>
-                            
-                            ${sections.includes('astrology') ? `
-                            <div class="p-6 bg-purple-500/10 border border-purple-400/30 rounded-lg">
-                                <h4 class="text-lg font-semibold text-purple-400 mb-3">
-                                    🌟 Astrological Analysis
-                                </h4>
-                                <div class="text-white/90 space-y-3">
-                                    <p>Your celestial blueprint reveals powerful cosmic influences that shape your personality and life path. The planetary positions at your birth create unique energy patterns in the dark cosmic void.</p>
-                                    <p><strong class="text-blue-400">Sun Sign:</strong> Your core identity shines like a star in the cosmic darkness, guiding your path through life's constellation of experiences.</p>
-                                    <p><strong class="text-cyan-400">Moon Phase:</strong> Your emotional nature flows like celestial tides, influenced by the eternal dance of cosmic bodies.</p>
-                                </div>
-                            </div>
-                            ` : ''}
-                            
-                            ${sections.includes('numerology') ? `
-                            <div class="p-6 bg-cyan-500/10 border border-cyan-400/30 rounded-lg">
-                                <h4 class="text-lg font-semibold text-cyan-400 mb-3">
-                                    🔢 Numerological Profile
-                                </h4>
-                                <div class="text-white/90 space-y-3">
-                                    <p>Your life path number reveals your fundamental purpose written in the cosmic mathematics of the universe. These sacred numbers guide you through the starfield of possibilities.</p>
-                                    <p><strong class="text-purple-400">Life Path:</strong> Your journey through the cosmic web follows ancient numerical patterns.</p>
-                                    <p><strong class="text-blue-400">Destiny Number:</strong> Your ultimate goals shine like distant stars in the constellation of your future.</p>
-                                </div>
-                            </div>
-                            ` : ''}
-                            
-                            ${sections.includes('compatibility') ? `
-                            <div class="p-6 bg-pink-500/10 border border-pink-400/30 rounded-lg">
-                                <h4 class="text-lg font-semibold text-pink-400 mb-3">
-                                    💕 Compatibility Insights
-                                </h4>
-                                <div class="text-white/90 space-y-3">
-                                    <p>Your relationship patterns are written in the stars, forming constellations of connection across the cosmic void.</p>
-                                    <p><strong class="text-cyan-400">Love Connections:</strong> Your heart's constellation attracts compatible souls through the dark universe.</p>
-                                    <p><strong class="text-purple-400">Partnership Dynamics:</strong> Your relationships mirror the eternal dance of celestial bodies.</p>
-                                </div>
-                            </div>
-                            ` : ''}
-                            
-                            ${sections.includes('forecast') ? `
-                            <div class="p-6 bg-green-500/10 border border-green-400/30 rounded-lg">
-                                <h4 class="text-lg font-semibold text-green-400 mb-3">
-                                    🔮 Year Ahead Forecast
-                                </h4>
-                                <div class="text-white/90 space-y-3">
-                                    <p>The cosmic tides are shifting, bringing new constellations of opportunity into your life's orbit.</p>
-                                    <p><strong class="text-blue-400">Upcoming Themes:</strong> Transformation and growth await in the cosmic darkness ahead.</p>
-                                    <p><strong class="text-cyan-400">Key Periods:</strong> Watch for shooting star moments of breakthrough and revelation.</p>
-                                </div>
-                            </div>
-                            ` : ''}
-                            
-                            <div class="p-6 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-cyan-500/10 border border-white/20 rounded-lg">
-                                <h4 class="text-lg font-semibold text-white mb-3">
-                                    ✨ Cosmic Synthesis
-                                </h4>
-                                <div class="text-white/90 space-y-2">
-                                    <p class="font-medium text-blue-400">Key Insights for Your Journey:</p>
-                                    <ul class="space-y-1 text-sm">
-                                        <li>🌟 You're entering a transformative period of cosmic alignment</li>
-                                        <li>🌌 Your creative expression illuminates the darkness around you</li>
-                                        <li>✨ Leadership opportunities await in your constellation of influence</li>
-                                        <li>🔮 Trust your intuition as it navigates the cosmic void</li>
-                                        <li>🌙 Embrace the dark theme of growth and inner wisdom</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    
-                    document.getElementById('complete-report-result').innerHTML = reportContent;
-                    
-                    // Show export buttons
-                    ['save-report', 'export-pdf', 'export-email'].forEach(id => {
-                        document.getElementById(id).classList.remove('hidden');
-                    });
-                    
-                    this.currentReport = {
-                        name,
-                        birthDate,
-                        content: reportContent,
-                        sections,
-                        generated: new Date().toISOString()
-                    };
-                    
-                    this.showAlert('Report generated successfully! 🌟', 'success');
-                    
+                    await this.processReportGeneration(formData);
+                    this.displayReport(formData);
+                    this.showExportButtons();
+                    this.showAlert('🌟 Your cosmic report has been generated successfully!', 'success');
                 } catch (error) {
-                    this.showAlert('Error generating report. Please try again later.', 'error');
+                    this.showAlert('❌ Error generating report. Please try again.', 'error');
                 } finally {
-                    this.showReportProgress(false);
+                    this.showProgress(false);
+                    this.toggleSubmitButton(false);
                 }
             }
             
-            async generateSections(sections, data) {
+            collectFormData() {
+                return {
+                    name: document.getElementById('report-name').value,
+                    birthDate: document.getElementById('report-birth-date').value,
+                    birthTime: document.getElementById('report-birth-time').value,
+                    birthPlace: document.getElementById('report-birth-place').value,
+                    focus: document.getElementById('report-focus').value,
+                    sections: {
+                        astrology: document.getElementById('include-astrology').checked,
+                        numerology: document.getElementById('include-numerology').checked,
+                        compatibility: document.getElementById('include-compatibility').checked,
+                        forecast: document.getElementById('include-forecast').checked
+                    }
+                };
+            }
+            
+            validateForm(data) {
+                if (!data.name || !data.birthDate || !data.birthPlace) {
+                    this.showAlert('⚠️ Please fill in all required fields (Name, Birth Date, Birth Place).', 'error');
+                    return false;
+                }
+                
+                const sectionsSelected = Object.values(data.sections).some(selected => selected);
+                if (!sectionsSelected) {
+                    this.showAlert('⚠️ Please select at least one cosmic insight section.', 'error');
+                    return false;
+                }
+                
+                return true;
+            }
+            
+            async processReportGeneration(data) {
                 const steps = [
-                    'Analyzing cosmic birth chart...',
-                    'Calculating sacred numerology...',
-                    'Reading constellation patterns...',
-                    'Synthesizing cosmic insights...',
-                    'Finalizing your stellar report...'
+                    '🌟 Connecting to cosmic database...',
+                    '🌙 Analyzing birth chart alignments...',
+                    '🔮 Calculating numerological patterns...',
+                    '⭐ Reading constellation messages...',
+                    '✨ Synthesizing cosmic insights...',
+                    '🌌 Finalizing your stellar report...'
                 ];
                 
                 for (let i = 0; i < steps.length; i++) {
-                    this.updateProgress((i + 1) * 20, steps[i]);
+                    this.updateProgress((i + 1) * (100 / steps.length), steps[i]);
                     await new Promise(resolve => setTimeout(resolve, 800));
                 }
             }
             
-            showReportProgress(show) {
-                const progressDiv = document.getElementById('report-progress');
-                const resultDiv = document.getElementById('complete-report-result');
+            displayReport(data) {
+                const report = this.generateReportContent(data);
+                document.getElementById('report-result').innerHTML = report;
                 
-                if (show) {
-                    progressDiv.classList.remove('hidden');
-                    resultDiv.innerHTML = `
-                        <div class="text-center py-12">
-                            <div class="text-6xl mb-4 animate-pulse">🌌</div>
-                            <p class="text-white/70">Generating your cosmic insights...</p>
+                this.currentReport = {
+                    ...data,
+                    content: report,
+                    generated: new Date().toISOString()
+                };
+            }
+            
+            generateReportContent(data) {
+                let sectionsContent = '';
+                
+                if (data.sections.astrology) {
+                    sectionsContent += `
+                        <div class="constellation-glass p-6 mb-6">
+                            <h4 class="text-lg font-semibold text-blue-400 mb-4 flex items-center">
+                                ⭐ Astrological Constellation Analysis
+                            </h4>
+                            <div class="text-gray-300 space-y-3">
+                                <p>Based on your birth date <strong>${data.birthDate}</strong> in <strong>${data.birthPlace}</strong>, your cosmic blueprint reveals profound celestial influences.</p>
+                                <p><strong class="text-blue-400">Sun Sign Essence:</strong> Your core identity shines like the North Star, guiding your path through life's constellation of experiences.</p>
+                                <p><strong class="text-purple-400">Moon Phase Wisdom:</strong> Your emotional nature flows like cosmic tides, influenced by the eternal dance of celestial bodies in the vast universe.</p>
+                                <p><strong class="text-cyan-400">Planetary Alignments:</strong> The positions of planets at your birth create unique energy patterns that illuminate your journey through the cosmic web.</p>
+                            </div>
                         </div>
                     `;
-                    this.updateProgress(0, 'Connecting to cosmic database...');
+                }
+                
+                if (data.sections.numerology) {
+                    sectionsContent += `
+                        <div class="constellation-glass p-6 mb-6">
+                            <h4 class="text-lg font-semibold text-purple-400 mb-4 flex items-center">
+                                🔢 Numerological Cosmic Patterns
+                            </h4>
+                            <div class="text-gray-300 space-y-3">
+                                <p>Your name <strong>${data.name}</strong> carries vibrational frequencies that resonate through the cosmos, revealing your soul's mathematical blueprint.</p>
+                                <p><strong class="text-purple-400">Life Path Constellation:</strong> Your journey follows ancient numerical patterns written in the stars, guiding you toward your cosmic destiny.</p>
+                                <p><strong class="text-blue-400">Destiny Matrix:</strong> The mathematical essence of your existence points toward achievements that will shine like beacons in your personal galaxy.</p>
+                                <p><strong class="text-pink-400">Soul Frequency:</strong> Your inner vibration harmonizes with cosmic energies, attracting experiences aligned with your spiritual evolution.</p>
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                if (data.sections.compatibility) {
+                    sectionsContent += `
+                        <div class="constellation-glass p-6 mb-6">
+                            <h4 class="text-lg font-semibold text-pink-400 mb-4 flex items-center">
+                                💕 Cosmic Relationship Harmonics
+                            </h4>
+                            <div class="text-gray-300 space-y-3">
+                                <p>Your celestial signature creates unique compatibility patterns with others, forming constellations of connection across the universe of relationships.</p>
+                                <p><strong class="text-pink-400">Soul Magnetism:</strong> Your cosmic energy attracts kindred spirits who share complementary frequencies in the great symphony of existence.</p>
+                                <p><strong class="text-purple-400">Relationship Constellations:</strong> Your partnerships mirror the eternal dance of binary stars, creating beautiful cosmic choreography.</p>
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                if (data.sections.forecast) {
+                    sectionsContent += `
+                        <div class="constellation-glass p-6 mb-6">
+                            <h4 class="text-lg font-semibold text-green-400 mb-4 flex items-center">
+                                🌠 Cosmic Forecast & Future Alignments
+                            </h4>
+                            <div class="text-gray-300 space-y-3">
+                                <p>The cosmic tides are shifting in your favor, bringing new constellations of opportunity into your life's orbit during the coming cycles.</p>
+                                <p><strong class="text-green-400">Stellar Opportunities:</strong> Watch for breakthrough moments when planetary alignments create windows of manifestation power.</p>
+                                <p><strong class="text-blue-400">Cosmic Cycles:</strong> Your personal seasons align with universal rhythms, bringing growth phases and periods of cosmic integration.</p>
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                return `
+                    <div class="space-y-6">
+                        <div class="constellation-glass p-6 bg-gradient-to-r from-blue-900/20 to-purple-900/20">
+                            <div class="text-center mb-6">
+                                <h3 class="text-2xl font-bold text-white mb-2" style="font-family: var(--font-cosmic);">
+                                    🌌 Cosmic Report for ${data.name}
+                                </h3>
+                                <div class="text-sm text-gray-400 space-y-1">
+                                    <p>📅 Generated: ${new Date().toLocaleDateString()}</p>
+                                    <p>⭐ Birth: ${data.birthDate}${data.birthTime ? ' at ' + data.birthTime : ''}</p>
+                                    <p>🌍 Location: ${data.birthPlace}</p>
+                                    ${data.focus ? `<p>🎯 Focus: ${data.focus}</p>` : ''}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        ${sectionsContent}
+                        
+                        <div class="constellation-glass p-6 bg-gradient-to-br from-indigo-900/20 via-purple-900/20 to-pink-900/20">
+                            <h4 class="text-lg font-semibold text-white mb-4 flex items-center">
+                                ✨ Cosmic Integration & Next Steps
+                            </h4>
+                            <div class="text-gray-300 space-y-2">
+                                <p class="font-medium text-blue-400 mb-3">Your Celestial Guidance:</p>
+                                <ul class="space-y-2 text-sm">
+                                    <li class="flex items-start"><span class="mr-2">🌟</span> Trust the cosmic timing of your life's unfolding journey</li>
+                                    <li class="flex items-start"><span class="mr-2">🌙</span> Embrace your unique cosmic signature and let it shine</li>
+                                    <li class="flex items-start"><span class="mr-2">⭐</span> Align your actions with the universal flow of energy</li>
+                                    <li class="flex items-start"><span class="mr-2">🌌</span> Remember: you are both stardust and the one who dreams</li>
+                                    <li class="flex items-start"><span class="mr-2">✨</span> Your constellation is unique in the infinite cosmos</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            showProgress(show) {
+                const container = document.getElementById('progress-container');
+                const result = document.getElementById('report-result');
+                
+                if (show) {
+                    container.classList.remove('hidden');
+                    result.innerHTML = `
+                        <div class="text-center py-16">
+                            <div class="text-6xl mb-6 animate-pulse">🌌</div>
+                            <h3 class="text-xl font-semibold mb-4 text-gray-300">Generating Your Cosmic Report</h3>
+                            <p class="text-gray-400">The stars are aligning to create your personalized insights...</p>
+                        </div>
+                    `;
                 } else {
-                    progressDiv.classList.add('hidden');
+                    container.classList.add('hidden');
                 }
             }
             
-            updateProgress(percentage, text) {
-                document.getElementById('progress-fill').style.width = `${percentage}%`;
+            updateProgress(percent, text) {
+                document.getElementById('progress-bar').style.width = `${percent}%`;
                 document.getElementById('progress-text').textContent = text;
+            }
+            
+            toggleSubmitButton(loading) {
+                const submitText = document.getElementById('submit-text');
+                const submitIcon = document.getElementById('submit-icon');
+                const loadingSpinner = document.getElementById('loading-spinner');
+                const button = document.querySelector('#cosmic-report-form button[type="submit"]');
+                
+                if (loading) {
+                    submitText.textContent = 'Generating...';
+                    submitIcon.classList.add('hidden');
+                    loadingSpinner.classList.remove('hidden');
+                    button.disabled = true;
+                } else {
+                    submitText.textContent = 'Generate Cosmic Report';
+                    submitIcon.classList.remove('hidden');
+                    loadingSpinner.classList.add('hidden');
+                    button.disabled = false;
+                }
+            }
+            
+            showExportButtons() {
+                ['save-report', 'export-pdf', 'export-email'].forEach(id => {
+                    document.getElementById(id).classList.remove('hidden');
+                });
             }
             
             saveReport() {
@@ -546,15 +947,15 @@
                 this.savedReports.push(this.currentReport);
                 localStorage.setItem('cosmic-reports', JSON.stringify(this.savedReports));
                 
-                this.showAlert('Report saved to your cosmic library! 💾', 'success');
+                this.showAlert('💾 Report saved to your cosmic library!', 'success');
             }
             
             exportToPDF() {
                 if (!this.currentReport) return;
                 
-                const content = `Cosmic Insights Report\n\nName: ${this.currentReport.name}\nBirth Date: ${this.currentReport.birthDate}\nGenerated: ${new Date().toLocaleDateString()}\nSections: ${this.currentReport.sections.join(', ')}\n\nYour cosmic journey begins with understanding your celestial blueprint...`;
+                const reportText = `COSMIC INSIGHTS REPORT\n\nName: ${this.currentReport.name}\nBirth Date: ${this.currentReport.birthDate}\nBirth Place: ${this.currentReport.birthPlace}\nGenerated: ${new Date().toLocaleDateString()}\n\nYour personalized cosmic insights have been generated based on your celestial blueprint. This report combines ancient wisdom with modern understanding to provide guidance for your spiritual journey.\n\nThe stars have aligned to bring you this cosmic message. Use these insights to navigate your path through life with greater awareness and purpose.`;
                 
-                const blob = new Blob([content], { type: 'text/plain' });
+                const blob = new Blob([reportText], { type: 'text/plain' });
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
@@ -562,38 +963,52 @@
                 a.click();
                 URL.revokeObjectURL(url);
                 
-                this.showAlert('Report exported successfully! 📄', 'success');
+                this.showAlert('📄 Report exported successfully!', 'success');
             }
             
             emailReport() {
                 if (!this.currentReport) return;
                 
-                const subject = `🌟 Cosmic Report for ${this.currentReport.name}`;
-                const body = encodeURIComponent(`Your cosmic insights are ready!\n\nGenerated: ${new Date().toLocaleDateString()}\nSections: ${this.currentReport.sections.join(', ')}\n\nExplore your celestial blueprint and embrace your cosmic journey.\n\n✨ Cosmic Insights Team`);
+                const subject = `🌟 Your Cosmic Insights Report - ${this.currentReport.name}`;
+                const body = encodeURIComponent(`Greetings from the cosmos!\n\nYour personalized cosmic report has been generated.\n\nName: ${this.currentReport.name}\nGenerated: ${new Date().toLocaleDateString()}\n\nThis report contains your unique celestial insights based on your birth information. Use this cosmic wisdom to guide your spiritual journey.\n\nMay the stars light your path,\nCosmic Insights Team ✨`);
                 
                 window.open(`mailto:?subject=${subject}&body=${body}`);
             }
             
-            showAlert(message, type = 'error') {
+            showAlert(message, type) {
                 const alertClass = type === 'success' ? 'alert-success' : 'alert-error';
-                const icon = type === 'success' ? 'fas fa-check-circle' : 'fas fa-exclamation-triangle';
+                const icon = type === 'success' ? '✅' : '❌';
                 
-                const alertDiv = document.createElement('div');
-                alertDiv.className = alertClass;
-                alertDiv.innerHTML = `<i class="${icon} mr-2"></i>${message}`;
+                const alert = document.createElement('div');
+                alert.className = alertClass;
+                alert.innerHTML = `${icon} ${message}`;
                 
-                const form = document.getElementById('complete-report-form');
-                form.appendChild(alertDiv);
+                const form = document.getElementById('cosmic-report-form');
+                form.appendChild(alert);
                 
                 setTimeout(() => {
-                    alertDiv.remove();
-                }, 4000);
+                    alert.remove();
+                }, 5000);
             }
         }
         
-        // Initialize Dark Report Generator
+        // Initialize Cosmic Report Generator
         document.addEventListener('DOMContentLoaded', () => {
-            new DarkReportGenerator();
+            new CosmicReportGenerator();
+        });
+        
+        // Add smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
         });
     </script>
 </body>
