@@ -1,5 +1,4 @@
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/your-logo-placeholder.png" alt="Cosmic Insights Logo" width="120" height="120">
   
   # 🌟 Cosmic Insights
   
@@ -23,18 +22,18 @@
   
   <!-- Project Badges -->
   <div style="margin: 20px 0;">
-    <img src="https://img.shields.io/badge/Version-2.0.0-blue?style=flat-square&logo=semantic-release" alt="Version">
+    <img src="https://img.shields.io/badge/Version-2.0.1-blue?style=flat-square&logo=semantic-release" alt="Version">
     <img src="https://img.shields.io/badge/License-ISC-green?style=flat-square" alt="License">
     <img src="https://img.shields.io/badge/PWA-Ready-orange?style=flat-square&logo=pwa" alt="PWA">
     <img src="https://img.shields.io/badge/Multi--Language-🇺🇸🇷🇴🇪🇸🇫🇷🇩🇪-purple?style=flat-square" alt="Languages">
     <img src="https://img.shields.io/badge/Responsive-Mobile_First-ff69b4?style=flat-square&logo=css3" alt="Responsive">
   </div>
   
-  <!-- Vercel Deployment Thumbnail -->
+  <!-- Vercel Deployment Preview -->
   <div style="margin: 30px 0;">
     <h3>🌐 Live Deployment</h3>
     <a href="https://cosmicinsights.vercel.app" target="_blank">
-      <img src="https://vercel-og-nextjs-git-main-vercel.vercel.app/**Cosmic%20Insights**%20%E2%80%A2%20AI-Powered%20Spiritual%20Guidance.png?theme=dark&md=1&fontSize=75px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fvercel-triangle-white.svg" alt="Cosmic Insights - Live on Vercel" style="width: 100%; max-width: 600px; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.3);">
+      <img src="https://vercel.com/api/screenshot?url=https://cosmicinsights.vercel.app&w=600&h=400" alt="Cosmic Insights - Live Preview" style="width: 100%; max-width: 600px; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.3);">
     </a>
     <p><em>🚀 Deployed on Vercel with automatic deployments and global CDN</em></p>
   </div>
@@ -50,11 +49,11 @@
     <tr>
       <td width="50%">
         <h4>🌌 Desktop Experience</h4>
-        <img src="https://via.placeholder.com/500x300/1a1a3a/ffffff?text=Desktop+Preview" alt="Desktop Preview" style="width: 100%; border-radius: 8px;">
+        <img src="https://via.placeholder.com/500x300/1a1a3a/ffffff?text=🌟+Cosmic+Insights+Desktop" alt="Desktop Preview" style="width: 100%; border-radius: 8px;">
       </td>
       <td width="50%">
         <h4>📱 Mobile Experience</h4>
-        <img src="https://via.placeholder.com/250x400/1a1a3a/ffffff?text=Mobile+Preview" alt="Mobile Preview" style="width: 100%; border-radius: 8px;">
+        <img src="https://via.placeholder.com/250x400/1a1a3a/ffffff?text=📱+Mobile+App" alt="Mobile Preview" style="width: 100%; border-radius: 8px;">
       </td>
     </tr>
   </table>
@@ -399,7 +398,7 @@ const result = await response.json();
 ### **⚡ Performance Improvements**
 
 | Metric | Before | After | Improvement |
-|--------|--------|-------|--------------|
+|--------|--------|-------|--------------| 
 | ⚡ **Load Time** | 3.2s | 1.6s | **50% faster** |
 | 📱 **Mobile Score** | 78 | 94 | **+20% improvement** |
 | 🎯 **SEO Score** | 85 | 97 | **+14% improvement** |
@@ -561,8 +560,6 @@ Free for personal and commercial use • See [LICENSE](LICENSE) file for details
 
 <div align="center">
   
-  <img src="https://github.com/user-attachments/assets/constellation-divider.png" alt="Constellation Divider" width="300">
-  
   ## 🌟 **Thank You for Exploring the Cosmos** 🌟
   
   <p><strong>"Unlock your cosmic potential with AI-powered spiritual guidance"</strong> ✨</p>
@@ -588,6 +585,6 @@ Free for personal and commercial use • See [LICENSE](LICENSE) file for details
     <img src="https://img.shields.io/badge/Powered_by-✨_Cosmic_Energy-purple?style=flat-square" alt="Cosmic Energy">
   </p>
   
-  <sub>Last updated: September 22, 2025 • Version 2.0.0 • Deploy Status: ✅ Active</sub>
+  <sub>Last updated: September 22, 2025 • Version 2.0.1 • Deploy Status: ✅ Active</sub>
   
 </div>
