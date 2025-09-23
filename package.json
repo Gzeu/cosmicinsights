@@ -1,11 +1,11 @@
 {
   "name": "cosmic-insights",
-  "version": "1.0.0",
-  "description": "AI-powered spiritual guidance with astrology, numerology, tarot, and dream interpretation",
-  "main": "index.html",
+  "version": "2.0.1",
+  "description": "AI-powered spiritual guidance platform with astrology, numerology, tarot, and dream interpretation",
+  "main": "server.js",
   "scripts": {
-    "start": "echo 'Cosmic Insights is a static web app'",
-    "test": "echo 'No tests specified'"
+    "start": "node server.js",
+    "dev": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -17,16 +17,17 @@
     "tarot",
     "dreams",
     "spiritual",
-    "ai"
+    "ai",
+    "mystical",
+    "cosmic",
+    "groq"
   ],
   "author": "George Pricop",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Gzeu/cosmicinsights/issues"
   },
-  "homepage": "https://github.com/Gzeu/cosmicinsights#readme",
-  "devDependencies": {},
-  "dependencies": {},
+  "homepage": "https://cosmicinsights.vercel.app",
   "engines": {
     "node": ">=18.0.0",
     "npm": ">=8.0.0"
