@@ -1,0 +1,53 @@
+name: GPZ-94 CI
+
+on:
+  pull_request:
+    branches: [ "feature/gpz-94-ai-enhanced-contracts", "main" ]
+  push:
+    branches: [ "feature/gpz-94-ai-enhanced-contracts" ]
+
+jobs:
+  rust:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+      - name: Install cargo-audit
+        run: cargo install cargo-audit || true
+      - name: Build SC
+        run: |
+          cd contracts/ai-policy
+          cargo build --release --target wasm32-unknown-unknown --no-default-features
+      - name: Lint + Test
+        run: |
+          cd contracts/ai-policy
+          cargo clippy --no-default-features -- -D warnings
+          cargo test --no-default-features
+      - name: Audit deps
+        run: |
+          cd contracts/ai-policy
+          cargo audit || true
+
+  ai_audit:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install
+        run: |
+          cd tools/ai-audit
+          npm ci || npm i
+      - name: AI Review
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_MODEL: gpt-4o-mini
+          TARGET_FILES: contracts/ai-policy/src/lib.rs
+        run: |
+          cd tools/ai-audit
+          node src/scan.js
