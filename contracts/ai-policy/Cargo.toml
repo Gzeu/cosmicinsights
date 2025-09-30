@@ -1,0 +1,15 @@
+[package]
+name = "ai-policy"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+name = "ai_policy"
+
+[dependencies]
+multiversx-sc = { version = "0.50", default-features = false }
+multiversx-sc-derive = "0.50"
+
+[dev-dependencies]
+multiversx-sc-scenario = "0.50"
